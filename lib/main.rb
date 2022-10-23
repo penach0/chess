@@ -2,4 +2,6 @@ require_relative 'board'
 
 board = Board.new
 
-pp board
+board.board.each do |line|
+  puts line.join
+end
