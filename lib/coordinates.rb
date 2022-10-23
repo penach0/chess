@@ -7,4 +7,11 @@ module Coordinates
   def array_to_algebraic(row, column)
     COLUMNS[column] + ROWS[row]
   end
+
+  def algebraic_to_array(coordinate)
+    column = COLUMNS.find_index(coordinate[0])
+    row = ROWS.find_index(coordinate[1])
+
+    [row, column]
+  end
 end
