@@ -9,6 +9,12 @@ class Board
     @board = board || Array.new(8) { Array.new(8, '   ') }
   end
 
+  def print_board
+    board_background.each do |line|
+      puts line.join
+    end
+  end
+
   def board_background
     board.map.with_index do |line, row_index|
       color_line(line, row_index)
@@ -28,11 +34,5 @@ class Board
 
   def light_square(square)
     "\e[1;48;5;179m#{square}\e[0m"
-  end
-
-  def to_s
-    board_background.each do |line|
-      puts line.join
-    end
   end
 end
