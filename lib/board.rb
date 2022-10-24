@@ -1,5 +1,8 @@
+require_relative 'coordinates'
+
 # Represents a Chessboard
 class Board
+  include Coordinates
   attr_reader :board
 
   DARK_SQUARE = "\e[48;5;94m   \e[0m".freeze
@@ -19,6 +22,12 @@ class Board
     line.map.with_index do |_square, col_index|
       coordinate_sum = row_index + col_index
       coordinate_sum.even? ? LIGHT_SQUARE : DARK_SQUARE
+    end
+  end
+
+  def to_s
+    board.each do |line|
+      puts line.join
     end
   end
 end
