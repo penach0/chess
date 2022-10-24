@@ -5,28 +5,33 @@ class Board
   include Coordinates
   attr_reader :board
 
-  DARK_SQUARE = "\e[48;5;94m   \e[0m".freeze
-  LIGHT_SQUARE = "\e[48;5;179m   \e[0m".freeze
-
   def initialize(board = nil)
-    @board = board || create_board
+    @board = board || Array.new(8) { Array.new(8, '   ') }
   end
 
-  def create_board
-    Array.new(8) { Array.new(8) }.map.with_index do |line, row_index|
-      create_line(line, row_index)
+  def board_background
+    board.map.with_index do |line, row_index|
+      color_line(line, row_index)
     end
   end
 
-  def create_line(line, row_index)
-    line.map.with_index do |_square, col_index|
+  def color_line(line, row_index)
+    line.map.with_index do |square, col_index|
       coordinate_sum = row_index + col_index
-      coordinate_sum.even? ? LIGHT_SQUARE : DARK_SQUARE
+      coordinate_sum.even? ? light_square(square) : dark_square(square)
     end
+  end
+
+  def dark_square(square)
+    "\e[1;48;5;94m#{square}\e[0m"
+  end
+
+  def light_square(square)
+    "\e[1;48;5;179m#{square}\e[0m"
   end
 
   def to_s
-    board.each do |line|
+    board_background.each do |line|
       puts line.join
     end
   end
