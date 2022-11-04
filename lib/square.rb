@@ -1,3 +1,5 @@
+require_relative 'coordinates'
+
 # Represents a square on the board
 class Square
   include Coordinates
@@ -20,6 +22,10 @@ class Square
 
   def clear
     self.piece = '   '
+  end
+
+  def occupied?
+    piece != '   '
   end
 
   def color(row, column)
