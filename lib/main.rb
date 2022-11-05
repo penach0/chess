@@ -4,10 +4,7 @@ require_relative 'bishop'
 require_relative 'player'
 require_relative 'game'
 
-board = Board.new
+game = Game.new
 
-board.set_piece(' ♝ ', 'd4')
-board.print_board
-
-board.move_piece('d4', 'a1')
-board.print_board
+game.setup
+game.playing
