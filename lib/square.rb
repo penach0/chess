@@ -34,11 +34,11 @@ class Square
   end
 
   def dark_square(piece)
-    "\e[1;48;5;94m#{piece}\e[0m"
+    "\e[1;48;5;179m#{piece}\e[0m"
   end
 
   def light_square(piece)
-    "\e[1;48;5;179m#{piece}\e[0m"
+    "\e[1;48;5;229m#{piece}\e[0m"
   end
 
   def to_s
