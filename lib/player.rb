@@ -11,7 +11,7 @@ class Player
     Bishop.new('c2', color)
   end
 
-  def set_pieces(board)
+  def place_pieces(board)
     board.set_piece(piece.symbol, piece.position)
   end
 end

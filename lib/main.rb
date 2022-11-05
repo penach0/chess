@@ -9,6 +9,6 @@ board.print_board
 
 player1 = Player.new('black')
 
-player1.set_pieces(board)
+player1.place_pieces(board)
 
 board.print_board
