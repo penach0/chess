@@ -17,5 +17,6 @@ class Player
 
   def make_move(board, start_coordinate, end_coordinate)
     board.move_piece(start_coordinate, end_coordinate)
+    piece.update_position(end_coordinate)
   end
 end
