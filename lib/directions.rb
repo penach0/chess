@@ -3,7 +3,7 @@ module Directions
   include Coordinates
 
   def columns(board)
-    board.board.transpose
+    board.transpose
   end
 
   def diagonals(board)
@@ -12,7 +12,7 @@ module Directions
 
   def main_diagonals(board)
     diagonals = []
-    board.board.first.each_index do |column|
+    board.first.each_index do |column|
       diagonals << single_diagonal(board, 0, column)
     end
 
@@ -29,7 +29,7 @@ module Directions
   def single_diagonal(board, row, column)
     diagonal = []
     while valid_position?(row, column)
-      diagonal << board.board[row][column]
+      diagonal << board[row][column]
       row += 1
       column += 1
     end
