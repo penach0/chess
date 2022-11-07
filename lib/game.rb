@@ -11,10 +11,12 @@ class Game
     board.print_board
     black_player.place_pieces(board)
     board.print_board
+    p black_player.piece
   end
 
   def playing
     black_player.make_move(board, 'c1', 'h6')
     board.print_board
+    p black_player.piece.possible_moves(board)
   end
 end
