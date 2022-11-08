@@ -9,7 +9,7 @@ class Game
     @board = board || Board.new
     @black_player = black_player || Player.new('black')
     @white_player = white_player || Player.new('white')
-    @current_player = white_player
+    @current_player = @white_player
   end
 
   def setup
@@ -22,9 +22,20 @@ class Game
 
   def playing
     5.times do
-      black_player.make_move(board, ask_coordinate(:start_square), ask_coordinate(:end_square))
-      board.print_board
+      turn
     end
+  end
+
+  def half_move
+    current_player.make_move(board,
+                             ask_coordinate(:start_square),
+                             ask_coordinate(:end_square))
+    board.print_board
+    change_player
+  end
+
+  def turn
+    2.times { half_move }
   end
 
   private
