@@ -8,7 +8,11 @@ class Player
   end
 
   def create_pieces
-    Bishop.new('c1', color)
+    if color == 'black'
+      Bishop.new('f8', color)
+    else
+      Bishop.new('c1', color)
+    end
   end
 
   def place_pieces(board)
