@@ -1,5 +1,8 @@
+require_relative 'user_input'
+
 # Represents a Game
 class Game
+  include UserInput
   attr_reader :board, :black_player
 
   def initialize(board: nil, black_player: nil)
@@ -15,8 +18,9 @@ class Game
   end
 
   def playing
-    black_player.make_move(board, 'c1', 'h6')
-    board.print_board
-    p black_player.piece.possible_moves(board)
+    5.times do
+      black_player.make_move(board, ask_start_square, ask_end_square)
+      board.print_board
+    end
   end
 end
