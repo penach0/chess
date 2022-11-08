@@ -18,6 +18,10 @@ class Bishop
     end
   end
 
+  def can_move?(board)
+    !possible_moves(board).empty?
+  end
+
   def find_diagonals(diagonal)
     diagonal.find { |square| square.coordinate == position }
   end
