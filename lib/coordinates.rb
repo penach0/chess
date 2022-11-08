@@ -3,6 +3,12 @@
 module Coordinates
   ROWS = [*'1'..'8'].reverse.freeze
   COLUMNS = [*'a'..'h'].freeze
+  ALL_COORDINATES = COLUMNS.product(ROWS).map(&:join).freeze
+  SIZE = 8
+
+  def valid_coordinate?(coordinate)
+    ALL_COORDINATES.include?(coordinate)
+  end
 
   def array_to_algebraic(row, column)
     COLUMNS[column] + ROWS[row]
