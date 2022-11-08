@@ -4,13 +4,13 @@ require_relative 'coordinates'
 module UserInput
   include Coordinates
 
-  def ask_start_square
-    print 'Insert the coordinate of the piece you want to move: '
+  def ask_coordinate(message)
+    print display_message(message)
     loop do
       coordinate = gets.chomp
       return coordinate if valid_coordinate?(coordinate)
 
-      print 'That coordinate is not valid. Please try again: '
+      print display_message(:invalid_coordinate)
     end
   end
 
@@ -22,5 +22,13 @@ module UserInput
 
       print 'That coordinate is not valid. Please try again: '
     end
+  end
+
+  def display_message(message)
+    {
+      start_square: 'Insert the coordinate of the piece you want to move: ',
+      end_square: 'Insert the coordinate of the destination square: ',
+      invalid_coordinate: 'That coordinate is not valid. Please try again: '
+    }[message]
   end
 end

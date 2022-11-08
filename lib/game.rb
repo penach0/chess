@@ -19,7 +19,7 @@ class Game
 
   def playing
     5.times do
-      black_player.make_move(board, ask_start_square, ask_end_square)
+      black_player.make_move(board, ask_coordinate(:start_square), ask_coordinate(:end_square))
       board.print_board
     end
   end
