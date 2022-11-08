@@ -1,3 +1,4 @@
+require_relative 'coordinates'
 # This module will fetch columns rows or diagonals
 module Directions
   include Coordinates
@@ -7,23 +8,34 @@ module Directions
   end
 
   def diagonals(board)
-    main_diagonals(board).concat(anti_diagonals(board))
-  end
-
-  def main_diagonals(board)
-    diagonals = []
-    board.first.each_index do |column|
-      diagonals << single_diagonal(board, 0, column)
-    end
-
-    columns(board).first.each_index do |row|
-      diagonals << single_diagonal(board, row, 0)
-    end
-    diagonals.select { |diagonal| diagonal.size > 1 }
+    main_diagonals(board) + anti_diagonals(board)
   end
 
   def anti_diagonals(board)
     main_diagonals(board.transpose.reverse)
+  end
+
+  def main_diagonals(board)
+    diagonals = diagonals_from_top(board) + diagonals_from_side(board)
+    diagonals.select { |diagonal| diagonal.size > 1 }
+  end
+
+  def diagonals_from_top(board)
+    diagonals = []
+    board.first.each_index do |column|
+      diagonals << single_diagonal(board, 0, column)
+    end
+    diagonals
+  end
+
+  def diagonals_from_side(board)
+    diagonals = []
+    columns(board).first.each_index do |row|
+      next if row.zero?
+
+      diagonals << single_diagonal(board, row, 0)
+    end
+    diagonals
   end
 
   def single_diagonal(board, row, column)
