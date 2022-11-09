@@ -3,9 +3,6 @@ require_relative 'coordinates'
 # Represents a square on the board
 class Square
   include Coordinates
-  WHITE_PIECES = [' ♔ ', ' ♕ ', ' ♖ ', ' ♗ ', ' ♘ ', ' ♙ '].freeze
-  BLACK_PIECES = [' ♚ ', ' ♛ ', ' ♜ ', ' ♝ ', ' ♞ ', ' ♟︎ '].freeze
-
   attr_reader :coordinate
   attr_accessor :content
 
@@ -33,14 +30,9 @@ class Square
   end
 
   def occupied?(piece_color: nil)
-    case piece_color
-    when 'white'
-      return WHITE_PIECES.include?(content)
-    when 'black'
-      return BLACK_PIECES.include?(content)
-    end
+    return !empty? unless piece_color
 
-    !empty?
+    content.color == piece_color
   end
 
   def dark_square(content)
