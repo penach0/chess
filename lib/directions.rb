@@ -7,6 +7,10 @@ module Directions
     board.transpose
   end
 
+  def find_diagonals(diagonal)
+    diagonal.find { |square| square.coordinate == position }
+  end
+
   def diagonals(board)
     main_diagonals(board) + anti_diagonals(board)
   end

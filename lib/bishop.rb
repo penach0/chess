@@ -12,7 +12,7 @@ class Bishop
     @symbol = (color == 'white' ? ' ♗ ' : ' ♝ ')
   end
 
-  def possible_moves(board)
+  def available_paths(board)
     diagonals(board.board).find_all do |diagonal|
       find_diagonals(diagonal)
     end
@@ -20,10 +20,6 @@ class Bishop
 
   def can_move?(board)
     !possible_moves(board).empty?
-  end
-
-  def find_diagonals(diagonal)
-    diagonal.find { |square| square.coordinate == position }
   end
 
   def update_position(new_position)
