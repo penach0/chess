@@ -9,10 +9,6 @@ class Square
   attr_reader :coordinate
   attr_accessor :content
 
-  def self.squarify(element, row, column)
-    new(element, row, column)
-  end
-
   def initialize(content, row, column)
     @content = content
     @coordinate = array_to_algebraic(row, column)
@@ -31,13 +27,15 @@ class Square
     content == '   '
   end
 
-  def occupied?(color)
-    case color
+  def occupied?(piece_color: nil)
+    case piece_color
     when 'white'
-      WHITE_PIECES.include?(content)
+      return WHITE_PIECES.include?(content)
     when 'black'
-      BLACK_PIECES.include?(content)
+      return BLACK_PIECES.include?(content)
     end
+
+    !empty?
   end
 
   def color(row, column)

@@ -6,7 +6,9 @@ class Board
   include Coordinates
   attr_reader :board
 
-  def initialize(board: Array.new(8) { Array.new(8, '   ') })
+  SIZE = 8
+
+  def initialize(board: Array.new(SIZE) { Array.new(SIZE, '   ') })
     @board = squarify_board(board)
   end
 
@@ -18,7 +20,7 @@ class Board
 
   def squarify_line(line, row_index)
     line.map.with_index do |element, col_index|
-      Square.squarify(element, row_index, col_index)
+      Square.new(element, row_index, col_index)
     end
   end
 
@@ -27,10 +29,10 @@ class Board
   end
 
   def store_piece(coordinate)
-    square(coordinate).piece
+    square(coordinate).content
   end
 
-  def set_piece(piece, coordinate)
+  def place_piece(coordinate, piece)
     square(coordinate).update(piece)
   end
 
@@ -42,7 +44,7 @@ class Board
     stored_piece = store_piece(start_coordinate)
 
     remove_piece(start_coordinate)
-    set_piece(stored_piece, end_coordinate)
+    place_piece(end_coordinate, stored_piece)
   end
 
   def print_board
