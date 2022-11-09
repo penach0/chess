@@ -3,29 +3,41 @@ require_relative 'coordinates'
 # Represents a square on the board
 class Square
   include Coordinates
+  WHITE_PIECES = [' ♔ ', ' ♕ ', ' ♖ ', ' ♗ ', ' ♘ ', ' ♙ '].freeze
+  BLACK_PIECES = [' ♚ ', ' ♛ ', ' ♜ ', ' ♝ ', ' ♞ ', ' ♟︎ '].freeze
+
   attr_reader :coordinate
-  attr_accessor :piece
+  attr_accessor :content
 
   def self.squarify(element, row, column)
     new(element, row, column)
   end
 
-  def initialize(piece, row, column)
-    @piece = piece
+  def initialize(content, row, column)
+    @content = content
     @coordinate = array_to_algebraic(row, column)
     @color = color(row, column)
   end
 
-  def update(piece)
-    self.piece = piece
+  def update(content)
+    self.content = content
   end
 
   def clear
-    self.piece = '   '
+    self.content = '   '
   end
 
-  def occupied?
-    piece != '   '
+  def empty?
+    content == '   '
+  end
+
+  def occupied?(color)
+    case color
+    when 'white'
+      WHITE_PIECES.include?(content)
+    when 'black'
+      BLACK_PIECES.include?(content)
+    end
   end
 
   def color(row, column)
@@ -33,15 +45,15 @@ class Square
     coordinate_sum.even? ? 'light' : 'dark'
   end
 
-  def dark_square(piece)
-    "\e[1;48;5;179m#{piece}\e[0m"
+  def dark_square(content)
+    "\e[1;48;5;179m#{content}\e[0m"
   end
 
-  def light_square(piece)
-    "\e[1;48;5;229m#{piece}\e[0m"
+  def light_square(content)
+    "\e[1;48;5;229m#{content}\e[0m"
   end
 
   def to_s
-    @color == 'light' ? light_square(piece) : dark_square(piece)
+    @color == 'light' ? light_square(content) : dark_square(content)
   end
 end
