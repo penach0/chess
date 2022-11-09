@@ -45,4 +45,8 @@ class Bishop
   def update_position(new_position)
     @position = new_position
   end
+
+  def to_s
+    symbol
+  end
 end

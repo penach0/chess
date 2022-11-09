@@ -34,8 +34,8 @@ class Board
     square(coordinate).content
   end
 
-  def place_piece(coordinate, piece)
-    square(coordinate).update(piece)
+  def place_piece(piece, end_coordinate = piece.position)
+    square(end_coordinate).update(piece)
   end
 
   def remove_piece(coordinate)
@@ -46,7 +46,7 @@ class Board
     stored_piece = store_piece(start_coordinate)
 
     remove_piece(start_coordinate)
-    place_piece(end_coordinate, stored_piece)
+    place_piece(stored_piece, end_coordinate)
   end
 
   def print_board
