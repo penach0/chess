@@ -20,7 +20,9 @@ class Board
 
   def squarify_line(line, row_index)
     line.map.with_index do |element, col_index|
-      Square.new(element, row_index, col_index)
+      coordinate = array_to_algebraic(row_index, col_index)
+      color = Square.color(row_index, col_index)
+      Square.new(element, coordinate, color)
     end
   end
 

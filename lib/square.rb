@@ -9,10 +9,15 @@ class Square
   attr_reader :coordinate
   attr_accessor :content
 
-  def initialize(content, row, column)
-    @content = content
-    @coordinate = array_to_algebraic(row, column)
-    @color = color(row, column)
+  def self.color(row, column)
+    coordinate_sum = row + column
+    coordinate_sum.even? ? 'light' : 'dark'
+  end
+
+  def initialize(content, coordinate, color)
+    @content = Bishop.for(content, coordinate)
+    @coordinate = coordinate
+    @color = color
   end
 
   def update(content)
@@ -36,11 +41,6 @@ class Square
     end
 
     !empty?
-  end
-
-  def color(row, column)
-    coordinate_sum = row + column
-    coordinate_sum.even? ? 'light' : 'dark'
   end
 
   def dark_square(content)
