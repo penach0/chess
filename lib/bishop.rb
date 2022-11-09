@@ -34,7 +34,7 @@ class Bishop
 
   def possible_moves(board)
     available_paths(board).map do |path|
-      allowed_moves(path, color, position)
+      allowed_moves(path, self)
     end
   end
 
@@ -48,5 +48,11 @@ class Bishop
 
   def to_s
     symbol
+  end
+
+  protected
+
+  def same_color?(other)
+    color == other.color
   end
 end

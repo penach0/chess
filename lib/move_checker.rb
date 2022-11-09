@@ -4,20 +4,20 @@ require_relative 'user_input'
 module MoveChecker
   include UserInput
 
-  def allowed_moves(path, color, position)
-    piece_index = coordinate_index(path, position)
+  def allowed_moves(path, piece)
+    piece_index = coordinate_index(path, piece.position)
     backward = path[0, piece_index].reverse
     forward = path[piece_index + 1, path.length]
 
-    backward_path = allowed_in_direction(backward, first_piece_index(backward), color)
-    forward_path = allowed_in_direction(forward, first_piece_index(forward), color)
+    backward_path = allowed_in_direction(backward, first_piece_index(backward), piece)
+    forward_path = allowed_in_direction(forward, first_piece_index(forward), piece)
 
     backward_path + forward_path
   end
 
-  def allowed_in_direction(path, first_piece_index, color)
+  def allowed_in_direction(path, first_piece_index, piece)
     return path if path_empty?(path)
-    return path[0, first_piece_index] if color == first_piece(path).color
+    return path[0, first_piece_index] if piece.same_color?(first_piece(path))
 
     path[0, first_piece_index + 1]
   end
