@@ -18,7 +18,9 @@ class Square
   end
 
   def update(content)
+    self.content.captured unless empty?
     self.content = content
+    content.update_position(coordinate)
   end
 
   def clear

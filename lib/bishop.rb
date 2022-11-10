@@ -6,8 +6,7 @@ require_relative 'move_checker'
 class Bishop
   include Directions
   include MoveChecker
-  attr_reader :color, :symbol
-  attr_accessor :position
+  attr_reader :color, :symbol, :position
 
   def self.for(symbol, position)
     case symbol
@@ -44,6 +43,10 @@ class Bishop
 
   def update_position(new_position)
     @position = new_position
+  end
+
+  def captured
+    @position = nil
   end
 
   def to_s
