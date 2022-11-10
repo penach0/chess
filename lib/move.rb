@@ -4,6 +4,10 @@ class Move
   include MoveChecker
   attr_reader :board, :player, :starting, :ending
 
+  def self.execute(board, player)
+    new(board, player).execute
+  end
+
   def initialize(board, player)
     @board = board
     @player = player

@@ -1,28 +1,27 @@
 require_relative 'move'
 # This class represents a player of a chess game
 class Player
-  attr_reader :color, :piece
+  attr_reader :color, :pieces
 
   def initialize(color)
     @color = color
-    @piece = create_pieces
+    @pieces = create_pieces
   end
 
   def create_pieces
     if color == 'black'
-      Bishop.new('f8', color)
+      [Bishop.new('a7', color)]
     else
-      Bishop.new('c1', color)
+      [Bishop.new('b2', color),
+       Bishop.new('d4', color)]
     end
   end
 
   def place_pieces(board)
-    board.place_piece(piece)
+    pieces.each { |piece| board.place_piece(piece) }
   end
 
-  def make_move(board, start_coordinate, end_coordinate)
-    # Move.new(board, self).execute
-    board.move_piece(start_coordinate, end_coordinate)
-    piece.update_position(end_coordinate)
+  def make_move(board)
+    Move.execute(board, self)
   end
 end
