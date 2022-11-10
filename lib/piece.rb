@@ -35,6 +35,10 @@ class Piece
     !possible_moves(board).empty?
   end
 
+  def null?
+    !color
+  end
+
   def captured
     @position = nil
   end

@@ -4,53 +4,49 @@ require_relative 'coordinates'
 class Square
   include Coordinates
   attr_reader :coordinate
-  attr_accessor :content
+  attr_accessor :piece
 
   def self.color(row, column)
     coordinate_sum = row + column
     coordinate_sum.even? ? 'light' : 'dark'
   end
 
-  def initialize(content, coordinate, color)
-    @content = Piece.for(content, coordinate)
+  def initialize(piece, coordinate, color)
+    @piece = Piece.for(piece, coordinate)
     @coordinate = coordinate
     @color = color
   end
 
-  def piece
-    content unless empty?
-  end
-
-  def update(content)
-    self.content.captured unless empty?
-    self.content = content
-    content.update_position(coordinate)
+  def update(piece)
+    self.piece.captured
+    self.piece = piece
+    piece.update_position(coordinate)
   end
 
   def clear
-    self.content = '   '
+    self.piece = NoPiece.new(nil, coordinate)
   end
 
   def empty?
-    content == '   '
+    piece.null?
   end
 
   def occupied?(piece_color = nil)
     return false if empty?
     return !empty? unless piece_color
 
-    content.color == piece_color
+    piece.color == piece_color
   end
 
-  def dark_square(content)
-    "\e[1;48;5;179m#{content}\e[0m"
+  def dark_square(piece)
+    "\e[1;48;5;179m#{piece}\e[0m"
   end
 
-  def light_square(content)
-    "\e[1;48;5;229m#{content}\e[0m"
+  def light_square(piece)
+    "\e[1;48;5;229m#{piece}\e[0m"
   end
 
   def to_s
-    @color == 'light' ? light_square(content) : dark_square(content)
+    @color == 'light' ? light_square(piece) : dark_square(piece)
   end
 end
