@@ -3,7 +3,7 @@ require_relative 'directions'
 require_relative 'move_checker'
 
 # This class represents a bishop chess piece
-class Bishop
+class Bishop < Piece
   include Directions
   include MoveChecker
   attr_reader :color, :symbol, :position
@@ -31,31 +31,5 @@ class Bishop
     end
   end
 
-  def possible_moves(board)
-    available_paths(board).map do |path|
-      allowed_moves(path, self)
-    end
-  end
 
-  def can_move?(board)
-    !possible_moves(board).empty?
-  end
-
-  def update_position(new_position)
-    @position = new_position
-  end
-
-  def captured
-    @position = nil
-  end
-
-  def to_s
-    symbol
-  end
-
-  protected
-
-  def same_color?(other)
-    color == other.color
-  end
 end
