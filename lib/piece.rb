@@ -26,9 +26,7 @@ class Piece
   end
 
   def possible_moves(board)
-    available_paths(board).map do |path|
-      allowed_moves(path, self)
-    end
+    available_paths(board).map { |path| allowed_moves(path, self) }.flatten
   end
 
   def can_move?(board)

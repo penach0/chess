@@ -12,7 +12,7 @@ module MoveChecker
     backward_path = allowed_in_direction(backward, first_piece_index(backward), piece)
     forward_path = allowed_in_direction(forward, first_piece_index(forward), piece)
 
-    backward_path + forward_path
+    square_to_coordinates(backward_path + forward_path)
   end
 
   def allowed_in_direction(path, first_piece_index, piece)
@@ -31,10 +31,15 @@ module MoveChecker
   end
 
   def first_piece(path)
-    path[first_piece_index(path)].content
+    path[first_piece_index(path)].piece
   end
 
   def coordinate_index(path, coordinate)
     path.index { |square| square.coordinate == coordinate }
+  end
+
+  # TODO: Decide the best place for this method
+  def square_to_coordinates(squares)
+    squares.map { |square| square.coordinate }
   end
 end
