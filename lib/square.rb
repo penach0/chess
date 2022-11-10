@@ -24,7 +24,7 @@ class Square
   end
 
   def clear
-    self.piece = NoPiece.new(nil, coordinate)
+    self.piece = NoPiece.new(coordinate, nil)
   end
 
   def empty?
