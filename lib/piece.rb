@@ -5,6 +5,17 @@ class Piece
   include Coordinates
   attr_reader :symbol
 
+  def self.for(symbol, position)
+    case symbol
+    when ' ♗ '
+      Bishop.new(position, 'white')
+    when ' ♝ '
+      Bishop.new(position, 'black')
+    else
+      NoPiece.new(position, nil)
+    end
+  end
+
   def initialize(position, color)
     @position = position
     @color = color

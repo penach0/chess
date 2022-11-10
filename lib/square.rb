@@ -12,7 +12,7 @@ class Square
   end
 
   def initialize(content, coordinate, color)
-    @content = Bishop.for(content, coordinate)
+    @content = Piece.for(content, coordinate)
     @coordinate = coordinate
     @color = color
   end
@@ -35,7 +35,8 @@ class Square
     content == '   '
   end
 
-  def occupied?(piece_color: nil)
+  def occupied?(piece_color = nil)
+    return false if empty?
     return !empty? unless piece_color
 
     content.color == piece_color
