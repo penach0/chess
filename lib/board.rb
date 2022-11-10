@@ -30,8 +30,8 @@ class Board
     board.flatten.find { |element| element.coordinate == coordinate }
   end
 
-  def store_piece(coordinate)
-    square(coordinate).content
+  def piece_in(coordinate)
+    square(coordinate).piece
   end
 
   def place_piece(piece, end_coordinate = piece.position)
@@ -43,7 +43,7 @@ class Board
   end
 
   def move_piece(start_coordinate, end_coordinate)
-    stored_piece = store_piece(start_coordinate)
+    stored_piece = piece_in(start_coordinate)
 
     remove_piece(start_coordinate)
     place_piece(stored_piece, end_coordinate)

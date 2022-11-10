@@ -17,6 +17,10 @@ class Square
     @color = color
   end
 
+  def piece
+    content unless empty?
+  end
+
   def update(content)
     self.content.captured unless empty?
     self.content = content
