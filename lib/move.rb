@@ -7,25 +7,34 @@ class Move
   def initialize(board, player)
     @board = board
     @player = player
-    @starting = start_coordinate_validation(ask_coordinate(:start_square))
-    @ending = ask_coordinate(:end_square)
+    @starting = starting_validation(ask_coordinate(:start_square))
+    @ending = ending_validation(ask_coordinate(:end_square))
   end
 
-  def start_coordinate_validation(coordinate)
-    return coordinate if valid_start_coordinate?(coordinate)
+  def starting_validation(coordinate)
+    return coordinate if valid_starting?(coordinate)
 
-    puts display_message(:invalid_coordinate)
-    start_coordinate_validation(ask_coordinate(:start_square))
+    starting_validation(ask_coordinate(:invalid_coordinate))
   end
 
-  def valid_start_coordinate?(coordinate)
+  def ending_validation(coordinate)
+    return coordinate if valid_ending?(coordinate)
+
+    ending_validation(ask_coordinate(:invalid_coordinate))
+  end
+
+  def valid_starting?(coordinate)
     board.square(coordinate).occupied?(player.color)
   end
 
-  def piece_color(coordinate)
-    board.piece_in(coordinate).color
+  def valid_ending?(coordinate)
+    possible_moves(starting).include?(coordinate)
   end
-  
+
+  def possible_moves(starting)
+    board.piece_in(starting).possible_moves(board)
+  end
+
   def execute
     board.move_piece(starting, ending)
   end
