@@ -1,6 +1,7 @@
 require_relative 'move_checker'
 # This class will describe a move to be made by a player
 class Move
+  include UserInput
   include MoveChecker
   attr_reader :board, :player, :starting, :ending
 
@@ -11,31 +12,21 @@ class Move
   def initialize(board, player)
     @board = board
     @player = player
-    @starting = starting_validation(ask_coordinate(:start_square))
-    @ending = ending_validation(ask_coordinate(:end_square))
+    @starting = validation(ask_coordinate(:start_square), available_starting)
+    @ending = validation(ask_coordinate(:end_square), available_ending)
   end
 
-  def starting_validation(coordinate)
-    return coordinate if valid_starting?(coordinate)
+  def validation(coordinate, available_options)
+    return coordinate if available_options.include?(coordinate)
 
-    starting_validation(ask_coordinate(:invalid_coordinate))
+    validation(ask_coordinate(:invalid_coordinate), available_options)
   end
 
-  def ending_validation(coordinate)
-    return coordinate if valid_ending?(coordinate)
-
-    ending_validation(ask_coordinate(:invalid_coordinate))
+  def available_starting
+    board.position_of_pieces(player.color)
   end
 
-  def valid_starting?(coordinate)
-    board.square(coordinate).occupied?(player.color)
-  end
-
-  def valid_ending?(coordinate)
-    possible_moves(starting).include?(coordinate)
-  end
-
-  def possible_moves(starting)
+  def available_ending
     board.piece_in(starting).possible_moves(board)
   end
 
