@@ -7,14 +7,14 @@ class Game
 
   def initialize(board: nil, black_player: nil, white_player: nil)
     @board = Board.new(board: board)
-    @black_player = black_player || Player.new('black')
-    @white_player = white_player || Player.new('white')
+    @black_player = black_player || Player.new('black', @board)
+    @white_player = white_player || Player.new('white', @board)
     @current_player = @white_player
   end
 
   def setup
-    # black_player.place_pieces(board)
-    # white_player.place_pieces(board)
+    pp black_player.pieces
+    #white_player.place_pieces(board)
     board.print_board
   end
 

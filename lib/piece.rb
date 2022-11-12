@@ -5,14 +5,21 @@ class Piece
   include Coordinates
   attr_reader :symbol
 
-  def self.for(symbol, position)
-    case symbol
-    when ' ♗ '
-      Bishop.new(position, 'white')
-    when ' ♝ '
-      Bishop.new(position, 'black')
-    else
-      NoPiece.new(position, nil)
+  def self.for(fen, position)
+    case fen
+    when 'K'
+    when 'Q'
+    when 'R'
+    when 'B' then Bishop.new(position, 'white')
+    when 'N'
+    when 'P'
+    when 'k'
+    when 'q'
+    when 'r'
+    when 'b' then Bishop.new(position, 'black')
+    when 'n'
+    when 'p'
+    else NoPiece.new(position, nil)
     end
   end
 

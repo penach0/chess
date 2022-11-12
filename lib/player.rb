@@ -3,22 +3,13 @@ require_relative 'move'
 class Player
   attr_reader :color, :pieces
 
-  def initialize(color)
+  def initialize(color, board)
     @color = color
-    @pieces = create_pieces
+    @pieces = fetch_pieces(board)
   end
 
-  def create_pieces
-    if color == 'black'
-      [Bishop.new('a7', color)]
-    else
-      [Bishop.new('b2', color),
-       Bishop.new('d4', color)]
-    end
-  end
-
-  def place_pieces(board)
-    pieces.each { |piece| board.place_piece(piece) }
+  def fetch_pieces(board)
+    board.pieces_of_color(color)
   end
 
   def make_move(board)

@@ -38,7 +38,7 @@ class Board
 
   def pieces_of_color(color)
     board.flatten
-         .select { |square| square if square.occupied?(color) }
+         .filter_map { |square| square.piece if square.occupied?(color) }
   end
 
   def position_of_pieces(color)
