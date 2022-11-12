@@ -1,15 +1,17 @@
 require_relative 'coordinates'
+require_relative 'fen_translator'
 require_relative 'square'
 
 # Represents a Chessboard
 class Board
   include Coordinates
+  include FENTranslator
   attr_reader :board
 
   SIZE = 8
 
   def initialize(board: Array.new(SIZE) { Array.new(SIZE, '   ') })
-    @board = squarify_board(board)
+    @board = squarify_board(fen_to_array(board))
   end
 
   def squarify_board(board)
@@ -32,6 +34,15 @@ class Board
 
   def piece_in(coordinate)
     square(coordinate).piece
+  end
+
+  def pieces_of_color(color)
+    board.flatten
+         .select { |square| square if square.occupied?(color) }
+  end
+
+  def position_of_pieces(color)
+    square_to_coordinates(pieces_of_color(color))
   end
 
   def place_piece(piece, end_coordinate = piece.position)

@@ -6,18 +6,16 @@ class Game
   attr_reader :board, :black_player, :white_player, :current_player
 
   def initialize(board: nil, black_player: nil, white_player: nil)
-    @board = board || Board.new
+    @board = Board.new(board: board)
     @black_player = black_player || Player.new('black')
     @white_player = white_player || Player.new('white')
     @current_player = @white_player
   end
 
   def setup
+    # black_player.place_pieces(board)
+    # white_player.place_pieces(board)
     board.print_board
-    black_player.place_pieces(board)
-    white_player.place_pieces(board)
-    board.print_board
-    p black_player.piece
   end
 
   def playing
@@ -27,9 +25,7 @@ class Game
   end
 
   def half_move
-    current_player.make_move(board,
-                             ask_coordinate(:start_square),
-                             ask_coordinate(:end_square))
+    current_player.make_move(board)
     board.print_board
     change_player
   end
