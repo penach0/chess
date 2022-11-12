@@ -2,7 +2,7 @@ require_relative 'user_input'
 # This module will validate user input for moves
 # against board state
 module MoveChecker
-  include UserInput
+  include Coordinates
 
   def allowed_moves(path, piece)
     piece_index = coordinate_index(path, piece.position)
@@ -36,10 +36,5 @@ module MoveChecker
 
   def coordinate_index(path, coordinate)
     path.index { |square| square.coordinate == coordinate }
-  end
-
-  # TODO: Decide the best place for this method
-  def square_to_coordinates(squares)
-    squares.map { |square| square.coordinate }
   end
 end

@@ -5,16 +5,14 @@ class Game
   include UserInput
   attr_reader :board, :black_player, :white_player, :current_player
 
-  def initialize(board: nil, black_player: nil, white_player: nil)
+  def initialize(board: '2b2b2/8/7b/8/8/8/B7/2B2B2')
     @board = Board.new(board: board)
-    @black_player = black_player || Player.new('black', @board)
-    @white_player = white_player || Player.new('white', @board)
+    @black_player = Player.new('black', @board)
+    @white_player = Player.new('white', @board)
     @current_player = @white_player
   end
 
   def setup
-    pp black_player.pieces
-    #white_player.place_pieces(board)
     board.print_board
   end
 

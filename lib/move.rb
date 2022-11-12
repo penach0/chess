@@ -36,6 +36,7 @@ class Move
     @starting = validation(ask_coordinate(:start_square), available_starting)
     available_ending
   end
+  ##
 
   def execute
     board.move_piece(starting, ending)

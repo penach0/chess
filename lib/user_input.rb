@@ -4,23 +4,15 @@ require_relative 'coordinates'
 module UserInput
   include Coordinates
 
+  # UNDO = 'undo'.freeze
+
   def ask_coordinate(message)
     print display_message(message)
     loop do
-      coordinate = gets.chomp
-      return coordinate if valid_coordinate?(coordinate)
+      input = gets.chomp
+      return input if valid_coordinate?(input) # || input == UNDO
 
       print display_message(:invalid_coordinate)
-    end
-  end
-
-  def ask_end_square
-    print 'Insert the coordinate of the destination square: '
-    loop do
-      coordinate = gets.chomp
-      return coordinate if valid_coordinate?(coordinate)
-
-      print 'That coordinate is not valid. Please try again: '
     end
   end
 

@@ -10,10 +10,15 @@ module Coordinates
     ALL_COORDINATES.include?(coordinate)
   end
 
+  def square_to_coordinates(squares)
+    squares.map { |square| square.coordinate }
+  end
+
   def array_to_algebraic(row, column)
     COLUMNS[column] + ROWS[row]
   end
 
+  # Probably won't be needed - Delete when sure
   def algebraic_to_array(coordinate)
     column = COLUMNS.find_index(coordinate[0])
     row = ROWS.find_index(coordinate[1])

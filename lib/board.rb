@@ -8,9 +8,7 @@ class Board
   include FENTranslator
   attr_reader :board
 
-  SIZE = 8
-
-  def initialize(board: Array.new(SIZE) { Array.new(SIZE, '   ') })
+  def initialize(board: '8/8/8/8/8/8/8/8')
     @board = squarify_board(fen_to_array(board))
   end
 
@@ -41,11 +39,7 @@ class Board
          .filter_map { |square| square.piece if square.occupied?(color) }
   end
 
-  def position_of_pieces(color)
-    square_to_coordinates(pieces_of_color(color))
-  end
-
-  def place_piece(piece, end_coordinate = piece.position)
+  def place_piece(piece, end_coordinate)
     square(end_coordinate).update(piece)
   end
 
