@@ -3,29 +3,30 @@ require_relative 'coordinates'
 # Specific pieces are descendent from it
 class Piece
   include Coordinates
-  attr_reader :symbol
+  attr_reader :color, :symbol, :position, :fen_value
 
   def self.for(fen, position)
     case fen
     when 'K'
     when 'Q'
     when 'R'
-    when 'B' then Bishop.new(position, 'white')
+    when 'B' then Bishop.new(position, 'white', fen)
     when 'N'
     when 'P'
     when 'k'
     when 'q'
     when 'r'
-    when 'b' then Bishop.new(position, 'black')
+    when 'b' then Bishop.new(position, 'black', fen)
     when 'n'
     when 'p'
-    else NoPiece.new(position, nil)
+    else NoPiece.new(position, nil, fen)
     end
   end
 
-  def initialize(position, color)
+  def initialize(position, color, fen_value)
     @position = position
     @color = color
+    @fen_value = fen_value
   end
 
   def update_position(new_position)

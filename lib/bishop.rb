@@ -6,9 +6,8 @@ require_relative 'move_checker'
 class Bishop < Piece
   include Directions
   include MoveChecker
-  attr_reader :color, :symbol, :position
 
-  def initialize(position, color)
+  def initialize(position, color, fen_value)
     super
     @symbol = (color == 'white' ? ' ♗ ' : ' ♝ ')
   end
