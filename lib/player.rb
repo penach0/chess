@@ -12,6 +12,10 @@ class Player
     board.pieces_of_color(color)
   end
 
+  def piece_positions
+    pieces.map(&:position)
+  end
+
   def make_move(board)
     Move.execute(board, self)
   end

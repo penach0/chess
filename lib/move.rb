@@ -16,18 +16,26 @@ class Move
     @ending = validation(ask_coordinate(:end_square), available_ending)
   end
 
-  def validation(coordinate, available_options)
-    return coordinate if available_options.include?(coordinate)
+  def validation(input, available_options)
+    # available_options = undo if input == UNDO
+    return input if available_options.include?(input)
 
     validation(ask_coordinate(:invalid_coordinate), available_options)
   end
 
+  # Fix bug related to picking a right colored piece with no moves
   def available_starting
-    board.position_of_pieces(player.color)
+    player.piece_positions
   end
 
   def available_ending
     board.piece_in(starting).possible_moves(board)
+  end
+
+  # Not correctly implemented
+  def undo
+    @starting = validation(ask_coordinate(:start_square), available_starting)
+    available_ending
   end
 
   def execute
