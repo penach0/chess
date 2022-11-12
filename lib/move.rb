@@ -23,9 +23,8 @@ class Move
     validation(ask_coordinate(:invalid_coordinate), available_options)
   end
 
-  # Fix bug related to picking a right colored piece with no moves
   def available_starting
-    player.piece_positions
+    player.movable_pieces(board).map(&:position)
   end
 
   def available_ending

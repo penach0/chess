@@ -12,8 +12,12 @@ class Player
     board.pieces_of_color(color)
   end
 
-  def piece_positions
-    pieces.map(&:position)
+  def movable_pieces(board)
+    pieces.select { |piece| piece.can_move?(board) }
+  end
+
+  def piece_positions(pieces_needed = pieces)
+    pieces_needed.map(&:position)
   end
 
   def make_move(board)
