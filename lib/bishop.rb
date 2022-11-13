@@ -1,7 +1,4 @@
-require_relative 'piece'
-require_relative 'directions'
-require_relative 'move_checker'
-
+require_relative 'chess'
 # This class represents a bishop chess piece
 class Bishop < Piece
   include Directions
@@ -13,8 +10,6 @@ class Bishop < Piece
   end
 
   def available_paths(board)
-    diagonals(board.board).find_all do |diagonal|
-      find_diagonals(diagonal)
-    end
+    find_paths(position, diagonals(board.board))
   end
 end

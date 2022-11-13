@@ -3,12 +3,18 @@ require_relative 'coordinates'
 module Directions
   include Coordinates
 
-  def columns(board)
-    board.transpose
+  def find_paths(position, direction)
+    direction.select { |path| check_path(path, position) }
   end
 
-  def find_diagonals(diagonal)
-    diagonal.find { |square| square.coordinate == position }
+  private
+
+  def check_path(path, position)
+    square_to_coordinates(path).include?(position)
+  end
+
+  def columns(board)
+    board.transpose
   end
 
   def diagonals(board)

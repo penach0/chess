@@ -1,16 +1,13 @@
-require_relative '../lib/directions'
-require_relative '../lib/bishop'
-require_relative '../lib/board'
+require_relative '../lib/chess'
+include Directions
 
 describe Directions do
+  # This method has been made private, not sure if it needs to be tested
   describe '#diagonals' do
     let(:diagonal_board) { Board.new }
-    it 'returns an array containing all diagonals on the board (size > 1)' do
-      piece = Bishop.new('c1', 'black')
-      diagonals_by_coordinates = piece.diagonals(diagonal_board.board)
-                                      .map do |diagonal|
-                                        square_coordinates(diagonal).sort
-                                      end
+    xit 'returns an array containing all diagonals on the board (size > 1)' do
+      all_diagonals = diagonals(diagonal_board.board)
+      diagonals_by_coordinates = paths_by_coordinates(all_diagonals)
 
       expect(diagonals_by_coordinates).to eq([["a8", "b7", "c6", "d5", "e4", "f3", "g2", "h1"],
                                               ["b8", "c7", "d6", "e5", "f4", "g3", "h2"],
@@ -40,8 +37,40 @@ describe Directions do
                                               ["a7", "b8"]])
     end
   end
+  ##
+
+  describe '#find_paths' do
+    let(:paths_board) { Board.new.board }
+
+    context 'when there are two possible paths' do
+      it 'returns the paths containing the passed coordinate' do
+        position = 'c1'
+        direction = diagonals(paths_board)
+        found_paths = find_paths(position, direction)
+        coordinates = paths_by_coordinates(found_paths)
+
+        expect(coordinates).to eq([['a3', 'b2', 'c1'],
+                                   ['c1', 'd2', 'e3', 'f4', 'g5', 'h6']])
+      end
+    end
+
+    context 'when there is only one path' do
+      it 'returns the path containing the passed coordinate' do
+        position = 'a1'
+        direction = diagonals(paths_board)
+        found_paths = find_paths(position, direction)
+        coordinates = paths_by_coordinates(found_paths)
+
+        expect(coordinates).to eq([['a1', 'b2', 'c3', 'd4', 'e5', 'f6', 'g7', 'h8']])
+      end
+    end
+  end
 end
 
 def square_coordinates(array)
   array.map(&:coordinate)
+end
+
+def paths_by_coordinates(paths_array)
+  paths_array.map { |paths| square_coordinates(paths).sort }
 end
