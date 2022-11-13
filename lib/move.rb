@@ -1,4 +1,4 @@
-require_relative 'move_checker'
+require_relative 'chess'
 # This class will describe a move to be made by a player
 class Move
   include UserInput

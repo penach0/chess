@@ -1,6 +1,6 @@
-require_relative 'user_input'
-# This module will validate user input for moves
-# against board state
+require_relative 'chess'
+# This module will find the allowed moves from
+# the available paths given the board state
 module MoveChecker
   include Coordinates
 
@@ -14,6 +14,8 @@ module MoveChecker
 
     square_to_coordinates(backward_path + forward_path)
   end
+
+  private
 
   def allowed_in_direction(path, first_piece_index, piece)
     return path if path_empty?(path)

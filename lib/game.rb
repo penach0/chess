@@ -1,4 +1,4 @@
-require_relative 'user_input'
+require_relative 'chess'
 
 # Represents a Game
 class Game

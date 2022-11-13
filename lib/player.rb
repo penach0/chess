@@ -1,4 +1,4 @@
-require_relative 'move'
+require_relative 'chess'
 # This class represents a player of a chess game
 class Player
   attr_reader :color, :pieces

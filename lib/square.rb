@@ -1,9 +1,8 @@
-require_relative 'coordinates'
-
+require_relative 'chess'
 # Represents a square on the board
 class Square
   include Coordinates
-  attr_reader :coordinate
+  attr_reader :coordinate, :color
   attr_accessor :piece
 
   def self.color(row, column)
@@ -11,8 +10,8 @@ class Square
     coordinate_sum.even? ? 'light' : 'dark'
   end
 
-  def initialize(piece, coordinate, color)
-    @piece = Piece.for(piece, coordinate)
+  def initialize(fen, coordinate, color)
+    @piece = Piece.for(fen, coordinate)
     @coordinate = coordinate
     @color = color
   end
@@ -37,6 +36,8 @@ class Square
 
     piece.color == piece_color
   end
+
+  private
 
   def dark_square(piece)
     "\e[1;48;5;179m#{piece}\e[0m"

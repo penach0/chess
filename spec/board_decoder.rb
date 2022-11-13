@@ -5,6 +5,8 @@ module BoardDecoder
     join_spaces(board_string)
   end
 
+  private
+
   def board_to_string(board)
     board.map do |line|
       line_to_string(line)

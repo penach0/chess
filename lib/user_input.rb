@@ -1,5 +1,4 @@
-require_relative 'coordinates'
-
+require_relative 'chess'
 # This module will methods that query the user for input
 module UserInput
   include Coordinates

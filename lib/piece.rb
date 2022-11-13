@@ -1,8 +1,7 @@
-require_relative 'coordinates'
+require_relative 'chess'
 # This class represents a chess piece
 # Specific pieces are descendent from it
 class Piece
-  include Coordinates
   attr_reader :color, :symbol, :position, :fen_value
 
   def self.for(fen, position)
