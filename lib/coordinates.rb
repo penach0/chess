@@ -5,13 +5,12 @@ module Coordinates
   COLUMNS = [*'a'..'h'].freeze
   ALL_COORDINATES = COLUMNS.product(ROWS).map(&:join).freeze
   SIZE = 8
-
   def valid_coordinate?(coordinate)
     ALL_COORDINATES.include?(coordinate)
   end
 
   def square_to_coordinates(squares)
-    squares.map { |square| square.coordinate }
+    squares.map(&:coordinate)
   end
 
   def array_to_algebraic(row, column)
