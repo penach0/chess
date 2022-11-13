@@ -1,38 +1,53 @@
-require_relative '../lib/board'
+require_relative '../lib/chess'
 
 describe Board do
-  describe '#move_piece' do
-    subject(:move_board) do
-      described_class.new(board: [['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                                  ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                                  ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                                  ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                                  ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                                  ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                                  ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                                  ['   ', '   ', ' ♗ ', '   ', '   ', '   ', '   ', '   ']])
+  describe '#square' do
+    subject(:square_board) { described_class.new(board: '8/8/8/8/8/8/8/2b5') }
+
+    it 'returns the correct square' do
+      coordinate = 'c1'
+      square = square_board.square(coordinate)
+      color = square.color
+      piece = square.piece.symbol
+
+      expect(piece).to eq(' ♝ ')
+      expect(color).to eq('dark')
     end
+  end
+
+  describe '#piece_in' do
+    subject(:piece_board) { described_class.new(board: '8/8/8/8/8/8/8/2b5') }
+
+    it 'returns the piece in the given square' do
+      coordinate = 'c1'
+      piece = piece_board.piece_in(coordinate)
+
+      expect(piece.symbol).to eq(' ♝ ')
+      expect(piece.color).to eq('black')
+    end
+  end
+
+  describe '#pieces_of_color' do
+    subject(:pieces_board) { described_class.new(board: '2b2b2/8/7b/8/8/8/B7/2B2B2') }
+
+    it 'fetches the pieces of the passed color' do
+      white_pieces = pieces_board.pieces_of_color('white')
+      piece_coordinates = white_pieces.map(&:position)
+
+      expect(piece_coordinates).to eq(['a2', 'c1', 'f1'])
+    end
+  end
+
+  describe '#move_piece' do
+    subject(:move_board) { described_class.new(board: '8/8/8/8/8/8/8/2b5') }
 
     it 'moves a piece' do
       start_coordinate = 'c1'
       end_coordinate = 'h6'
       move_board.move_piece(start_coordinate, end_coordinate)
-      board = unsquarify_board(move_board.board)
+      result_board = fen_string(move_board.board)
 
-      expect(board).to eq([['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                           ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                           ['   ', '   ', '   ', '   ', '   ', '   ', '   ', ' ♗ '],
-                           ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                           ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                           ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                           ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   '],
-                           ['   ', '   ', '   ', '   ', '   ', '   ', '   ', '   ']])
+      expect(result_board).to eq('8/8/7b/8/8/8/8/8')
     end
-  end
-end
-
-def unsquarify_board(board)
-  board.map do |line|
-    line.map(&:piece)
   end
 end
