@@ -6,6 +6,8 @@ module FENTranslator
     build_board(board)
   end
 
+  private
+
   def split_fen(fen_string)
     fen_string.split('/').map { |line| line.split('') }
   end
