@@ -36,8 +36,12 @@ class Piece
     available_paths(board).map { |path| allowed_moves(path, self) }.flatten
   end
 
-  def can_move?(board)
+  def movable?(board)
     !possible_moves(board).empty?
+  end
+
+  def same_color?(other)
+    color == other.color
   end
 
   def null?
@@ -48,13 +52,9 @@ class Piece
     @position = nil
   end
 
+  private
+
   def to_s
     symbol
-  end
-
-  protected
-
-  def same_color?(other)
-    color == other.color
   end
 end
