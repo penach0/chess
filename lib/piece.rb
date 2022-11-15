@@ -9,13 +9,13 @@ class Piece
   def self.for(fen, position)
     case fen
     when 'K'
-    when 'Q'
+    when 'Q' then Queen.new(position, 'white', fen)
     when 'R' then Rook.new(position, 'white', fen)
     when 'B' then Bishop.new(position, 'white', fen)
     when 'N'
     when 'P'
     when 'k'
-    when 'q'
+    when 'q' then Queen.new(position, 'black', fen)
     when 'r' then Rook.new(position, 'black', fen)
     when 'b' then Bishop.new(position, 'black', fen)
     when 'n'

@@ -2,13 +2,12 @@ require_relative 'chess'
 
 # Represents a Game
 class Game
-  include UserInput
   attr_reader :board, :black_player, :white_player, :current_player
 
-  def initialize(board: '2b2b2/8/7b/8/8/8/B7/2B2B2')
+  def initialize(board: 'r1bq1b1r/8/8/8/8/8/8/R1BQ1B1R')
     @board = Board.new(board: board)
-    @black_player = Player.new('black', @board)
     @white_player = Player.new('white', @board)
+    @black_player = Player.new('black', @board)
     @current_player = @white_player
   end
 

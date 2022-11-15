@@ -8,8 +8,8 @@ require_relative 'player'
 require_relative 'move'
 require_relative 'piece'
 require_relative 'bishop'
+require_relative 'rook'
+require_relative 'queen'
 require_relative 'no_piece'
 require_relative 'board'
 require_relative 'game'
-
-
