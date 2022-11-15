@@ -13,6 +13,10 @@ module Directions
     square_to_coordinates(path).include?(position)
   end
 
+  def all_directions(board)
+    straight_lines(board) + diagonals(board)
+  end
+
   def straight_lines(board)
     lines(board) + columns(board)
   end
