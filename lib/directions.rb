@@ -18,7 +18,7 @@ module Directions
   end
 
   def lines(board)
-    board.board
+    board
   end
 
   def columns(board)
