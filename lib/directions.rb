@@ -13,6 +13,14 @@ module Directions
     square_to_coordinates(path).include?(position)
   end
 
+  def straight_lines(board)
+    lines(board) + columns(board)
+  end
+
+  def lines(board)
+    board.board
+  end
+
   def columns(board)
     board.transpose
   end
