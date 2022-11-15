@@ -5,6 +5,11 @@ module UserInput
 
   # UNDO = 'undo'.freeze
 
+  def ask_name(color)
+    print "Who wants to play #{color}? Tell me your name: "
+    gets.chomp
+  end
+
   def ask_coordinate(message, player_name = nil)
     print display_message(message, player_name)
     loop do
@@ -15,10 +20,7 @@ module UserInput
     end
   end
 
-  def ask_name(color)
-    print "Who wants to play #{color}? Tell me your name: "
-    gets.chomp
-  end
+  private
 
   def display_message(message, player_name = nil)
     {
