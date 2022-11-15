@@ -12,9 +12,15 @@ class Move
   def initialize(board, player)
     @board = board
     @player = player
-    @starting = validation(ask_coordinate(:start_square), available_starting)
+    @starting = validation(ask_coordinate(:start_square, player.name), available_starting)
     @ending = validation(ask_coordinate(:end_square), available_ending)
   end
+
+  def execute
+    board.move_piece(starting, ending)
+  end
+
+  private
 
   def validation(input, available_options)
     # available_options = undo if input == UNDO
@@ -37,8 +43,4 @@ class Move
     available_ending
   end
   ##
-
-  def execute
-    board.move_piece(starting, ending)
-  end
 end

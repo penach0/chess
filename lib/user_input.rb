@@ -5,8 +5,8 @@ module UserInput
 
   # UNDO = 'undo'.freeze
 
-  def ask_coordinate(message)
-    print display_message(message)
+  def ask_coordinate(message, player_name = nil)
+    print display_message(message, player_name)
     loop do
       input = gets.chomp
       return input if valid_coordinate?(input) # || input == UNDO
@@ -15,9 +15,14 @@ module UserInput
     end
   end
 
-  def display_message(message)
+  def ask_name(color)
+    print "Who wants to play #{color}? Tell me your name: "
+    gets.chomp
+  end
+
+  def display_message(message, player_name = nil)
     {
-      start_square: 'Insert the coordinate of the piece you want to move: ',
+      start_square: "#{player_name} insert the coordinate of the piece you want to move: ",
       end_square: 'Insert the coordinate of the destination square: ',
       invalid_coordinate: 'That coordinate is not valid. Please try again: '
     }[message]
