@@ -12,13 +12,13 @@ class Piece
     when 'Q' then Queen.new(position, 'white', fen)
     when 'R' then Rook.new(position, 'white', fen)
     when 'B' then Bishop.new(position, 'white', fen)
-    when 'N'
+    when 'N' then Knight.new(position, 'white', fen)
     when 'P'
     when 'k'
     when 'q' then Queen.new(position, 'black', fen)
     when 'r' then Rook.new(position, 'black', fen)
     when 'b' then Bishop.new(position, 'black', fen)
-    when 'n'
+    when 'n' then Knight.new(position, 'black', fen)
     when 'p'
     else NoPiece.new(position, nil, fen)
     end
