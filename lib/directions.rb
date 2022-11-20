@@ -3,6 +3,9 @@ require_relative 'coordinates'
 module Directions
   include Coordinates
 
+  KNIGHT_MOVES = [[-2, -1], [-2, 1], [-1, -2], [-1, 2],
+                  [1, -2], [1, 2], [2, -1], [2, 1]].freeze
+
   def find_paths(position, direction)
     direction.select { |path| check_path(path, position) }
   end
@@ -27,6 +30,25 @@ module Directions
 
   def columns(board)
     board.transpose
+  end
+
+  def l_shape(position, board)
+    coordinate = algebraic_to_array(position)
+    possible_squares = []
+
+    KNIGHT_MOVES.each do |direction|
+      row, column = knight_jump(coordinate, direction)
+      possible_squares << board[row][column] if valid_position?(row, column)
+    end
+
+    possible_squares
+  end
+
+  def knight_jump(coordinate, direction)
+    row = coordinate[0] + direction[0]
+    column = coordinate[1] + direction[1]
+
+    [row, column]
   end
 
   def diagonals(board)
