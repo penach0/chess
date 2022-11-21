@@ -39,6 +39,8 @@ class Piece
   end
 
   def movable?(board)
+    return if off_board?
+
     !possible_moves(board).empty?
   end
 
@@ -55,6 +57,10 @@ class Piece
   end
 
   private
+
+  def off_board?
+    !position
+  end
 
   def to_s
     symbol
