@@ -10,7 +10,7 @@ class Pawn < Piece
   end
 
   def possible_moves(board)
-    allowed_forward(board) + possible_captures(board)
+    square_to_coordinates(allowed_forward(board) + possible_captures(board))
   end
 
   def path(board)
@@ -28,10 +28,10 @@ class Pawn < Piece
     first_square, second_square = full_path
 
     return [] if first_square.occupied?
-    return first_square if second_square.occupied?
+    return [first_square] if second_square.occupied?
     return full_path if first_move
 
-    first_square
+    [first_square]
   end
 
   def possible_captures(board)
