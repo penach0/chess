@@ -4,7 +4,7 @@ require_relative 'chess'
 class Game
   attr_reader :board, :black_player, :white_player, :current_player
 
-  def initialize(board: 'r1bq1b1r/8/8/8/8/8/8/R1BQ1B1R')
+  def initialize(board: 'rnbq1bnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQ1BNR')
     @board = Board.new(board: board)
     @white_player = Player.new('white', @board)
     @black_player = Player.new('black', @board)
@@ -17,7 +17,7 @@ class Game
 
   def playing
     5.times do
-      turn
+      full_move
     end
   end
 
@@ -27,7 +27,7 @@ class Game
     change_player
   end
 
-  def turn
+  def full_move
     2.times { half_move }
   end
 
