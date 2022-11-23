@@ -7,13 +7,12 @@ class Knight < Piece
   end
 
   def possible_moves(board)
-    all_moves = attacked_squares(board)
-    possible_moves = all_moves.reject { |square| square.piece.same_color?(self) }
+    all_moves = attacking(board)
 
-    square_to_coordinates(possible_moves)
+    all_moves.reject { |square| square.piece.same_color?(self) }
   end
 
-  def attacked_squares(board)
+  def attacking(board)
     l_shape(position, board.board)
   end
 end

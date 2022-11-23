@@ -30,18 +30,22 @@ class Piece
     @fen_value = fen_value
   end
 
-  def update_position(new_position)
-    @position = new_position
+  def movable?(board)
+    return if off_board?
+
+    !possible_moves(board).empty?
+  end
+
+  def attacking(board)
+    possible_moves(board)
   end
 
   def possible_moves(board)
     available_paths(board).map { |path| allowed_moves(path, self) }.flatten
   end
 
-  def movable?(board)
-    return if off_board?
-
-    !possible_moves(board).empty?
+  def update_position(new_position)
+    @position = new_position
   end
 
   def same_color?(other)

@@ -12,7 +12,7 @@ module MoveChecker
     backward_path = allowed_in_direction(backward, first_piece_index(backward), piece)
     forward_path = allowed_in_direction(forward, first_piece_index(forward), piece)
 
-    square_to_coordinates(backward_path + forward_path)
+    backward_path + forward_path
   end
 
   private
