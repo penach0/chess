@@ -30,6 +30,18 @@ class Board
     place_piece(stored_piece, end_coordinate)
   end
 
+  def squares_attacked_by(color)
+    pieces_of_color(color).map { |piece| piece.attacking(self) }
+                          .flatten
+                          .uniq
+  end
+
+  # Not in use
+  def reverse_board
+    board.map(&:reverse).reverse
+  end
+  ##
+
   def print_board
     board.each do |line|
       puts line.join
