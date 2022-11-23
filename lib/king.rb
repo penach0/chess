@@ -15,6 +15,10 @@ class King < Piece
     @first_move = false if first_move
   end
 
+  def possible_moves(board)
+    available_squares(board) - board.squares_attacked_by(opponent_color)
+  end
+
   def available_squares(board)
     find_paths(position, all_directions(board)).map(&:first)
   end

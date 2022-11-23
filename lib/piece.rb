@@ -37,7 +37,7 @@ class Piece
   end
 
   def attacking(board)
-    possible_moves(board)
+    available_paths(board).map { |path| piece_scope(path, self) }.flatten
   end
 
   def possible_moves(board)
@@ -50,6 +50,10 @@ class Piece
 
   def same_color?(other)
     color == other.color
+  end
+
+  def opponent_color
+    color == 'white' ? 'black' : 'white'
   end
 
   def null?
