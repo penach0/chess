@@ -36,12 +36,12 @@ class Piece
     !possible_moves(board).empty?
   end
 
-  def attacking(board)
-    available_paths(board).map { |path| piece_scope(path, self) }.flatten
+  def possible_moves(board)
+    attacking(board).reject { |square| forbidden_move(square, self) }
   end
 
-  def possible_moves(board)
-    available_paths(board).map { |path| allowed_moves(path, self) }.flatten
+  def attacking(board)
+    available_paths(board).map { |path| piece_scope(path, self) }.flatten
   end
 
   def update_position(new_position)
