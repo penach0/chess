@@ -3,9 +3,11 @@ require_relative 'chess'
 # Represents a Chessboard
 class Board
   include Coordinates
-  include Directions
   include FENTranslator
   attr_reader :board
+
+  KNIGHT_MOVES = [[-2, -1], [-2, 1], [-1, -2], [-1, 2],
+                  [1, -2], [1, 2], [2, -1], [2, 1]].freeze
 
   def initialize(board: '8/8/8/8/8/8/8/8')
     @board = squarify_board(fen_to_array(board))
@@ -46,12 +48,28 @@ class Board
 
   # From Directions
 
-  def find_paths(position, direction)
-    direction.select { |path| check_path(path, position) }
+  def all_directions
+    straight_lines + diagonals
   end
 
-  def adjacent_squares(path, position)
+  def straight_lines
+    lines + columns
+  end
 
+  def diagonals
+    main_diagonals('main') + main_diagonals('anti')
+  end
+
+  def l_shape(position)
+    coordinate = algebraic_to_array(position)
+    possible_squares = []
+
+    KNIGHT_MOVES.each do |direction|
+      row, column = knight_jump(coordinate, direction)
+      possible_squares << board[row][column] if valid_position?(row, column)
+    end
+
+    possible_squares
   end
 
   private
@@ -80,36 +98,12 @@ class Board
 
   # From Directions
 
-  def check_path(path, position)
-    square_to_coordinates(path).include?(position)
-  end
-
-  def all_directions
-    straight_lines + diagonals
-  end
-
-  def straight_lines
-    lines + columns
-  end
-
   def lines
     board
   end
 
   def columns
     board.transpose
-  end
-
-  def l_shape(position)
-    coordinate = algebraic_to_array(position)
-    possible_squares = []
-
-    KNIGHT_MOVES.each do |direction|
-      row, column = knight_jump(coordinate, direction)
-      possible_squares << board[row][column] if valid_position?(row, column)
-    end
-
-    possible_squares
   end
 
   def knight_jump(coordinate, direction)
@@ -119,50 +113,55 @@ class Board
     [row, column]
   end
 
-  def diagonals
-    main_diagonals + anti_diagonals
-  end
-
   def anti_diagonals
     main_diagonals(board.transpose.reverse)
   end
 
-  def main_diagonals
-    diagonals = diagonals_from_top + diagonals_from_side
+  def main_diagonals(direction)
+    diagonals = diagonals_from_top(direction) + diagonals_from_side(direction)
 
     diagonals.select { |diagonal| diagonal.size > 1 }
   end
 
-  def diagonals_from_top
+  def diagonals_from_top(direction)
     diagonals = []
     lines.first.each_index do |column|
-      diagonals << single_diagonal(0, column)
+      diagonals << single_diagonal(0, column, direction)
     end
     diagonals
   end
 
-  def diagonals_from_side
+  def diagonals_from_side(direction)
     diagonals = []
     columns.first.each_index do |row|
       next if row.zero?
 
-      diagonals << single_diagonal(row, 0)
+      diagonals << single_diagonal(row, 0, direction)
     end
     diagonals
   end
 
-  def single_diagonal(row, column)
+  def single_diagonal(row, column, direction)
+    diagonals_board = board_direction(direction)
     diagonal = []
     while valid_position?(row, column)
-      diagonal << board[row][column]
+      diagonal << diagonals_board[row][column]
       row += 1
       column += 1
     end
     diagonal
   end
 
+  def board_direction(direction)
+    case direction 
+    when 'main'
+      board
+    when 'anti'
+      board.transpose.reverse
+    end
+  end
+
   def valid_position?(row, column)
     [row, column].all? { |el| el.between?(0, SIZE - 1) }
   end
-
 end
