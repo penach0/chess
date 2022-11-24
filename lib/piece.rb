@@ -2,19 +2,19 @@ require_relative 'chess'
 # This class represents a chess piece
 # Specific pieces are descendent from it
 class Piece
-  include Directions
+  include PathFinder
   include MoveChecker
   attr_reader :color, :symbol, :position, :fen_value
 
   def self.for(fen, position)
     case fen
-    when 'K'
+    when 'K' then King.new(position, 'white', fen)
     when 'Q' then Queen.new(position, 'white', fen)
     when 'R' then Rook.new(position, 'white', fen)
     when 'B' then Bishop.new(position, 'white', fen)
     when 'N' then Knight.new(position, 'white', fen)
     when 'P' then Pawn.new(position, 'white', fen)
-    when 'k'
+    when 'k' then King.new(position, 'black', fen)
     when 'q' then Queen.new(position, 'black', fen)
     when 'r' then Rook.new(position, 'black', fen)
     when 'b' then Bishop.new(position, 'black', fen)

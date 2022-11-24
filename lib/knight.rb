@@ -13,6 +13,6 @@ class Knight < Piece
   end
 
   def attacking(board)
-    l_shape(position, board.board)
+    board.l_shape(position)
   end
 end

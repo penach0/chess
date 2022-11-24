@@ -9,6 +9,11 @@ class Board
   KNIGHT_MOVES = [[-2, -1], [-2, 1], [-1, -2], [-1, 2],
                   [1, -2], [1, 2], [2, -1], [2, 1]].freeze
 
+  PAWN_ATTACKING_DIRECTIONS = { 'white' => [[-1, -1], [-1, 1]],
+                                'black' => [[1, -1], [1, 1]] }.freeze
+
+  PAWN_FORWARD_DIRECTIONS = { 'white' => [-1, -2], 'black' => [1, 2] }.freeze
+
   def initialize(board: '8/8/8/8/8/8/8/8')
     @board = squarify_board(fen_to_array(board))
   end
@@ -70,6 +75,30 @@ class Board
     end
 
     possible_squares
+  end
+
+  def pawn_forward_path(position, color)
+    row, column = algebraic_to_array(position)
+    direction = PAWN_FORWARD_DIRECTIONS[color]
+
+    first_square = board[row + direction[0]][column]
+    second_square = board[row + direction[1]][column]
+
+    [first_square, second_square]
+  end
+
+  def pawn_attacked_squares(position, color)
+    row, column = algebraic_to_array(position)
+    directions = PAWN_ATTACKING_DIRECTIONS[color]
+    attacked = []
+
+    directions.each do |direction|
+      next unless valid_position?(row + direction[0], column + direction[1])
+
+      attacked << board[row + direction[0]][column + direction[1]]
+    end
+
+    attacked
   end
 
   private

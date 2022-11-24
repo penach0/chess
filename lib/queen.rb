@@ -7,6 +7,6 @@ class Queen < Piece
   end
 
   def available_paths(board)
-    find_paths(position, all_directions(board.board))
+    find_paths(position, board.all_directions)
   end
 end
