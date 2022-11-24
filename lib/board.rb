@@ -64,14 +64,12 @@ class Board
 
   def single_move_finder(position, move_type)
     coordinate = algebraic_to_array(position)
-    possible_squares = []
 
-    move_type.each do |direction|
+    move_type.filter_map do |direction|
       row, column = single_move(coordinate, direction)
-      possible_squares << board[row][column] if valid_position?(row, column)
-    end
 
-    possible_squares
+      board[row][column] if valid_position?(row, column)
+    end
   end
 
   def pawn_forward_path(position, color)
