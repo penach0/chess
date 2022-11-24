@@ -3,6 +3,12 @@ require_relative 'chess'
 class Pawn < Piece
   attr_reader :first_move
 
+  ATTACKING_MOVES = { 'white' => [[-1, -1], [-1, 1]],
+                      'black' => [[1, -1], [1, 1]] }.freeze
+
+  FORWARD_MOVES = { 'white' => [[-1, 0], [-2, 0]],
+                    'black' => [[1, 0], [2, 0]] }.freeze
+
   def initialize(position, color, fen_value)
     super
     @symbol = (color == 'white' ? ' ♙ ' : ' ♟︎ ')
@@ -20,7 +26,7 @@ class Pawn < Piece
   end
 
   def allowed_forward(board)
-    full_path = board.pawn_forward_path(position, color)
+    full_path = board.single_move_finder(position, FORWARD_MOVES[color])
     first_square, second_square = full_path
 
     return [] if first_square.occupied?
@@ -37,6 +43,6 @@ class Pawn < Piece
   end
 
   def attacking(board)
-    board.pawn_attacked_squares(position, color)
+    board.single_move_finder(position, ATTACKING_MOVES[color])
   end
 end

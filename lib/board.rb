@@ -82,20 +82,6 @@ class Board
     [first_square, second_square]
   end
 
-  def pawn_attacked_squares(position, color)
-    row, column = algebraic_to_array(position)
-    directions = PAWN_ATTACKING_DIRECTIONS[color]
-    attacked = []
-
-    directions.each do |direction|
-      next unless valid_position?(row + direction[0], column + direction[1])
-
-      attacked << board[row + direction[0]][column + direction[1]]
-    end
-
-    attacked
-  end
-
   private
 
   def place_piece(piece, end_coordinate)
