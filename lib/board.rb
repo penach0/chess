@@ -6,9 +6,6 @@ class Board
   include FENTranslator
   attr_reader :board
 
-  KNIGHT_MOVES = [[-2, -1], [-2, 1], [-1, -2], [-1, 2],
-                  [1, -2], [1, 2], [2, -1], [2, 1]].freeze
-
   PAWN_ATTACKING_DIRECTIONS = { 'white' => [[-1, -1], [-1, 1]],
                                 'black' => [[1, -1], [1, 1]] }.freeze
 
@@ -65,12 +62,12 @@ class Board
     main_diagonals('main') + main_diagonals('anti')
   end
 
-  def l_shape(position)
+  def single_move_finder(position, move_type)
     coordinate = algebraic_to_array(position)
     possible_squares = []
 
-    KNIGHT_MOVES.each do |direction|
-      row, column = knight_jump(coordinate, direction)
+    move_type.each do |direction|
+      row, column = single_move(coordinate, direction)
       possible_squares << board[row][column] if valid_position?(row, column)
     end
 
@@ -135,7 +132,7 @@ class Board
     board.transpose
   end
 
-  def knight_jump(coordinate, direction)
+  def single_move(coordinate, direction)
     row = coordinate[0] + direction[0]
     column = coordinate[1] + direction[1]
 

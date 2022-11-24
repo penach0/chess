@@ -3,6 +3,10 @@ require_relative 'chess'
 class King < Piece
   attr_reader :first_move
 
+  MOVES = [[-1, -1], [-1, 0], [-1, 1],
+           [0, -1], [0, 1],
+           [1, -1], [1, 0], [1, 1]].freeze
+
   def initialize(position, color, fen_value)
     super
     @symbol = (color == 'white' ? ' ♔ ' : ' ♚ ')
@@ -16,10 +20,10 @@ class King < Piece
   end
 
   def possible_moves(board)
-    available_squares(board) - board.squares_attacked_by(opponent_color)
+    attacking(board) - board.squares_attacked_by(opponent_color)
   end
 
-  def available_squares(board)
-    find_paths(position, all_directions(board)).map(&:first)
+  def attacking(board)
+    board.single_move_finder(position, MOVES)
   end
 end
