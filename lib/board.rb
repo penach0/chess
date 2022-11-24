@@ -3,6 +3,7 @@ require_relative 'chess'
 # Represents a Chessboard
 class Board
   include Coordinates
+  include Directions
   include FENTranslator
   attr_reader :board
 
@@ -36,17 +37,21 @@ class Board
                           .uniq
   end
 
-  # Not in use
-  def reverse_board
-    board.map(&:reverse).reverse
-  end
-  ##
-
   def print_board
     board.each do |line|
       puts line.join
     end
     puts
+  end
+
+  # From Directions
+
+  def find_paths(position, direction)
+    direction.select { |path| check_path(path, position) }
+  end
+
+  def adjacent_squares(path, position)
+
   end
 
   private
@@ -72,4 +77,92 @@ class Board
       Square.new(element, coordinate, color)
     end
   end
+
+  # From Directions
+
+  def check_path(path, position)
+    square_to_coordinates(path).include?(position)
+  end
+
+  def all_directions
+    straight_lines + diagonals
+  end
+
+  def straight_lines
+    lines + columns
+  end
+
+  def lines
+    board
+  end
+
+  def columns
+    board.transpose
+  end
+
+  def l_shape(position)
+    coordinate = algebraic_to_array(position)
+    possible_squares = []
+
+    KNIGHT_MOVES.each do |direction|
+      row, column = knight_jump(coordinate, direction)
+      possible_squares << board[row][column] if valid_position?(row, column)
+    end
+
+    possible_squares
+  end
+
+  def knight_jump(coordinate, direction)
+    row = coordinate[0] + direction[0]
+    column = coordinate[1] + direction[1]
+
+    [row, column]
+  end
+
+  def diagonals
+    main_diagonals + anti_diagonals
+  end
+
+  def anti_diagonals
+    main_diagonals(board.transpose.reverse)
+  end
+
+  def main_diagonals
+    diagonals = diagonals_from_top + diagonals_from_side
+
+    diagonals.select { |diagonal| diagonal.size > 1 }
+  end
+
+  def diagonals_from_top
+    diagonals = []
+    lines.first.each_index do |column|
+      diagonals << single_diagonal(0, column)
+    end
+    diagonals
+  end
+
+  def diagonals_from_side
+    diagonals = []
+    columns.first.each_index do |row|
+      next if row.zero?
+
+      diagonals << single_diagonal(row, 0)
+    end
+    diagonals
+  end
+
+  def single_diagonal(row, column)
+    diagonal = []
+    while valid_position?(row, column)
+      diagonal << board[row][column]
+      row += 1
+      column += 1
+    end
+    diagonal
+  end
+
+  def valid_position?(row, column)
+    [row, column].all? { |el| el.between?(0, SIZE - 1) }
+  end
+
 end
