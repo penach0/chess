@@ -20,7 +20,12 @@ class King < Piece
   end
 
   def possible_moves(board)
-    attacking(board) - board.squares_attacked_by(opponent_color)
+    all_moves = attacking(board)
+    forbidden_squares = board.squares_attacked_by(opponent_color)
+
+    all_moves.reject do |square|
+      square.piece.same_color?(self) || forbidden_squares.include?(square)
+    end
   end
 
   def attacking(board)
