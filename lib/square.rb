@@ -1,7 +1,6 @@
 require_relative 'chess'
 # Represents a square on the board
 class Square
-  include Coordinates
   attr_reader :coordinate, :color
   attr_accessor :piece
 

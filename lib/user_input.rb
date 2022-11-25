@@ -1,8 +1,6 @@
 require_relative 'chess'
 # This module will methods that query the user for input
 module UserInput
-  include Coordinates
-
   # UNDO = 'undo'.freeze
 
   def ask_name(color)
@@ -14,7 +12,7 @@ module UserInput
     print display_message(message, player_name)
     loop do
       input = gets.chomp
-      return input if valid_coordinate?(input) # || input == UNDO
+      return input if Coordinate.valid?(input)
 
       print display_message(:invalid_coordinate)
     end

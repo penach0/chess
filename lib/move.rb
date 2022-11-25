@@ -34,12 +34,12 @@ class Move
   end
 
   def available_starting
-    player.movable_pieces(board).map(&:position)
+    player.movable_pieces(board).map { |piece| piece.position.algebraic }
   end
 
   def available_ending
     possible_moves = board.piece_in(starting).possible_moves(board)
 
-    square_to_coordinates(possible_moves)
+    Coordinate.square_to_coordinates(possible_moves)
   end
 end

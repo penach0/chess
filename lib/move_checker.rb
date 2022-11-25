@@ -2,10 +2,8 @@ require_relative 'chess'
 # This module will find the allowed moves from
 # the available paths given the board state
 module MoveChecker
-  include Coordinates
-
   def piece_scope(path, piece)
-    piece_index = coordinate_index(path, piece.position)
+    piece_index = coordinate_index(path, piece.position.algebraic)
     backward = path[0, piece_index].reverse
     forward = path[piece_index + 1, path.length]
 
@@ -40,6 +38,6 @@ module MoveChecker
   end
 
   def coordinate_index(path, coordinate)
-    path.index { |square| square.coordinate == coordinate }
+    path.index { |square| square.coordinate.algebraic == coordinate }
   end
 end

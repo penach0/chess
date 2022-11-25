@@ -12,10 +12,6 @@ module FENTranslator
     fen_string.split('/').map { |line| line.split('') }
   end
 
-  def spread_empty_spaces(number)
-    Array.new(number.to_i, ' ')
-  end
-
   def build_board(board)
     board.map do |line|
       build_line(line)
@@ -27,5 +23,9 @@ module FENTranslator
       number = char.to_i
       number.zero? ? char : spread_empty_spaces(number)
     end.flatten
+  end
+
+  def spread_empty_spaces(number)
+    Array.new(number.to_i, ' ')
   end
 end

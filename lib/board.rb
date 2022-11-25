@@ -1,22 +1,28 @@
 require_relative 'chess'
-
 # Represents a Chessboard
 class Board
-  include Coordinates
   include FENTranslator
   attr_reader :board
+
+  SIZE = 8
 
   CASTLING_POSSIBILITIES = {['e1', 'g1'] => ['h1', 'f1'],
                             ['e1', 'c1'] => ['a1', 'd1'],
                             ['e8', 'g8'] => ['h8', 'f8'],
                             ['e8', 'c8'] => ['a8', 'd8']}.freeze
 
+  def self.inside_board?(row, column)
+    [row, column].all? { |el| el.between?(0, SIZE - 1) }
+  end
+
   def initialize(board: '8/8/8/8/8/8/8/8')
     @board = squarify_board(fen_to_array(board))
   end
 
   def square(coordinate)
-    board.flatten.find { |element| element.coordinate == coordinate }
+    row, column = Coordinate.to_array(coordinate)
+
+    board[row][column]
   end
 
   def piece_in(coordinate)
@@ -71,12 +77,10 @@ class Board
   end
 
   def find_single_moves(position, move_type)
-    coordinate = algebraic_to_array(position)
-
     move_type.filter_map do |direction|
-      row, column = single_move(coordinate, direction)
+      row, column = single_move(position, direction)
 
-      board[row][column] if valid_position?(row, column)
+      board[row][column] if Board.inside_board?(row, column)
     end
   end
 
@@ -98,7 +102,7 @@ class Board
 
   def squarify_line(line, row_index)
     line.map.with_index do |element, col_index|
-      coordinate = array_to_algebraic(row_index, col_index)
+      coordinate = Coordinate.new(row_index, col_index)
       color = Square.color(row_index, col_index)
       Square.new(element, coordinate, color)
     end
@@ -115,8 +119,8 @@ class Board
   end
 
   def single_move(coordinate, direction)
-    row = coordinate[0] + direction[0]
-    column = coordinate[1] + direction[1]
+    row = coordinate.row + direction[0]
+    column = coordinate.column + direction[1]
 
     [row, column]
   end
@@ -152,7 +156,7 @@ class Board
   def single_diagonal(row, column, direction)
     diagonals_board = board_direction(direction)
     diagonal = []
-    while valid_position?(row, column)
+    while Board.inside_board?(row, column)
       diagonal << diagonals_board[row][column]
       row += 1
       column += 1
@@ -167,9 +171,5 @@ class Board
     when 'anti'
       board.transpose.reverse
     end
-  end
-
-  def valid_position?(row, column)
-    [row, column].all? { |el| el.between?(0, SIZE - 1) }
   end
 end
