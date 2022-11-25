@@ -6,10 +6,10 @@ class Board
   include FENTranslator
   attr_reader :board
 
-  PAWN_ATTACKING_DIRECTIONS = { 'white' => [[-1, -1], [-1, 1]],
-                                'black' => [[1, -1], [1, 1]] }.freeze
-
-  PAWN_FORWARD_DIRECTIONS = { 'white' => [-1, -2], 'black' => [1, 2] }.freeze
+  CASTLING_POSSIBILITIES = {['e1', 'g1'] => ['h1', 'f1'],
+                            ['e1', 'c1'] => ['a1', 'd1'],
+                            ['e8', 'g8'] => ['h8', 'f8'],
+                            ['e8', 'c8'] => ['a8', 'd8']}.freeze
 
   def initialize(board: '8/8/8/8/8/8/8/8')
     @board = squarify_board(fen_to_array(board))
@@ -26,6 +26,14 @@ class Board
   def pieces_of_color(color)
     board.flatten
          .filter_map { |square| square.piece if square.occupied?(color) }
+  end
+
+  def castle(start_coordinate, end_coordinate)
+    castling_direction = [start_coordinate, end_coordinate]
+    move_piece(start_coordinate, end_coordinate)
+
+    rook_start, rook_end = CASTLING_POSSIBILITIES[castling_direction]
+    move_piece(rook_start, rook_end)
   end
 
   def move_piece(start_coordinate, end_coordinate)
@@ -70,16 +78,6 @@ class Board
 
       board[row][column] if valid_position?(row, column)
     end
-  end
-
-  def pawn_forward_path(position, color)
-    row, column = algebraic_to_array(position)
-    direction = PAWN_FORWARD_DIRECTIONS[color]
-
-    first_square = board[row + direction[0]][column]
-    second_square = board[row + direction[1]][column]
-
-    [first_square, second_square]
   end
 
   private
