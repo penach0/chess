@@ -10,6 +10,6 @@ class Knight < Piece
   end
 
   def attacking(board)
-    board.single_move_finder(position, MOVES)
+    board.find_single_moves(position, MOVES)
   end
 end

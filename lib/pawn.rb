@@ -26,7 +26,7 @@ class Pawn < Piece
   end
 
   def allowed_forward(board)
-    full_path = board.single_move_finder(position, FORWARD_MOVES[color])
+    full_path = board.find_single_moves(position, FORWARD_MOVES[color])
     first_square, second_square = full_path
 
     return [] if first_square.occupied?
@@ -43,6 +43,6 @@ class Pawn < Piece
   end
 
   def attacking(board)
-    board.single_move_finder(position, ATTACKING_MOVES[color])
+    board.find_single_moves(position, ATTACKING_MOVES[color])
   end
 end

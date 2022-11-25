@@ -70,7 +70,7 @@ class Board
     main_diagonals('main') + main_diagonals('anti')
   end
 
-  def single_move_finder(position, move_type)
+  def find_single_moves(position, move_type)
     coordinate = algebraic_to_array(position)
 
     move_type.filter_map do |direction|

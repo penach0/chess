@@ -7,6 +7,8 @@ class King < Piece
            [0, -1], [0, 1],
            [1, -1], [1, 0], [1, 1]].freeze
 
+  CASTLE = [[0, -2], [0, 2]].freeze
+
   def initialize(position, color, fen_value)
     super
     @symbol = (color == 'white' ? ' ♔ ' : ' ♚ ')
@@ -24,6 +26,20 @@ class King < Piece
   end
 
   def attacking(board)
-    board.single_move_finder(position, MOVES)
+    board.find_single_moves(position, MOVES)
+  end
+
+  def castle(board)
+    return [] unless can_castle?
+
+    queen_side, king_side = board.find_single_moves(position, CASTLE)
+  end
+
+  def can_castle?(rook)
+    [self, rook].all?(&:first_move)
+  end
+
+  def find_closest_rook(board, direction)
+    
   end
 end
