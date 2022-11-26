@@ -9,10 +9,10 @@ class Square
     coordinate_sum.even? ? 'light' : 'dark'
   end
 
-  def initialize(fen, coordinate, color)
-    @piece = Piece.for(fen, coordinate)
-    @coordinate = coordinate
-    @color = color
+  def initialize(row, column, fen)
+    @coordinate = Coordinate.new(row, column)
+    @piece = Piece.for(fen, @coordinate)
+    @color = Square.color(row, column)
   end
 
   def update(piece)
@@ -34,6 +34,18 @@ class Square
     return !empty? unless piece_color
 
     piece.color == piece_color
+  end
+
+  def row
+    coordinate.row
+  end
+
+  def column
+    coordinate.column
+  end
+
+  def algebraic
+    coordinate.algebraic
   end
 
   private

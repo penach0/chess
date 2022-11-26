@@ -1,5 +1,5 @@
-# This module holds information related to coordinates
-# It will translate from algebraic array coordinates to chess notation
+# This class represents a coordinate
+# It will also translate from array coordinates to algebraic chess notation
 class Coordinate
   attr_reader :row, :column, :algebraic
 
@@ -8,7 +8,7 @@ class Coordinate
   ALL_COORDINATES = COLUMNS.product(ROWS).map(&:join).freeze
 
   def self.square_to_coordinates(squares)
-    squares.map { |square| square.coordinate.algebraic }
+    squares.map(&:algebraic)
   end
 
   def self.to_algebraic(row, column)

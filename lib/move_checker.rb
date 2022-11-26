@@ -38,6 +38,6 @@ module MoveChecker
   end
 
   def coordinate_index(path, coordinate)
-    path.index { |square| square.coordinate.algebraic == coordinate }
+    path.index { |square| square.algebraic == coordinate }
   end
 end

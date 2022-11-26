@@ -101,10 +101,8 @@ class Board
   end
 
   def squarify_line(line, row_index)
-    line.map.with_index do |element, col_index|
-      coordinate = Coordinate.new(row_index, col_index)
-      color = Square.color(row_index, col_index)
-      Square.new(element, coordinate, color)
+    line.map.with_index do |fen, col_index|
+      Square.new(row_index, col_index, fen)
     end
   end
 
