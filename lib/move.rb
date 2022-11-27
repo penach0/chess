@@ -38,7 +38,7 @@ class Move
   end
 
   def available_ending
-    possible_moves = board.piece_in(starting).possible_moves(board)
+    possible_moves = board.piece_in(algebraic: starting).possible_moves(board)
 
     Coordinate.square_to_coordinates(possible_moves)
   end
