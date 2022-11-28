@@ -16,6 +16,8 @@ class Coordinate
   end
 
   def self.to_array(coordinate)
+    return [coordinate.row, coordinate.column] if coordinate.is_a?(Coordinate)
+
     column = COLUMNS.find_index(coordinate[0])
     row = ROWS.find_index(coordinate[1])
 

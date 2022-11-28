@@ -19,15 +19,13 @@ class Board
     @board = squarify_board(fen_to_array(board))
   end
 
-  def square(options)
-    row, column = Coordinate.to_array(options[:algebraic]) if options[:algebraic]
-    row, column = options[:row], options[:column] if options[:row]
-
+  def square(coordinate)
+    row, column = Coordinate.to_array(coordinate)
     board[row][column]
   end
 
-  def piece_in(options)
-    square(options).piece
+  def piece_in(coordinate)
+    square(coordinate).piece
   end
 
   def pieces_of_color(color)
@@ -44,7 +42,7 @@ class Board
   end
 
   def move_piece(start_coordinate, end_coordinate)
-    stored_piece = piece_in(algebraic: start_coordinate)
+    stored_piece = piece_in(start_coordinate)
 
     remove_piece(start_coordinate)
     place_piece(stored_piece, end_coordinate)
@@ -88,11 +86,11 @@ class Board
   private
 
   def place_piece(piece, end_coordinate)
-    square(algebraic: end_coordinate).update(piece)
+    square(end_coordinate).update(piece)
   end
 
   def remove_piece(coordinate)
-    square(algebraic: coordinate).clear
+    square(coordinate).clear
   end
 
   def squarify_board(board)
