@@ -6,6 +6,20 @@ class Board
 
   SIZE = 8
 
+  # Holds vector like representations of directions
+  Direction = Struct.new(:vertical, :lateral)
+
+  DIRECTIONS = {
+    right: Direction.new(0, 1),
+    left: Direction.new(0, -1),
+    up: Direction.new(-1, 0),
+    down: Direction.new(1, 0),
+    up_right: Direction.new(-1, 1),
+    up_left: Direction.new(-1, -1),
+    down_right: Direction.new(1, 1),
+    down_left: Direction.new(1, -1)
+  }.freeze
+
   CASTLING_POSSIBILITIES = {['e1', 'g1'] => ['h1', 'f1'],
                             ['e1', 'c1'] => ['a1', 'd1'],
                             ['e8', 'g8'] => ['h8', 'f8'],
