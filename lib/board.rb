@@ -20,6 +20,10 @@ class Board
     down_left: Direction.new(1, -1)
   }.freeze
 
+  def self.direction(choice)
+    DIRECTIONS[choice]
+  end
+
   CASTLING_POSSIBILITIES = {['e1', 'g1'] => ['h1', 'f1'],
                             ['e1', 'c1'] => ['a1', 'd1'],
                             ['e8', 'g8'] => ['h8', 'f8'],
@@ -95,6 +99,17 @@ class Board
 
       board[row][column] if Board.inside_board?(row, column)
     end
+  end
+
+  def path_in_direction(position, direction)
+    row, column = Coordinate.to_array(position)
+    path = []
+    while Board.inside_board?(row, column)
+      path << board[row][column]
+      row += direction.vertical
+      column += direction.lateral
+    end
+    path
   end
 
   private
