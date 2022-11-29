@@ -8,21 +8,21 @@ class Coordinate
   ALL_COORDINATES = COLUMNS.product(ROWS).map(&:join).freeze
 
   # Holds vector like representations of directions
-  Direction = Struct.new(:vertical, :lateral)
+  Vector = Struct.new(:vertical, :lateral)
 
-  DIRECTIONS = {
-    right: Direction.new(0, 1),
-    left: Direction.new(0, -1),
-    up: Direction.new(-1, 0),
-    down: Direction.new(1, 0),
-    up_right: Direction.new(-1, 1),
-    up_left: Direction.new(-1, -1),
-    down_right: Direction.new(1, 1),
-    down_left: Direction.new(1, -1)
+  VECTORS = {
+    right: Vector.new(0, 1),
+    left: Vector.new(0, -1),
+    up: Vector.new(-1, 0),
+    down: Vector.new(1, 0),
+    up_right: Vector.new(-1, 1),
+    up_left: Vector.new(-1, -1),
+    down_right: Vector.new(1, 1),
+    down_left: Vector.new(1, -1)
   }.freeze
 
-  def self.direction(choice)
-    DIRECTIONS[choice]
+  def self.single_direction(choice)
+    VECTORS[choice]
   end
 
   def self.square_to_coordinates(squares)
@@ -30,6 +30,8 @@ class Coordinate
   end
 
   def self.to_algebraic(row, column)
+    return if row > 7 || column > 7
+
     COLUMNS[column] + ROWS[row]
   end
 
@@ -53,7 +55,7 @@ class Coordinate
   end
 
   def traverse(direction)
-    direction = Coordinate.direction(direction)
+    direction = Coordinate.single_direction(direction)
 
     Coordinate.new(row + direction.vertical,
                    column + direction.lateral)
