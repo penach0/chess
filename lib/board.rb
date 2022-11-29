@@ -6,31 +6,13 @@ class Board
 
   SIZE = 8
 
-  # Holds vector like representations of directions
-  Direction = Struct.new(:vertical, :lateral)
-
-  DIRECTIONS = {
-    right: Direction.new(0, 1),
-    left: Direction.new(0, -1),
-    up: Direction.new(-1, 0),
-    down: Direction.new(1, 0),
-    up_right: Direction.new(-1, 1),
-    up_left: Direction.new(-1, -1),
-    down_right: Direction.new(1, 1),
-    down_left: Direction.new(1, -1)
-  }.freeze
-
-  def self.direction(choice)
-    DIRECTIONS[choice]
-  end
-
   CASTLING_POSSIBILITIES = {['e1', 'g1'] => ['h1', 'f1'],
                             ['e1', 'c1'] => ['a1', 'd1'],
                             ['e8', 'g8'] => ['h8', 'f8'],
                             ['e8', 'c8'] => ['a8', 'd8']}.freeze
 
-  def self.inside_board?(row, column)
-    [row, column].all? { |el| el.between?(0, SIZE - 1) }
+  def self.inside_board?(coordinate)
+    [coordinate.row, coordinate.column].all? { |el| el.between?(0, SIZE - 1) }
   end
 
   def initialize(board: '8/8/8/8/8/8/8/8')
@@ -101,13 +83,16 @@ class Board
     end
   end
 
+  def find_paths(position, directions)
+    directions.each_value.map { |direction| path_in_direction(position, direction) }
+  end
+
   def path_in_direction(position, direction)
-    row, column = Coordinate.to_array(position)
+    coordinate = position.traverse(direction)
     path = []
-    while Board.inside_board?(row, column)
-      path << board[row][column]
-      row += direction.vertical
-      column += direction.lateral
+    while Board.inside_board?(coordinate)
+      path << square(coordinate)
+      coordinate = coordinate.traverse(direction)
     end
     path
   end

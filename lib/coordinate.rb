@@ -7,6 +7,24 @@ class Coordinate
   COLUMNS = [*'a'..'h'].freeze
   ALL_COORDINATES = COLUMNS.product(ROWS).map(&:join).freeze
 
+  # Holds vector like representations of directions
+  Direction = Struct.new(:vertical, :lateral)
+
+  DIRECTIONS = {
+    right: Direction.new(0, 1),
+    left: Direction.new(0, -1),
+    up: Direction.new(-1, 0),
+    down: Direction.new(1, 0),
+    up_right: Direction.new(-1, 1),
+    up_left: Direction.new(-1, -1),
+    down_right: Direction.new(1, 1),
+    down_left: Direction.new(1, -1)
+  }.freeze
+
+  def self.direction(choice)
+    DIRECTIONS[choice]
+  end
+
   def self.square_to_coordinates(squares)
     squares.map(&:algebraic)
   end
@@ -25,12 +43,19 @@ class Coordinate
   end
 
   def self.valid?(coordinate)
-    ALL_COORDINATES.include?(coordinate)
+    ALL_COORDINATES.include?(coordinate.algebraic)
   end
 
   def initialize(row, column)
     @row = row
     @column = column
     @algebraic = Coordinate.to_algebraic(row, column)
+  end
+
+  def traverse(direction)
+    direction = Coordinate.direction(direction)
+
+    Coordinate.new(row + direction.vertical,
+                   column + direction.lateral)
   end
 end
