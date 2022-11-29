@@ -16,6 +16,6 @@ class Rook < Piece
   end
 
   def available_paths(board)
-    find_paths(position, board.straight_lines)
+    board.find_paths(position, :straight_lines)
   end
 end
