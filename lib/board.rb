@@ -75,17 +75,13 @@ class Board
     main_diagonals('main') + main_diagonals('anti')
   end
 
-  def find_single_moves(position, move_type)
-    move_type.filter_map do |direction|
-      row, column = single_move(position, direction)
-
-      board[row][column] if Board.inside_board?(row, column)
-    end
+  def find_single_moves(position, directions)
+    directions.map { |direction| single_move(position, direction) }.compact
   end
 
   def find_paths(position, directions)
     directions.map { |direction| path_in_direction(position, direction) }
-            .delete_if(&:empty?)
+              .delete_if(&:empty?)
   end
 
   def path_in_direction(position, direction)
@@ -122,19 +118,18 @@ class Board
 
   # From Directions
 
+  def single_move(position, direction)
+    coordinate = position.traverse(direction)
+
+    square(coordinate) if Board.inside_board?(coordinate)
+  end
+
   def lines
     board
   end
 
   def columns
     board.transpose
-  end
-
-  def single_move(coordinate, direction)
-    row = coordinate.row + direction[0]
-    column = coordinate.column + direction[1]
-
-    [row, column]
   end
 
   def anti_diagonals
