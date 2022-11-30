@@ -15,8 +15,16 @@ class Board
     [coordinate.row, coordinate.column].all? { |el| el.between?(0, SIZE - 1) }
   end
 
+  def self.flip(board)
+    board.map(&:reverse).reverse
+  end
+
   def initialize(board: '8/8/8/8/8/8/8/8')
     @board = squarify_board(fen_to_array(board))
+  end
+
+  def flip
+    @board = board.map(&:reverse).reverse
   end
 
   def square(coordinate)
@@ -55,10 +63,14 @@ class Board
   end
 
   def print_board
-    board.each do |line|
-      puts line.join
+    columns_indicator = "   a  b  c  d  e  f  g  h \n"
+    puts columns_indicator
+
+    board.each_with_index do |line, index|
+      line_number = SIZE - index
+      puts "#{line_number} #{line.join} #{line_number}"
     end
-    puts
+    puts columns_indicator
   end
 
   def find_single_moves(position, directions)
@@ -68,6 +80,16 @@ class Board
   def find_paths(position, directions)
     directions.map { |direction| path_in_direction(position, direction) }
               .delete_if(&:empty?)
+  end
+
+  def path_in_direction(position, direction)
+    coordinate = position.traverse(direction)
+    path = []
+    while Board.inside_board?(coordinate)
+      path << square(coordinate)
+      coordinate = coordinate.traverse(direction)
+    end
+    path
   end
 
   private
@@ -96,15 +118,5 @@ class Board
     coordinate = position.traverse(direction)
 
     square(coordinate) if Board.inside_board?(coordinate)
-  end
-
-  def path_in_direction(position, direction)
-    coordinate = position.traverse(direction)
-    path = []
-    while Board.inside_board?(coordinate)
-      path << square(coordinate)
-      coordinate = coordinate.traverse(direction)
-    end
-    path
   end
 end
