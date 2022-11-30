@@ -10,7 +10,7 @@ class Coordinate
   # Holds vector like representations of directions
   Vector = Struct.new(:vertical, :lateral) do
     def self.for(direction)
-      new(direction[:vertical], direction[:lateral])
+      new(direction[0], direction[1])
     end
   end
 

@@ -3,11 +3,12 @@ require_relative 'chess'
 class King < Piece
   attr_reader :first_move
 
-  MOVES = [[-1, -1], [-1, 0], [-1, 1],
-           [0, -1], [0, 1],
-           [1, -1], [1, 0], [1, 1]].freeze
+  MOVES = ALL_DIRECTIONS.values
 
   CASTLE = [[0, -2], [0, 2]].freeze
+
+  CLOSEST_ROOK = { queen_side: 0,
+                   king_side: 7 }.freeze
 
   def initialize(position, color, fen_value)
     super
@@ -30,7 +31,8 @@ class King < Piece
   end
 
   def castle(board)
-    return [] unless can_castle?
+    rook = find_closest_rook(board, direction)
+    return [] unless can_castle?(rook)
 
     queen_side, king_side = board.find_single_moves(position, CASTLE)
   end
@@ -40,6 +42,11 @@ class King < Piece
   end
 
   def find_closest_rook(board, direction)
-    
+    king_row = position.row
+    rook_column = CLOSEST_ROOK(direction)
+
+    rook_coordinate = Coordinate.to_algebraic(king_row, rook_column)
+
+    board.piece_in(rook_coordinate)
   end
 end

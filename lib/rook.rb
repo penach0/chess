@@ -3,6 +3,8 @@ require_relative 'chess'
 class Rook < Piece
   attr_reader :first_move
 
+  MOVES = HORIZONTAL_VERTICAL.values
+
   def initialize(position, color, fen_value)
     super
     @symbol = (color == 'white' ? ' ♖ ' : ' ♜ ')
@@ -16,6 +18,6 @@ class Rook < Piece
   end
 
   def available_paths(board)
-    board.find_paths(position, :straight_lines)
+    board.find_paths(position, MOVES)
   end
 end
