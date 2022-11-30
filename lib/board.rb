@@ -11,11 +11,6 @@ class Board
                             ['e8', 'g8'] => ['h8', 'f8'],
                             ['e8', 'c8'] => ['a8', 'd8']}.freeze
 
-  DIRECTIONS = {
-    diagonals: [:up_right, :up_left, :down_right, :down_left],
-    straight_lines: [:right, :left, :up, :down]
-  }.freeze
-
   def self.inside_board?(coordinate)
     [coordinate.row, coordinate.column].all? { |el| el.between?(0, SIZE - 1) }
   end
@@ -89,8 +84,8 @@ class Board
   end
 
   def find_paths(position, directions)
-    DIRECTIONS[directions].map { |direction| path_in_direction(position, direction) }
-                          .delete_if(&:empty?)
+    directions.map { |direction| path_in_direction(position, direction) }
+            .delete_if(&:empty?)
   end
 
   def path_in_direction(position, direction)

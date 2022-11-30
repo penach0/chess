@@ -6,6 +6,13 @@ class Piece
   include MoveChecker
   attr_reader :color, :symbol, :position, :fen_value
 
+  DIAGONAL = [
+    { vertical: -1, lateral: -1 },
+    { vertical: -1, lateral: 1 },
+    { vertical: 1, lateral: -1 },
+    { vertical: 1, lateral: 1 }
+  ].freeze
+
   def self.for(fen, position)
     case fen
     when 'K' then King.new(position, 'white', fen)

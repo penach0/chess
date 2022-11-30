@@ -7,6 +7,6 @@ class Bishop < Piece
   end
 
   def available_paths(board)
-    board.find_paths(position, :diagonals)
+    board.find_paths(position, DIAGONAL)
   end
 end

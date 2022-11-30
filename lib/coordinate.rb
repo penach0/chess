@@ -8,21 +8,10 @@ class Coordinate
   ALL_COORDINATES = COLUMNS.product(ROWS).map(&:join).freeze
 
   # Holds vector like representations of directions
-  Vector = Struct.new(:vertical, :lateral)
-
-  VECTORS = {
-    right: Vector.new(0, 1),
-    left: Vector.new(0, -1),
-    up: Vector.new(-1, 0),
-    down: Vector.new(1, 0),
-    up_right: Vector.new(-1, 1),
-    up_left: Vector.new(-1, -1),
-    down_right: Vector.new(1, 1),
-    down_left: Vector.new(1, -1)
-  }.freeze
-
-  def self.single_direction(choice)
-    VECTORS[choice]
+  Vector = Struct.new(:vertical, :lateral) do
+    def self.for(direction)
+      new(direction[:vertical], direction[:lateral])
+    end
   end
 
   def self.square_to_coordinates(squares)
@@ -56,7 +45,7 @@ class Coordinate
   end
 
   def traverse(direction)
-    direction = Coordinate.single_direction(direction)
+    direction = Vector.for(direction)
 
     Coordinate.new(row + direction.vertical,
                    column + direction.lateral)
