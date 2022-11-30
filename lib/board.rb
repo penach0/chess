@@ -15,20 +15,13 @@ class Board
     [coordinate.row, coordinate.column].all? { |el| el.between?(0, SIZE - 1) }
   end
 
-  def self.flip(board)
-    board.map(&:reverse).reverse
-  end
-
   def initialize(board: '8/8/8/8/8/8/8/8')
     @board = squarify_board(fen_to_array(board))
   end
 
-  def flip
-    @board = board.map(&:reverse).reverse
-  end
-
   def square(coordinate)
     row, column = Coordinate.to_array(coordinate)
+
     board[row][column]
   end
 

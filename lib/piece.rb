@@ -6,12 +6,21 @@ class Piece
   include MoveChecker
   attr_reader :color, :symbol, :position, :fen_value
 
-  DIAGONAL = [
-    { vertical: -1, lateral: -1 },
-    { vertical: -1, lateral: 1 },
-    { vertical: 1, lateral: -1 },
-    { vertical: 1, lateral: 1 }
-  ].freeze
+  DIAGONAL = {
+    up_right: [-1, 1],
+    up_left: [-1, -1],
+    down_right: [1, 1],
+    down_left: [1, -1]
+  }.freeze
+
+  HORIZONTAL_VERTICAL = {
+    right: [0, 1],
+    left: [0, -1],
+    up: [-1, 0],
+    down: [1, 0]
+  }.freeze
+
+  ALL_DIRECTIONS = DIAGONAL.merge(HORIZONTAL_VERTICAL)
 
   def self.for(fen, position)
     case fen

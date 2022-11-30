@@ -4,7 +4,7 @@ require_relative 'chess'
 class Game
   attr_reader :board, :black_player, :white_player, :current_player
 
-  def initialize(board: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR')
+  def initialize(board: 'rnbqkbnr/pppppppp/8/3b4/8/8/PPPPPPPP/RNBQKBNR')
     @board = Board.new(board: board)
     @white_player = Player.new('white', @board)
     @black_player = Player.new('black', @board)
