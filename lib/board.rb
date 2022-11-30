@@ -33,6 +33,12 @@ class Board
          .filter_map { |square| square.piece if square.occupied?(color) }
   end
 
+  def squares_attacked_by(color)
+    pieces_of_color(color).map { |piece| piece.attacking(self) }
+                          .flatten
+                          .uniq
+  end
+
   def castle(start_coordinate, end_coordinate)
     castling_direction = [start_coordinate, end_coordinate]
     move_piece(start_coordinate, end_coordinate)
@@ -48,31 +54,11 @@ class Board
     place_piece(stored_piece, end_coordinate)
   end
 
-  def squares_attacked_by(color)
-    pieces_of_color(color).map { |piece| piece.attacking(self) }
-                          .flatten
-                          .uniq
-  end
-
   def print_board
     board.each do |line|
       puts line.join
     end
     puts
-  end
-
-  # From Directions
-
-  def all_directions
-    straight_lines + diagonals
-  end
-
-  def straight_lines
-    lines + columns
-  end
-
-  def diagonals
-    main_diagonals('main') + main_diagonals('anti')
   end
 
   def find_single_moves(position, directions)
@@ -82,16 +68,6 @@ class Board
   def find_paths(position, directions)
     directions.map { |direction| path_in_direction(position, direction) }
               .delete_if(&:empty?)
-  end
-
-  def path_in_direction(position, direction)
-    coordinate = position.traverse(direction)
-    path = []
-    while Board.inside_board?(coordinate)
-      path << square(coordinate)
-      coordinate = coordinate.traverse(direction)
-    end
-    path
   end
 
   private
@@ -116,67 +92,19 @@ class Board
     end
   end
 
-  # From Directions
-
   def single_move(position, direction)
     coordinate = position.traverse(direction)
 
     square(coordinate) if Board.inside_board?(coordinate)
   end
 
-  def lines
-    board
-  end
-
-  def columns
-    board.transpose
-  end
-
-  def anti_diagonals
-    main_diagonals(board.transpose.reverse)
-  end
-
-  def main_diagonals(direction)
-    diagonals = diagonals_from_top(direction) + diagonals_from_side(direction)
-
-    diagonals.select { |diagonal| diagonal.size > 1 }
-  end
-
-  def diagonals_from_top(direction)
-    diagonals = []
-    lines.first.each_index do |column|
-      diagonals << single_diagonal(0, column, direction)
+  def path_in_direction(position, direction)
+    coordinate = position.traverse(direction)
+    path = []
+    while Board.inside_board?(coordinate)
+      path << square(coordinate)
+      coordinate = coordinate.traverse(direction)
     end
-    diagonals
-  end
-
-  def diagonals_from_side(direction)
-    diagonals = []
-    columns.first.each_index do |row|
-      next if row.zero?
-
-      diagonals << single_diagonal(row, 0, direction)
-    end
-    diagonals
-  end
-
-  def single_diagonal(row, column, direction)
-    diagonals_board = board_direction(direction)
-    diagonal = []
-    while Board.inside_board?(row, column)
-      diagonal << diagonals_board[row][column]
-      row += 1
-      column += 1
-    end
-    diagonal
-  end
-
-  def board_direction(direction)
-    case direction 
-    when 'main'
-      board
-    when 'anti'
-      board.transpose.reverse
-    end
+    path
   end
 end
