@@ -60,6 +60,14 @@ class Piece
     available_paths(board).map { |path| piece_scope(path) }.flatten
   end
 
+  def attacking_king?(board)
+    attacking(board).any? do |square|
+      piece = square.piece
+
+      piece.is_a?(King) && piece.color == opponent_color
+    end
+  end
+
   def update_position(new_position)
     @position = new_position
   end
