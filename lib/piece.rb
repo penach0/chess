@@ -57,15 +57,35 @@ class Piece
   end
 
   def attacking(board)
-    available_paths(board).map { |path| piece_scope(path) }.flatten
+    attacking_paths(board).flatten
+  end
+
+  def attacking_paths(board)
+    available_paths(board).map { |path| piece_scope(path) }
   end
 
   def attacking_king?(board)
     attacking(board).any? do |square|
       piece = square.piece
 
-      piece.is_a?(King) && piece.color == opponent_color
+      piece.king?(opponent_color)
     end
+  end
+
+  def checking_line(board)
+    checking_line =
+      attacking_paths(board).find do |path|
+        pieces = path_pieces(path)
+
+        pieces.last.king?(opponent_color)
+      end
+    checking_line.pop
+
+    checking_line
+  end
+
+  def king?(passed_color)
+    is_a?(King) && color == passed_color
   end
 
   def update_position(new_position)
