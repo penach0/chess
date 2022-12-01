@@ -16,6 +16,10 @@ class King < Piece
     @first_move = true
   end
 
+  def in_check?(board)
+    forbidden_squares(board).any? { |square| square.coordinate == position }
+  end
+
   def update_position(new_position)
     super
 
