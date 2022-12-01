@@ -5,10 +5,10 @@ class King < Piece
 
   MOVES = ALL_DIRECTIONS.values
 
-  CASTLE = [[0, -2], [0, 2]].freeze
-
-  CLOSEST_ROOK = { queen_side: 0,
-                   king_side: 7 }.freeze
+  CASTLING_DIRECTIONS = {
+    queen_side: HORIZONTAL_VERTICAL[:left],
+    king_side: HORIZONTAL_VERTICAL[:right]
+  }.freeze
 
   def initialize(position, color, fen_value)
     super
@@ -23,30 +23,44 @@ class King < Piece
   end
 
   def possible_moves(board)
-    super - board.squares_attacked_by(opponent_color)
+    (super + possible_castling(board)) - forbidden_squares(board)
   end
 
   def attacking(board)
     board.find_single_moves(position, MOVES)
   end
 
-  def castle(board)
-    rook = find_closest_rook(board, direction)
-    return [] unless can_castle?(rook)
-
-    queen_side, king_side = board.find_single_moves(position, CASTLE)
+  def castling_path(board)
+    board.find_paths(position, CASTLING_DIRECTIONS.values)
   end
 
-  def can_castle?(rook)
-    [self, rook].all?(&:first_move)
+  def possible_castling(board)
+    castling_path(board).filter_map do |path|
+      rook = path.pop.piece
+      king_landing_square = path[1]
+
+      king_landing_square if can_castle?(board, rook, path)
+    end
   end
 
-  def find_closest_rook(board, direction)
-    king_row = position.row
-    rook_column = CLOSEST_ROOK(direction)
+  def forbidden_squares(board)
+    board.squares_attacked_by(opponent_color)
+  end
 
-    rook_coordinate = Coordinate.to_algebraic(king_row, rook_column)
+  def can_castle?(board, rook, path)
+    return false if rook.null?
 
-    board.piece_in(rook_coordinate)
+    castling_possible?(rook, path) && castling_safe?(board, path)
+  end
+
+  def castling_possible?(rook, path)
+    [self, rook].all?(&:first_move) && path_empty?(path)
+  end
+
+  def castling_safe?(board, path)
+    forbidden_squares = forbidden_squares(board)
+    king_path = path[0..1]
+
+    king_path.none? { |square| forbidden_squares.include?(square) }
   end
 end

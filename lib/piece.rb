@@ -57,7 +57,7 @@ class Piece
   end
 
   def attacking(board)
-    available_paths(board).map { |path| piece_scope(path, self) }.flatten
+    available_paths(board).map { |path| piece_scope(path) }.flatten
   end
 
   def update_position(new_position)

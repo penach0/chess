@@ -2,7 +2,7 @@ require_relative 'chess'
 # This module will find the allowed moves from
 # the available paths given the board state
 module MoveChecker
-  def piece_scope(path, piece)
+  def piece_scope(path)
     return path if path_empty?(path)
 
     path[0, blocking_piece_index(path) + 1]
