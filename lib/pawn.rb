@@ -49,4 +49,8 @@ class Pawn < Piece
   def attacking(board)
     board.find_single_moves(position, ATTACKING_MOVES[color])
   end
+
+  def checking_line(_board)
+    []
+  end
 end

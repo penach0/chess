@@ -12,4 +12,8 @@ class Knight < Piece
   def attacking(board)
     board.find_single_moves(position, MOVES)
   end
+
+  def checking_line(_board)
+    []
+  end
 end
