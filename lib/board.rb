@@ -40,6 +40,10 @@ class Board
                           .uniq
   end
 
+  def checking_pieces(color)
+    pieces_of_color(color).find_all { |piece| piece.attacking_king?(self) }
+  end
+
   def castle(start_coordinate, end_coordinate)
     castling_direction = [start_coordinate, end_coordinate]
     move_piece(start_coordinate, end_coordinate)
