@@ -44,6 +44,14 @@ class Board
     pieces_of_color(color).find_all { |piece| piece.attacking_king?(self) }
   end
 
+  def checking_line(color)
+    checking_pieces = checking_pieces(color)
+    return [] if checking_pieces.size > 1
+
+    checking_pieces.first
+                   .checking_line(self)
+  end
+
   def castle(start_coordinate, end_coordinate)
     castling_direction = [start_coordinate, end_coordinate]
     move_piece(start_coordinate, end_coordinate)
