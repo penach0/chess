@@ -34,8 +34,7 @@ class Pawn < Piece
     first_square, second_square = full_path
 
     return [] if first_square.occupied?
-    return [first_square] if second_square.occupied?
-    return full_path if first_move
+    return full_path if first_move && second_square.empty?
 
     [first_square]
   end
