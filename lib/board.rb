@@ -47,6 +47,11 @@ class Board
     Board.new(board: fen_string)
   end
 
+  def in_check?(color)
+    pieces_of_color(color).find { |piece| piece.king?(color) }
+                          .in_check?(self)
+  end
+
   def checking_piece(color)
     checking_pieces =
       pieces_of_color(color).find_all { |piece| piece.attacking_king?(self) }
