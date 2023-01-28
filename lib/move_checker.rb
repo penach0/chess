@@ -8,10 +8,22 @@ module MoveChecker
     path[0, blocking_piece_index(path) + 1]
   end
 
+  def path_pieces(path)
+    path.map(&:piece)
+  end
+
   private
 
-  def forbidden_move(square, piece)
-    square.piece.same_color?(piece)
+  def forbidden_move(board, square, piece)
+    square.piece.same_color?(piece) || move_into_check?(board, square, piece)
+  end
+
+  def move_into_check?(board, square, piece)
+    board_dup = board.clone
+
+    board_dup.move_piece(piece.position, square.coordinate)
+
+    board_dup.in_check?(piece.color)
   end
 
   def blocking_piece_index(path)
