@@ -2,7 +2,7 @@ require_relative '../chess'
 # This class represents a chess piece
 # Specific pieces are descendent from it
 class Piece
-  include PathFinder
+  # include PathFinder
   include MoveChecker
   attr_reader :color, :symbol, :position, :fen_value
 
@@ -53,7 +53,7 @@ class Piece
   end
 
   def possible_moves(board)
-    attacking(board).reject { |square| forbidden_move(square, self) }
+    attacking(board).reject { |square| forbidden_move(board, square, self) }
   end
 
   def attacking(board)
@@ -62,26 +62,6 @@ class Piece
 
   def attacking_paths(board)
     available_paths(board).map { |path| piece_scope(path) }
-  end
-
-  def attacking_king?(board)
-    attacking(board).any? do |square|
-      piece = square.piece
-
-      piece.king?(opponent_color)
-    end
-  end
-
-  def checking_line(board)
-    checking_line =
-      attacking_paths(board).find do |path|
-        pieces = path_pieces(path)
-
-        pieces.last.king?(opponent_color)
-      end
-    checking_line.pop
-
-    checking_line
   end
 
   def king?(passed_color)

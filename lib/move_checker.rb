@@ -15,10 +15,10 @@ module MoveChecker
   private
 
   def forbidden_move(board, square, piece)
-    square.piece.same_color?(piece) || move_into_check?(board, square, piece)
+    square.piece.same_color?(piece) || moves_into_check?(board, square, piece)
   end
 
-  def move_into_check?(board, square, piece)
+  def moves_into_check?(board, square, piece)
     board_dup = board.clone
 
     board_dup.move_piece(piece.position, square.coordinate)

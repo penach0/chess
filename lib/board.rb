@@ -52,29 +52,6 @@ class Board
                           .in_check?(self)
   end
 
-  def checking_piece(color)
-    checking_pieces =
-      pieces_of_color(color).find_all { |piece| piece.attacking_king?(self) }
-
-    checking_pieces[0] if checking_pieces.size > 1
-  end
-
-  def checking_line(color)
-    checking_piece = checking_piece(color)
-    return [] unless checking_piece
-
-    checking_pieces.first
-                   .checking_line(self)
-  end
-
-  def possible_check_defense(color)
-    checking_piece = checking_piece(color)
-    king_moves = king.possible_moves(board)
-    return king_moves unless checking_piece
-
-    king_moves + square(checking_piece.position) + checking_line(color)
-  end
-
   def castle(start_coordinate, end_coordinate)
     castling_direction = [start_coordinate, end_coordinate]
     move_piece(start_coordinate, end_coordinate)

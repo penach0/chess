@@ -26,7 +26,9 @@ class Pawn < Piece
   end
 
   def possible_moves(board)
-    allowed_forward(board) + possible_captures(board)
+    available_squares = allowed_forward(board) + possible_captures(board)
+
+    available_squares.reject { |square| moves_into_check?(board, square, self) }
   end
 
   def allowed_forward(board)
@@ -47,9 +49,5 @@ class Pawn < Piece
 
   def attacking(board)
     board.find_single_moves(position, ATTACKING_MOVES[color])
-  end
-
-  def checking_line(_board)
-    []
   end
 end
