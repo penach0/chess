@@ -12,7 +12,6 @@ class King < Piece
 
   def initialize(position, color, fen_value)
     super
-    @symbol = (color == 'white' ? ' ♔ ' : ' ♚ ')
     @first_move = true
   end
 

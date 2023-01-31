@@ -3,11 +3,6 @@ require_relative '../chess'
 class Bishop < Piece
   MOVES = DIAGONAL.values
 
-  def initialize(position, color, fen_value)
-    super
-    @symbol = (color == 'white' ? ' ♗ ' : ' ♝ ')
-  end
-
   def available_paths(board)
     board.find_paths(position, MOVES)
   end

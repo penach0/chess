@@ -4,6 +4,7 @@ require_relative '../chess'
 class Piece
   # include PathFinder
   include MoveChecker
+  include FENTranslator
   attr_reader :color, :symbol, :position, :fen_value
 
   DIAGONAL = {
@@ -44,6 +45,7 @@ class Piece
     @position = position
     @color = color
     @fen_value = fen_value
+    @symbol = FEN_TO_SYMBOL[fen_value]
   end
 
   def movable?(board)
