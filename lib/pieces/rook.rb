@@ -38,10 +38,6 @@ class Rook < Piece
     available_paths(board).map { |path| piece_scope(path) }
   end
 
-  def king?(passed_color)
-    is_a?(King) && color == passed_color
-  end
-
   private
 
   def off_board?

@@ -25,10 +25,6 @@ class Queen < Piece
     board.find_paths(position, MOVES)
   end
 
-  def king?(passed_color)
-    is_a?(King) && color == passed_color
-  end
-
   private
 
   def off_board?

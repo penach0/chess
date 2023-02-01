@@ -48,7 +48,7 @@ class Board
   end
 
   def in_check?(color)
-    pieces_of_color(color).find { |piece| piece.king?(color) }
+    pieces_of_color(color).find { |piece| piece.is_a?(King) }
                           .in_check?(self)
   end
 
