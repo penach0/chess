@@ -38,10 +38,6 @@ class Knight < Piece
     color == 'white' ? 'black' : 'white'
   end
 
-  def null?
-    !color
-  end
-
   def captured
     @position = nil
   end

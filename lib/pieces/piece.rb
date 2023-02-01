@@ -48,6 +48,10 @@ class Piece
     @symbol = FEN_TO_SYMBOL[fen_value]
   end
 
+  def null?
+    false
+  end
+
   private
 
   def to_s
