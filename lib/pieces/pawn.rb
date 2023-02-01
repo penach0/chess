@@ -19,7 +19,7 @@ class Pawn < Piece
   end
 
   def update_position(new_position)
-    super
+    @position = new_position
 
     @first_move = false if first_move
   end
@@ -48,5 +48,45 @@ class Pawn < Piece
 
   def attacking(board)
     board.find_single_moves(position, ATTACKING_MOVES[color])
+  end
+
+  def movable?(board)
+    return if off_board?
+
+    !possible_moves(board).empty?
+  end
+
+  def attacking_paths(board)
+    available_paths(board).map { |path| piece_scope(path) }
+  end
+
+  def king?(passed_color)
+    is_a?(King) && color == passed_color
+  end
+
+  def same_color?(other)
+    color == other.color
+  end
+
+  def opponent_color
+    color == 'white' ? 'black' : 'white'
+  end
+
+  def null?
+    !color
+  end
+
+  def captured
+    @position = nil
+  end
+
+  private
+
+  def off_board?
+    !position
+  end
+
+  def to_s
+    symbol
   end
 end
