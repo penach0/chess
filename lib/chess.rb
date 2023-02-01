@@ -1,5 +1,4 @@
 require_relative 'coordinate'
-require_relative 'path_finder'
 require_relative 'move_checker'
 require_relative 'fen_translator'
 require_relative '../spec/board_decoder'
