@@ -2,16 +2,15 @@ require_relative 'chess'
 # This class represents a player of a chess game
 class Player
   include UserInput
-  attr_reader :name, :color, :pieces, :king
+  attr_reader :name, :color
 
-  def initialize(color, board, name = ask_name(color))
-    @name = name
+  def initialize(color, name = ask_name(color))
     @color = color
-    @pieces = fetch_pieces(board)
+    @name = name
   end
 
   def movable_pieces(board)
-    pieces.select { |piece| piece.movable?(board) }
+    pieces(board).select { |piece| piece.movable?(board) }
   end
 
   def make_move(board)
@@ -20,7 +19,7 @@ class Player
 
   private
 
-  def fetch_pieces(board)
+  def pieces(board)
     board.pieces_of_color(color)
   end
 end
