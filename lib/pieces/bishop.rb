@@ -8,8 +8,6 @@ class Bishop < Piece
   end
 
   def movable?(board)
-    return if off_board?
-
     !possible_moves(board).empty?
   end
 
@@ -23,11 +21,5 @@ class Bishop < Piece
 
   def attacking_paths(board)
     available_paths(board).map { |path| piece_scope(path) }
-  end
-
-  private
-
-  def off_board?
-    !position
   end
 end

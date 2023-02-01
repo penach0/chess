@@ -10,10 +10,4 @@ class NoPiece < Piece
   def null?
     true
   end
-
-  private
-
-  def off_board?
-    !position
-  end
 end

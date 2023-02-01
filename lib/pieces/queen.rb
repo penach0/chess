@@ -4,8 +4,6 @@ class Queen < Piece
   MOVES = ALL_DIRECTIONS.values
 
   def movable?(board)
-    return if off_board?
-
     !possible_moves(board).empty?
   end
 
@@ -23,11 +21,5 @@ class Queen < Piece
 
   def available_paths(board)
     board.find_paths(position, MOVES)
-  end
-
-  private
-
-  def off_board?
-    !position
   end
 end
