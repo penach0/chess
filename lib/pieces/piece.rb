@@ -47,4 +47,10 @@ class Piece
     @fen_value = fen_value
     @symbol = FEN_TO_SYMBOL[fen_value]
   end
+
+  private
+
+  def to_s
+    symbol
+  end
 end

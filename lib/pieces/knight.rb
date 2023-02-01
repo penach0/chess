@@ -51,8 +51,4 @@ class Knight < Piece
   def off_board?
     !position
   end
-
-  def to_s
-    symbol
-  end
 end
