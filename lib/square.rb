@@ -16,8 +16,8 @@ class Square
   end
 
   def update(piece)
-    self.piece.captured
     self.piece = piece
+
     piece.update_position(coordinate)
   end
 

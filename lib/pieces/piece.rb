@@ -60,10 +60,6 @@ class Piece
     color == 'white' ? 'black' : 'white'
   end
 
-  def captured
-    @position = nil
-  end
-
   def null?
     false
   end
