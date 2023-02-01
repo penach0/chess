@@ -11,10 +11,6 @@ class NoPiece < Piece
     true
   end
 
-  def captured
-    @position = nil
-  end
-
   private
 
   def off_board?

@@ -49,18 +49,6 @@ class King < Piece
     is_a?(King) && color == passed_color
   end
 
-  def same_color?(other)
-    color == other.color
-  end
-
-  def opponent_color
-    color == 'white' ? 'black' : 'white'
-  end
-
-  def captured
-    @position = nil
-  end
-
   private
 
   def off_board?

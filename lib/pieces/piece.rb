@@ -48,6 +48,22 @@ class Piece
     @symbol = FEN_TO_SYMBOL[fen_value]
   end
 
+  def update_position(new_position)
+    @position = new_position
+  end
+
+  def same_color?(other)
+    color == other.color
+  end
+
+  def opponent_color
+    color == 'white' ? 'black' : 'white'
+  end
+
+  def captured
+    @position = nil
+  end
+
   def null?
     false
   end
