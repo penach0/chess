@@ -50,10 +50,6 @@ class Pawn < Piece
     board.find_single_moves(position, ATTACKING_MOVES[color])
   end
 
-  def movable?(board)
-    !possible_moves(board).empty?
-  end
-
   def attacking_paths(board)
     available_paths(board).map { |path| piece_scope(path) }
   end

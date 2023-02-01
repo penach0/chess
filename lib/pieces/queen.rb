@@ -3,10 +3,6 @@ require_relative '../chess'
 class Queen < Piece
   MOVES = ALL_DIRECTIONS.values
 
-  def movable?(board)
-    !possible_moves(board).empty?
-  end
-
   def possible_moves(board)
     attacking(board).reject { |square| forbidden_move(board, square, self) }
   end

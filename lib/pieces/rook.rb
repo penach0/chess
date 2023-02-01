@@ -20,10 +20,6 @@ class Rook < Piece
     board.find_paths(position, MOVES)
   end
 
-  def movable?(board)
-    !possible_moves(board).empty?
-  end
-
   def possible_moves(board)
     attacking(board).reject { |square| forbidden_move(board, square, self) }
   end

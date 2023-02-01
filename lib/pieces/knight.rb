@@ -8,10 +8,6 @@ class Knight < Piece
     board.find_single_moves(position, MOVES)
   end
 
-  def movable?(board)
-    !possible_moves(board).empty?
-  end
-
   def possible_moves(board)
     attacking(board).reject { |square| forbidden_move(board, square, self) }
   end

@@ -48,6 +48,10 @@ class Piece
     @symbol = FEN_TO_SYMBOL[fen_value]
   end
 
+  def movable?(board)
+    !possible_moves(board).empty?
+  end
+
   def update_position(new_position)
     @position = new_position
   end
