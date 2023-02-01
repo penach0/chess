@@ -32,38 +32,4 @@ class King < Piece
   def attacking(board)
     board.find_single_moves(position, MOVES)
   end
-
-  def castling_path(board)
-    board.find_paths(position, CASTLING_DIRECTIONS.values)
-  end
-
-  def possible_castling(board)
-    castling_path(board).filter_map do |path|
-      rook = path.pop.piece
-      king_landing_square = path[1]
-
-      king_landing_square if can_castle?(board, rook, path)
-    end
-  end
-
-  def forbidden_squares(board)
-    board.squares_attacked_by(opponent_color)
-  end
-
-  def can_castle?(board, rook, path)
-    return false if rook.null? || in_check?(board)
-
-    castling_possible?(rook, path) && castling_safe?(board, path)
-  end
-
-  def castling_possible?(rook, path)
-    [self, rook].all?(&:first_move) && path_empty?(path)
-  end
-
-  def castling_safe?(board, path)
-    forbidden_squares = forbidden_squares(board)
-    king_path = path[0..1]
-
-    king_path.none? { |square| forbidden_squares.include?(square) }
-  end
 end
