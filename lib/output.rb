@@ -8,6 +8,7 @@ module Output
       invalid: "That #{input} is not valid. Please try again: ",
       win: "Congratulations #{player_name}, you won the game!!!",
       draw: "The game is drawn, well fought by both players!!!",
+      play_again: "Do you want to play again?(y/n): "
     }[message]
   end
 

@@ -1,10 +1,10 @@
 require_relative 'chess'
 # Represents a Game
 class Game
-  include Output
+  include UserInput
   attr_reader :board, :black_player, :white_player, :current_player
 
-  STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/1b6/8/PPPPPPPP/RNBQKBNR'.freeze
+  STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.freeze
 
   def initialize(board: STARTING_POSITION)
     @board = Board.new(board: board)
@@ -18,10 +18,11 @@ class Game
     half_move until game_end?
 
     puts end_message
+    play_again if yes_or_no?(:play_again)
   end
 
-  def play_again?
-
+  def play_again
+    Game.new(board: STARTING_POSITION).playing
   end
 
   def half_move
