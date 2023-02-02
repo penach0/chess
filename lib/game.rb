@@ -1,7 +1,7 @@
 require_relative 'chess'
-
 # Represents a Game
 class Game
+  include Output
   attr_reader :board, :black_player, :white_player, :current_player
 
   def initialize(board: 'rnbqkbnr/pppppppp/8/8/1b6/8/PPPPPPPP/RNBQKBNR')
@@ -17,6 +17,8 @@ class Game
 
   def playing
     half_move until game_end?
+
+    puts end_message
   end
 
   def half_move
@@ -54,5 +56,9 @@ class Game
 
   def change_player
     @current_player = (@current_player == white_player ? black_player : white_player)
+  end
+
+  def end_message
+    checkmate? ? display_message(:win, current_player.name) : display_message(:draw)
   end
 end

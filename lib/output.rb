@@ -5,7 +5,9 @@ module Output
     {
       start_square: "#{player_name} insert the coordinate of the piece you want to move: ",
       end_square: 'Insert the coordinate of the destination square: ',
-      invalid_coordinate: 'That coordinate is not valid. Please try again: '
+      invalid_coordinate: 'That coordinate is not valid. Please try again: ',
+      win: "Congratulations #{player_name}, you won the game!!!",
+      draw: "The game is drawn, well fought by both players!!!"
     }[message]
   end
 end
