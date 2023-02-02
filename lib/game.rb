@@ -12,15 +12,16 @@ class Game
   end
 
   def playing
+    display_board
     half_move until game_end?
 
     puts end_message
   end
 
   def half_move
-    board.print_board
     current_player.make_move(board)
     change_player
+    display_board
   end
 
   def game_end?

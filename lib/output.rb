@@ -10,4 +10,13 @@ module Output
       draw: "The game is drawn, well fought by both players!!!"
     }[message]
   end
+
+  def display_board
+    columns_indicator = "   a  b  c  d  e  f  g  h \n"
+
+    system('clear')
+    puts columns_indicator
+    print board
+    puts columns_indicator
+  end
 end
