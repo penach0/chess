@@ -4,7 +4,7 @@ require_relative 'chess'
 class Game
   attr_reader :board, :black_player, :white_player, :current_player
 
-  def initialize(board: 'rnbqkbnr/pppppppp/8/8/1b6/8/PPPPPPPP/RNBQKBNR')
+  def initialize(board: '8/7b/8/8/k7/7K/8/8') # 'rnbqkbnr/pppppppp/8/8/1b6/8/PPPPPPPP/RNBQKBNR')
     @board = Board.new(board: board)
     @white_player = Player.new('white')
     @black_player = Player.new('black')
@@ -37,6 +37,16 @@ class Game
 
   def stalemate?
     !board.in_check?(current_player.color) && current_player.no_moves?(board)
+  end
+
+  def insuficcient_material?
+    remaining_pieces = board.pieces
+    number_of_pieces = remaining_pieces.count
+
+    return true if number_of_pieces == 2
+
+    number_of_pieces == 3 &&
+      remaining_pieces.one? { |piece| piece.is_a?(Bishop) || piece.is_a?(Knight) }
   end
 
   private
