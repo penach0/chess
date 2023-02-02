@@ -1,5 +1,6 @@
 require_relative 'coordinate'
 require_relative 'move_checker'
+require_relative 'move_set'
 require_relative 'fen_translator'
 require_relative '../spec/board_decoder'
 require_relative 'user_input'

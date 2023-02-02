@@ -5,9 +5,6 @@ class Move
   include MoveChecker
   attr_reader :board, :player, :starting, :ending
 
-  CASTLING_POSSIBILITIES = [['e1', 'g1'], ['e1', 'c1'],
-                            ['e8', 'g8'], ['e8', 'c8']].freeze
-
   def self.execute(board, player)
     new(board, player).execute
   end
@@ -20,8 +17,6 @@ class Move
   end
 
   def execute
-    return board.castle(starting, ending) if CASTLING_POSSIBILITIES.include?([starting, ending])
-
     board.move_piece(starting, ending)
   end
 

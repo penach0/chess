@@ -6,8 +6,8 @@ class Game
 
   def initialize(board: 'rnbqkbnr/pppppppp/8/8/1b6/8/PPPPPPPP/RNBQKBNR')
     @board = Board.new(board: board)
-    @white_player = Player.new('white', @board)
-    @black_player = Player.new('black', @board)
+    @white_player = Player.new('white')
+    @black_player = Player.new('black')
     @current_player = @white_player
   end
 
