@@ -9,6 +9,10 @@ class Player
     @name = name
   end
 
+  def no_moves?(board)
+    movable_pieces(board).empty?
+  end
+
   def movable_pieces(board)
     pieces(board).select { |piece| piece.movable?(board) }
   end

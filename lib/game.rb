@@ -31,6 +31,10 @@ class Game
     2.times { half_move }
   end
 
+  def checkmate?
+    board.in_check?(current_player.color) && current_player.no_moves?(board)
+  end
+
   private
 
   def change_player
