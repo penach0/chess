@@ -35,6 +35,10 @@ class Game
     board.in_check?(current_player.color) && current_player.no_moves?(board)
   end
 
+  def stalemate?
+    !board.in_check?(current_player.color) && current_player.no_moves?(board)
+  end
+
   private
 
   def change_player
