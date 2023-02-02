@@ -25,7 +25,7 @@ class Move
   def validation(input, available_options)
     return input if available_options.include?(input)
 
-    validation(ask_coordinate(:invalid_coordinate), available_options)
+    validation(ask_coordinate(:invalid, input: 'coordinate'), available_options)
   end
 
   def available_starting

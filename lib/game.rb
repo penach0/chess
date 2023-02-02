@@ -20,6 +20,10 @@ class Game
     puts end_message
   end
 
+  def play_again?
+
+  end
+
   def half_move
     current_player.make_move(board)
     change_player
@@ -58,6 +62,6 @@ class Game
   end
 
   def end_message
-    checkmate? ? display_message(:win, current_player.name) : display_message(:draw)
+    checkmate? ? display_message(:win, player_name: current_player.name) : display_message(:draw)
   end
 end

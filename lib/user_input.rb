@@ -10,12 +10,12 @@ module UserInput
   end
 
   def ask_coordinate(message, player_name = nil)
-    print display_message(message, player_name)
+    print display_message(message, player_name: player_name)
     loop do
-      input = gets.chomp
+      input = gets.chomp.downcase
       return input if Coordinate.valid?(input)
 
-      print display_message(:invalid_coordinate)
+      print display_message(:invalid, input: 'coordinate')
     end
   end
 end
