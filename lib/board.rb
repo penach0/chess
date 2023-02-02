@@ -17,7 +17,7 @@ class Board
   end
 
   def initialize(board: '8/8/8/8/8/8/8/8')
-    @board = squarify_board(BoardBuilder.new(board).fen_to_array)
+    @board = BoardBuilder.new(board).squarify_board
   end
 
   def square(coordinate)
