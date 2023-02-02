@@ -11,10 +11,6 @@ class Game
     @current_player = @white_player
   end
 
-  def setup
-    board.print_board
-  end
-
   def playing
     half_move until game_end?
 
@@ -22,8 +18,8 @@ class Game
   end
 
   def half_move
-    current_player.make_move(board)
     board.print_board
+    current_player.make_move(board)
     change_player
   end
 

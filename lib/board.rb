@@ -69,6 +69,8 @@ class Board
 
   def print_board
     columns_indicator = "   a  b  c  d  e  f  g  h \n"
+
+    system('clear')
     puts columns_indicator
 
     board.each_with_index do |line, index|
