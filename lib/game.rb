@@ -31,12 +31,16 @@ class Game
     2.times { half_move }
   end
 
-  def draw?
-    stalemate? || insuficcient_material?
+  def game_end?
+    draw? || checkmate?
   end
 
   def checkmate?
     board.in_check?(current_player.color) && current_player.no_moves?(board)
+  end
+
+  def draw?
+    stalemate? || insuficcient_material?
   end
 
   def stalemate?
