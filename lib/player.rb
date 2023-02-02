@@ -24,6 +24,6 @@ class Player
   private
 
   def pieces(board)
-    board.pieces_of_color(color)
+    board.pieces(color)
   end
 end

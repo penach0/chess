@@ -30,15 +30,15 @@ class Board
     square(coordinate).piece
   end
 
-  def pieces_of_color(color)
+  def pieces(color = nil)
     board.flatten
          .filter_map { |square| square.piece if square.occupied?(color) }
   end
 
   def squares_attacked_by(color)
-    pieces_of_color(color).map { |piece| piece.attacking(self) }
-                          .flatten
-                          .uniq
+    pieces(color).map { |piece| piece.attacking(self) }
+                 .flatten
+                 .uniq
   end
 
   def clone
@@ -48,8 +48,8 @@ class Board
   end
 
   def in_check?(color)
-    pieces_of_color(color).find { |piece| piece.is_a?(King) }
-                          .in_check?(self)
+    pieces(color).find { |piece| piece.is_a?(King) }
+                 .in_check?(self)
   end
 
   def castle(start_coordinate, end_coordinate)
