@@ -4,13 +4,15 @@ class Game
   include UserInput
   attr_reader :board, :black_player, :white_player, :current_player
 
-  STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.freeze
+  STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w'.freeze
 
-  def initialize(board: STARTING_POSITION)
-    @board = Board.new(board: board)
+  def initialize(string: STARTING_POSITION)
+    fen = FEN.new(string)
+
+    @board = Board.new(board: fen.board)
     @white_player = Player.new('white')
     @black_player = Player.new('black')
-    @current_player = @white_player
+    @current_player = (fen.current_player == 'w' ? white_player : black_player)
   end
 
   def playing
