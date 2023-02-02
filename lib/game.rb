@@ -4,7 +4,9 @@ class Game
   include Output
   attr_reader :board, :black_player, :white_player, :current_player
 
-  def initialize(board: 'rnbqkbnr/pppppppp/8/8/1b6/8/PPPPPPPP/RNBQKBNR')
+  STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/1b6/8/PPPPPPPP/RNBQKBNR'.freeze
+
+  def initialize(board: STARTING_POSITION)
     @board = Board.new(board: board)
     @white_player = Player.new('white')
     @black_player = Player.new('black')
