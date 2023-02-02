@@ -2,11 +2,15 @@
 class BoardBuilder
   attr_reader :fen_string
 
+  def self.build(string)
+    new(string).build_board
+  end
+
   def initialize(string)
     @fen_string = string
   end
 
-  def squarify_board
+  def build_board
     fen_to_array.map.with_index do |line, row_index|
       squarify_line(line, row_index)
     end
