@@ -80,6 +80,13 @@ class Board
     puts columns_indicator
   end
 
+  def to_s
+    board.each_with_index.reduce('') do |string, (line, index)|
+      line_number = SIZE - index
+      string + "#{line_number} #{line.join} #{line_number}\n"
+    end
+  end
+
   def find_single_moves(position, directions)
     directions.map { |direction| single_move(position, direction) }.compact
   end
