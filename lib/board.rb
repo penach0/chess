@@ -1,7 +1,6 @@
 require_relative 'chess'
 # Represents a Chessboard
 class Board
-  include FENTranslator
   include BoardDecoder
   attr_reader :board
 
@@ -16,8 +15,8 @@ class Board
     [coordinate.row, coordinate.column].all? { |el| el.between?(0, SIZE - 1) }
   end
 
-  def initialize(board: '8/8/8/8/8/8/8/8')
-    @board = BoardBuilder.new(board).squarify_board
+  def initialize(fen: '8/8/8/8/8/8/8/8')
+    @board = BoardBuilder.build(fen)
   end
 
   def square(coordinate)
@@ -44,7 +43,7 @@ class Board
   def clone
     fen_string = fen_string(board)
 
-    Board.new(board: fen_string)
+    Board.new(fen: fen_string)
   end
 
   def in_check?(color)
@@ -94,18 +93,6 @@ class Board
 
   def remove_piece(coordinate)
     square(coordinate).clear
-  end
-
-  def squarify_board(board)
-    board.map.with_index do |line, row_index|
-      squarify_line(line, row_index)
-    end
-  end
-
-  def squarify_line(line, row_index)
-    line.map.with_index do |fen, col_index|
-      Square.new(row_index, col_index, fen)
-    end
   end
 
   def single_move(position, direction)

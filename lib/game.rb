@@ -6,10 +6,10 @@ class Game
 
   STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w'.freeze
 
-  def initialize(string: STARTING_POSITION)
-    fen = FEN.new(string)
+  def initialize(position: STARTING_POSITION)
+    fen = FEN.new(position)
 
-    @board = Board.new(board: fen.board)
+    @board = Board.new(fen: fen.board)
     @white_player = Player.new('white')
     @black_player = Player.new('black')
     @current_player = (fen.current_player == 'w' ? white_player : black_player)
@@ -24,7 +24,7 @@ class Game
   end
 
   def play_again
-    Game.new(board: STARTING_POSITION).playing
+    Game.new(position: STARTING_POSITION).playing
   end
 
   def half_move
