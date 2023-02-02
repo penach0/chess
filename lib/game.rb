@@ -16,19 +16,13 @@ class Game
   end
 
   def playing
-    5.times do
-      full_move
-    end
+    half_move until game_end?
   end
 
   def half_move
     current_player.make_move(board)
     board.print_board
     change_player
-  end
-
-  def full_move
-    2.times { half_move }
   end
 
   def game_end?
