@@ -21,16 +21,16 @@ class BoardBuilder
   end
 
   def fen_to_array
-    board = split_fen
-    build_board(board)
+    fen_lines = split_fen
+    build_array(fen_lines)
   end
 
   def split_fen
     fen_string.split('/').map { |line| line.split('') }
   end
 
-  def build_board(board)
-    board.map do |line|
+  def build_array(fen_lines)
+    fen_lines.map do |line|
       build_line(line)
     end
   end
