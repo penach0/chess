@@ -18,4 +18,15 @@ module UserInput
       print display_message(:invalid, input: 'coordinate')
     end
   end
+
+  def yes_or_no?(message)
+    print display_message(message)
+    loop do
+      input = gets.chomp.downcase
+      return true if %w[y yes].include?(input)
+      return false if %w[n no].include?(input)
+
+      print display_message(:invalid, input: 'option')
+    end
+  end
 end
