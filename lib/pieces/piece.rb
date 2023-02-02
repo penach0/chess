@@ -68,6 +68,10 @@ class Piece
     false
   end
 
+  def minor_piece?
+    false
+  end
+
   private
 
   def to_s

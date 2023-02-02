@@ -4,7 +4,7 @@ require_relative 'chess'
 class Game
   attr_reader :board, :black_player, :white_player, :current_player
 
-  def initialize(board: '8/7b/8/8/k7/7K/8/8') # 'rnbqkbnr/pppppppp/8/8/1b6/8/PPPPPPPP/RNBQKBNR')
+  def initialize(board: 'rnbqkbnr/pppppppp/8/8/1b6/8/PPPPPPPP/RNBQKBNR')
     @board = Board.new(board: board)
     @white_player = Player.new('white')
     @black_player = Player.new('black')
@@ -45,8 +45,7 @@ class Game
 
     return true if number_of_pieces == 2
 
-    number_of_pieces == 3 &&
-      remaining_pieces.one? { |piece| piece.is_a?(Bishop) || piece.is_a?(Knight) }
+    number_of_pieces == 3 && remaining_pieces.one?(&:minor_piece?)
   end
 
   private

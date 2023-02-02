@@ -18,4 +18,8 @@ class Bishop < Piece
   def attacking_paths(board)
     available_paths(board).map { |path| piece_scope(path) }
   end
+
+  def minor_piece?
+    true
+  end
 end
