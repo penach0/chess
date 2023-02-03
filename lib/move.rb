@@ -12,7 +12,7 @@ class Move
   def initialize(board, player)
     @board = board
     @player = player
-    @starting = validation(ask_coordinate(:start_square, player.name), available_starting)
+    @starting = validation(ask_coordinate(:start_square, player_name: player.name), available_starting)
     @ending = validation(ask_coordinate(:end_square), available_ending)
   end
 

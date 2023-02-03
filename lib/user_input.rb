@@ -9,8 +9,8 @@ module UserInput
     gets.chomp
   end
 
-  def ask_coordinate(message, player_name = nil)
-    print display_message(message, player_name: player_name)
+  def ask_coordinate(message, player_name: nil, input: nil)
+    print display_message(message, player_name: player_name, input: input)
     loop do
       input = gets.chomp.downcase
       return input if Coordinate.valid?(input)
