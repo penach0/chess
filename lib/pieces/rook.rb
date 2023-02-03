@@ -16,20 +16,12 @@ class Rook < Piece
     @first_move = false if first_move
   end
 
-  def available_paths(board)
-    board.find_paths(position, MOVES)
-  end
-
   def possible_moves(board)
-    attacking(board).reject { |square| forbidden_move(board, square, self) }
+    MoveSet.legal_moves(board, self)
   end
 
   def attacking(board)
-    attacking_paths(board).flatten
-  end
-
-  def attacking_paths(board)
-    available_paths(board).map { |path| piece_scope(path) }
+    MoveSet.attacking(board, self)
   end
 
   def directions
