@@ -9,9 +9,9 @@ class Path
   end
 
   def piece_scope
-    return path if path_empty?(path)
+    return path if empty?
 
-    path[0, blocking_piece_index(path) + 1]
+    path[0, blocking_piece_index + 1]
   end
 
   def blocking_piece_index

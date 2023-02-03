@@ -10,6 +10,11 @@ class MoveSet
     @board = board
   end
 
+  def attacking
+    available_paths.map(&:piece_scope)
+                   .flatten
+  end
+
   def available_paths
     piece.directions
          .map { |direction| Path.new(board, starting_position, direction) }
