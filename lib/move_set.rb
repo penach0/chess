@@ -4,25 +4,14 @@ require_relative 'chess'
 class MoveSet
   attr_reader :board, :starting_position, :piece
 
-  def initialize(board, coordinate)
-    @board = board
+  def initialize(board, coordinate, piece)
     @starting_position = coordinate
-    @piece = board.piece_in(coordinate)
+    @piece = piece
+    @board = board
   end
 
-  def possible_moves
-    piece.attacking(board).reject { |square| forbidden_move(board, square, starting_position) }
-  end
-
-  def forbidden_move(square, piece)
-    square.piece.same_color?(piece) || moves_into_check?(square, piece)
-  end
-
-  def moves_into_check?(square, piece)
-    board_dup = board.clone
-
-    board_dup.move_piece(starting_position, square.coordinate)
-
-    board_dup.in_check?(piece.color)
+  def available_paths
+    piece.directions
+         .map { |direction| Path.new(board, starting_position, direction) }
   end
 end
