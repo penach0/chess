@@ -19,4 +19,8 @@ class Knight < Piece
   def minor_piece?
     true
   end
+
+  def directions
+    MOVES
+  end
 end

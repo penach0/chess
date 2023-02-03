@@ -19,6 +19,10 @@ class Bishop < Piece
     available_paths(board).map { |path| piece_scope(path) }
   end
 
+  def directions
+    MOVES
+  end
+
   def minor_piece?
     true
   end

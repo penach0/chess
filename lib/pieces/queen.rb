@@ -18,4 +18,8 @@ class Queen < Piece
   def available_paths(board)
     board.find_paths(position, MOVES)
   end
+
+  def directions
+    MOVES
+  end
 end

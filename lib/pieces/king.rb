@@ -38,4 +38,8 @@ class King < Piece
   def attacking_paths(board)
     available_paths(board).map { |path| piece_scope(path) }
   end
+
+  def directions
+    MOVES
+  end
 end
