@@ -75,13 +75,15 @@ class Board
               .delete_if(&:empty?)
   end
 
-  def path_in_direction(position, direction)
+  def path_in_direction(position, direction, steps: SIZE)
     coordinate = position.traverse(direction)
     path = []
-    while Board.inside_board?(coordinate)
+
+    while path.size < steps && Board.inside_board?(coordinate)
       path << square(coordinate)
       coordinate = coordinate.traverse(direction)
     end
+
     path
   end
 
