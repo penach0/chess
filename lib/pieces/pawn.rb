@@ -40,6 +40,10 @@ class Pawn < Piece
     [first_square]
   end
 
+  def can_double_jump(path)
+    first_move && path.empty?
+  end
+
   def possible_captures(board)
     attacked_squares = attacking(board)
 
