@@ -4,24 +4,23 @@ require_relative 'chess'
 class MoveSet
   attr_reader :board, :starting_position, :piece
 
-  def initialize(board, coordinate, piece)
-    @starting_position = coordinate
-    @piece = piece
+  def initialize(board, piece)
     @board = board
+    @piece = piece
   end
 
   def legal_moves
-    attacking.reject { |square| forbidden_move?(square, starting_position) }
+    attacking.reject { |square| forbidden_move?(square) }
   end
 
-  def forbidden_move?(square, starting_position)
-    square.occupied?(piece.color) || moves_into_check?(square, starting_position)
+  def forbidden_move?(square)
+    square.occupied?(piece.color) || moves_into_check?(square)
   end
 
-  def moves_into_check?(square, starting_position)
+  def moves_into_check?(square)
     board_dup = board.clone
 
-    board_dup.move_piece(starting_position, square.coordinate)
+    board_dup.move_piece(piece.position, square.coordinate)
 
     board_dup.in_check?(piece.color)
   end
@@ -33,6 +32,6 @@ class MoveSet
 
   def available_paths
     piece.directions
-         .map { |direction| Path.new(board, starting_position, direction) }
+         .map { |direction| Path.new(board, piece.position, direction) }
   end
 end
