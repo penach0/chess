@@ -2,19 +2,20 @@ require_relative 'chess'
 # This class represents a collection of all of a piece's legal moves.
 # It will do work on finding moves and validating them
 class MoveSet
-  attr_reader :board, :starting_position, :piece
+  attr_reader :board, :starting_position, :piece, :steps
 
-  def self.legal_moves(board, piece)
-    new(board, piece).legal_moves
+  def self.legal_moves(board, piece, steps: board.size)
+    new(board, piece, steps:).legal_moves
   end
 
-  def self.attacking(board, piece)
-    new(board, piece).attacking
+  def self.attacking(board, piece, steps: board.size)
+    new(board, piece, steps:).attacking
   end
 
-  def initialize(board, piece)
+  def initialize(board, piece, steps: board.size)
     @board = board
     @piece = piece
+    @steps = steps
   end
 
   def legal_moves
@@ -42,6 +43,6 @@ class MoveSet
 
   def available_paths
     piece.directions
-         .map { |direction| Path.new(board, piece.position, direction) }
+         .map { |direction| Path.new(board, piece.position, direction, steps:) }
   end
 end

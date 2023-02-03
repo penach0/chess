@@ -2,7 +2,7 @@ require_relative 'chess'
 # Represents a Chessboard
 class Board
   include BoardDecoder
-  attr_reader :board
+  attr_reader :board, :size
 
   SIZE = 8
 
@@ -17,6 +17,7 @@ class Board
 
   def initialize(fen: '8/8/8/8/8/8/8/8')
     @board = BoardBuilder.build(fen)
+    @size = SIZE
   end
 
   def square(coordinate)
