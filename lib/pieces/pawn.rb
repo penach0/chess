@@ -13,7 +13,7 @@ class Pawn < Piece
     'black' => HORIZONTAL_VERTICAL[:down]
   }.freeze
 
-  def initialize(position, color, fen_value)
+  def initialize(position, fen_value)
     super
     @first_move = true
   end

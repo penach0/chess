@@ -23,29 +23,29 @@ class Piece
 
   ALL_DIRECTIONS = DIAGONAL.merge(HORIZONTAL_VERTICAL)
 
-  def self.for(fen, position)
+  def self.for(position, fen)
     case fen
-    when 'K' then King.new(position, 'white', fen)
-    when 'Q' then Queen.new(position, 'white', fen)
-    when 'R' then Rook.new(position, 'white', fen)
-    when 'B' then Bishop.new(position, 'white', fen)
-    when 'N' then Knight.new(position, 'white', fen)
-    when 'P' then Pawn.new(position, 'white', fen)
-    when 'k' then King.new(position, 'black', fen)
-    when 'q' then Queen.new(position, 'black', fen)
-    when 'r' then Rook.new(position, 'black', fen)
-    when 'b' then Bishop.new(position, 'black', fen)
-    when 'n' then Knight.new(position, 'black', fen)
-    when 'p' then Pawn.new(position, 'black', fen)
-    else NoPiece.new(position, nil, fen)
+    when 'K' then King.new(position, fen)
+    when 'Q' then Queen.new(position, fen)
+    when 'R' then Rook.new(position, fen)
+    when 'B' then Bishop.new(position, fen)
+    when 'N' then Knight.new(position, fen)
+    when 'P' then Pawn.new(position, fen)
+    when 'k' then King.new(position, fen)
+    when 'q' then Queen.new(position, fen)
+    when 'r' then Rook.new(position, fen)
+    when 'b' then Bishop.new(position, fen)
+    when 'n' then Knight.new(position, fen)
+    when 'p' then Pawn.new(position, fen)
+    else NoPiece.new(position, fen)
     end
   end
 
-  def initialize(position, color, fen_value)
+  def initialize(position, fen_value)
     @position = position
-    @color = color
     @fen_value = fen_value
-    @symbol = FEN_TO_SYMBOL[fen_value]
+    @color = fen_info(fen_value, :color)
+    @symbol = fen_info(fen_value, :symbol)
   end
 
   def movable?(board)

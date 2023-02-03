@@ -11,7 +11,7 @@ class Square
 
   def initialize(row, column, fen)
     @coordinate = Coordinate.new(row, column)
-    @piece = Piece.for(fen, @coordinate)
+    @piece = Piece.for(@coordinate, fen)
     @color = Square.color(row, column)
   end
 
@@ -22,7 +22,7 @@ class Square
   end
 
   def clear
-    self.piece = NoPiece.new(coordinate, nil, ' ')
+    self.piece = NoPiece.new(coordinate, ' ')
   end
 
   def empty?

@@ -10,7 +10,7 @@ class King < Piece
     king_side: HORIZONTAL_VERTICAL[:right]
   }.freeze
 
-  def initialize(position, color, fen_value)
+  def initialize(position, fen_value)
     super
     @first_move = true
   end

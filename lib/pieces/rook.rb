@@ -5,7 +5,7 @@ class Rook < Piece
 
   MOVES = HORIZONTAL_VERTICAL.values
 
-  def initialize(position, color, fen_value)
+  def initialize(position, fen_value)
     super
     @first_move = true
   end
