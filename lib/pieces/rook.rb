@@ -24,6 +24,10 @@ class Rook < Piece
     MoveSet.attacking(board, self)
   end
 
+  def available_paths(board)
+    directions.map { |direction| Path.new(board, position, direction) }
+  end
+
   def directions
     MOVES
   end

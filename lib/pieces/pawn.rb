@@ -40,7 +40,7 @@ class Pawn < Piece
     [first_square]
   end
 
-  def can_double_jump(path)
+  def can_double_jump?(path)
     first_move && path.empty?
   end
 
@@ -51,6 +51,7 @@ class Pawn < Piece
   end
 
   def attacking(board)
+    # MoveSet.attacking(board, self, steps: 1)
     board.find_single_moves(position, ATTACKING_MOVES[color])
   end
 
