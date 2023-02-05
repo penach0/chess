@@ -14,6 +14,14 @@ class Path
     path[0, blocking_piece_index + 1]
   end
 
+  def free_squares
+    return self if empty?
+
+    @path = path[0, blocking_piece_index]
+
+    self
+  end
+
   def blocking_piece_index
     path.index(&:occupied?)
   end
