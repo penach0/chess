@@ -6,11 +6,6 @@ class Board
 
   SIZE = 8
 
-  CASTLING_POSSIBILITIES = {['e1', 'g1'] => ['h1', 'f1'],
-                            ['e1', 'c1'] => ['a1', 'd1'],
-                            ['e8', 'g8'] => ['h8', 'f8'],
-                            ['e8', 'c8'] => ['a8', 'd8']}.freeze
-
   def self.inside_board?(coordinate)
     [coordinate.row, coordinate.column].all? { |el| el.between?(0, SIZE - 1) }
   end
@@ -52,28 +47,11 @@ class Board
                  .in_check?(self)
   end
 
-  def castle(start_coordinate, end_coordinate)
-    castling_direction = [start_coordinate, end_coordinate]
-    move_piece(start_coordinate, end_coordinate)
-
-    rook_start, rook_end = CASTLING_POSSIBILITIES[castling_direction]
-    move_piece(rook_start, rook_end)
-  end
-
   def move_piece(start_coordinate, end_coordinate)
     stored_piece = piece_in(start_coordinate)
 
     remove_piece(start_coordinate)
     place_piece(stored_piece, end_coordinate)
-  end
-
-  def find_single_moves(position, directions)
-    directions.map { |direction| single_move(position, direction) }.compact
-  end
-
-  def find_paths(position, directions)
-    directions.map { |direction| path_in_direction(position, direction) }
-              .delete_if(&:empty?)
   end
 
   def path_in_direction(position, direction, steps: SIZE)
@@ -96,12 +74,6 @@ class Board
 
   def remove_piece(coordinate)
     square(coordinate).clear
-  end
-
-  def single_move(position, direction)
-    coordinate = position.traverse(direction)
-
-    square(coordinate) if Board.inside_board?(coordinate)
   end
 
   def to_s
