@@ -23,6 +23,10 @@ class King < Piece
     MoveSet.attacking(board, self)
   end
 
+  def available_paths(board)
+    attacking_paths(board)
+  end
+
   def attacking_paths(board)
     directions.map { |direction| Path.new(board, position, direction, steps: 1) }
   end

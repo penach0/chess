@@ -20,6 +20,10 @@ class Rook < Piece
     MoveSet.legal_moves(board, self)
   end
 
+  def available_paths(board)
+    attacking_paths(board)
+  end
+
   def attacking(board)
     MoveSet.attacking(board, self)
   end

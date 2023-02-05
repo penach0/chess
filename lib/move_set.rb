@@ -18,7 +18,8 @@ class MoveSet
   end
 
   def legal_moves
-    attacking.reject { |square| forbidden_move?(square) }
+    piece.available_paths(board)
+         .reject { |square| forbidden_move?(square) }
   end
 
   def attacking
