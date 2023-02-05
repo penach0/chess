@@ -22,6 +22,12 @@ class Path
     self
   end
 
+  def blocked_by?(color)
+    return false if empty?
+
+    path[blocking_piece_index].occupied?(color)
+  end
+
   def blocking_piece_index
     path.index(&:occupied?)
   end
