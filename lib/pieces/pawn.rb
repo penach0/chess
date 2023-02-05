@@ -40,6 +40,12 @@ class Pawn < Piece
     [first_square]
   end
 
+  def forward_path(board)
+    steps = (first_move ? 2 : 1)
+
+    Path.new(board, position, forward_direction, steps:).free_squares
+  end
+
   def possible_captures(board)
     attacked_squares = attacking(board)
 
