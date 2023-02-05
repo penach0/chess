@@ -22,7 +22,7 @@ class MoveSet
   end
 
   def attacking
-    piece.available_paths(board)
+    piece.attacking_paths(board)
          .map(&:piece_scope)
          .flatten
   end

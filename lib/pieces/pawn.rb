@@ -31,7 +31,7 @@ class Pawn < Piece
   end
 
   def allowed_forward(board)
-    full_path = board.path_in_direction(position, FORWARD_MOVES[color])[0..1]
+    full_path = board.path_in_direction(position, forward_direction)[0..1]
     first_square, second_square = full_path
 
     return [] if first_square.occupied?
@@ -40,22 +40,25 @@ class Pawn < Piece
     [first_square]
   end
 
-  def can_double_jump?(path)
-    first_move && path.empty?
-  end
-
   def possible_captures(board)
     attacked_squares = attacking(board)
 
-    attacked_squares.reject { |square| square.piece.same_color?(self) || square.empty? }
+    attacked_squares.select { |square| square.occupied?(opponent_color) }
   end
 
   def attacking(board)
-    # MoveSet.attacking(board, self, steps: 1)
-    board.find_single_moves(position, ATTACKING_MOVES[color])
+    MoveSet.attacking(board, self)
   end
 
   def attacking_paths(board)
-    available_paths(board).map { |path| piece_scope(path) }
+    attacking_directions.map { |direction| Path.new(board, position, direction, steps: 1) }
+  end
+
+  def attacking_directions
+    ATTACKING_MOVES[color]
+  end
+
+  def forward_direction
+    FORWARD_MOVES[color]
   end
 end
