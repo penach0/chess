@@ -46,6 +46,10 @@ class Pawn < Piece
     Path.new(board, position, forward_direction, steps:).free_squares
   end
 
+  def capturing_paths(board)
+    attacking_paths(board).select { |path| path.blocked_by?(opponent_color) }
+  end
+
   def possible_captures(board)
     attacked_squares = attacking(board)
 
