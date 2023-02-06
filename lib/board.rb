@@ -1,7 +1,6 @@
 require_relative 'chess'
 # Represents a Chessboard
 class Board
-  include BoardDecoder
   attr_reader :board, :size
 
   SIZE = 8
@@ -37,9 +36,11 @@ class Board
   end
 
   def clone
-    fen_string = board_fen_string(board)
+    Board.new(fen: fen_value)
+  end
 
-    Board.new(fen: fen_string)
+  def fen_value
+    BoardDecoder.decode(board)
   end
 
   def in_check?(color)

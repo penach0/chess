@@ -10,12 +10,12 @@ class BoardDecoder
     @board = board
   end
 
-  private
-
   def to_fen
     board_string = array_to_string
     join_spaces(board_string)
   end
+
+  private
 
   def array_to_string
     board.map do |line|
