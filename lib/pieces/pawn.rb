@@ -19,7 +19,7 @@ class Pawn < Piece
   end
 
   def update_position(new_position)
-    @position = new_position
+    super
 
     @first_move = false if first_move
   end
