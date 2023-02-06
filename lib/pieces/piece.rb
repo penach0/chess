@@ -78,7 +78,7 @@ class Piece
     color == 'white' ? 'black' : 'white'
   end
 
-  def null?
+  def nil?
     false
   end
 

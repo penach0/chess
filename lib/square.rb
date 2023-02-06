@@ -26,7 +26,7 @@ class Square
   end
 
   def empty?
-    piece.null?
+    piece.nil?
   end
 
   def occupied?(piece_color = nil)
