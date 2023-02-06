@@ -27,6 +27,10 @@ class Game
     Game.new(position: STARTING_POSITION).playing
   end
 
+  def create_fen
+    "#{board.fen_value} #{current_player.fen_value}"
+  end
+
   def half_move
     current_player.make_move(board)
     change_player
