@@ -25,19 +25,15 @@ class Pawn < Piece
   end
 
   def possible_moves(board)
-    available_squares = allowed_forward(board) + possible_captures(board)
-
-    available_squares.reject { |square| moves_into_check?(board, square, self) }
+    MoveSet.legal_moves(board, self)
   end
 
-  def allowed_forward(board)
-    full_path = board.path_in_direction(position, forward_direction)[0..1]
-    first_square, second_square = full_path
+  def attacking(board)
+    MoveSet.attacking(board, self)
+  end
 
-    return [] if first_square.occupied?
-    return full_path if first_move && second_square.empty?
-
-    [first_square]
+  def available_paths(board)
+    [forward_path(board), capturing_paths(board)].flatten
   end
 
   def forward_path(board)
@@ -48,16 +44,6 @@ class Pawn < Piece
 
   def capturing_paths(board)
     attacking_paths(board).select { |path| path.blocked_by?(opponent_color) }
-  end
-
-  def possible_captures(board)
-    attacked_squares = attacking(board)
-
-    attacked_squares.select { |square| square.occupied?(opponent_color) }
-  end
-
-  def attacking(board)
-    MoveSet.attacking(board, self)
   end
 
   def attacking_paths(board)
