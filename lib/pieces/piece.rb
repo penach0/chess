@@ -2,8 +2,6 @@ require_relative '../chess'
 # This class represents a chess piece
 # Specific pieces are descendent from it
 class Piece
-  # include PathFinder
-  include MoveChecker
   include FENTranslator
   attr_reader :color, :symbol, :position, :fen_value
 
