@@ -56,6 +56,14 @@ class Piece
     MoveSet.attacking(board, self)
   end
 
+  def available_paths(board)
+    attacking_paths(board)
+  end
+
+  def attacking_paths(board)
+    directions.map { |direction| Path.new(board, position, direction) }
+  end
+
   def movable?(board)
     !possible_moves(board).empty?
   end
