@@ -18,17 +18,22 @@ class MoveSet
   end
 
   def legal_moves
-    piece.available_paths(board)
-         .reject { |square| forbidden_move?(square) }
+    paths = piece.available_paths(board)
+
+    squares_for(paths).reject { |square| forbidden_move?(square) }
   end
 
   def attacking
-    piece.attacking_paths(board)
-         .map(&:piece_scope)
-         .flatten
+    paths = piece.attacking_paths(board)
+
+    squares_for(paths)
   end
 
   private
+
+  def squares_for(paths)
+    paths.map(&:piece_scope).flatten
+  end
 
   def forbidden_move?(square)
     square.occupied?(piece.color) || moves_into_check?(square)
