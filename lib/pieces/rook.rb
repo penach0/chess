@@ -16,16 +16,8 @@ class Rook < Piece
     @first_move = false if first_move
   end
 
-  def possible_moves(board)
-    MoveSet.legal_moves(board, self)
-  end
-
   def available_paths(board)
     attacking_paths(board)
-  end
-
-  def attacking(board)
-    MoveSet.attacking(board, self)
   end
 
   def attacking_paths(board)

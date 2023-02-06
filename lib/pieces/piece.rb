@@ -48,6 +48,14 @@ class Piece
     @symbol = fen_info(fen_value, :symbol)
   end
 
+  def possible_moves(board)
+    MoveSet.legal_moves(board, self)
+  end
+
+  def attacking(board)
+    MoveSet.attacking(board, self)
+  end
+
   def movable?(board)
     !possible_moves(board).empty?
   end

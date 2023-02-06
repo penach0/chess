@@ -3,14 +3,6 @@ require_relative '../chess'
 class Queen < Piece
   MOVES = ALL_DIRECTIONS.values
 
-  def possible_moves(board)
-    MoveSet.legal_moves(board, self)
-  end
-
-  def attacking(board)
-    MoveSet.attacking(board, self)
-  end
-
   def available_paths(board)
     attacking_paths(board)
   end

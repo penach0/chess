@@ -24,14 +24,6 @@ class Pawn < Piece
     @first_move = false if first_move
   end
 
-  def possible_moves(board)
-    MoveSet.legal_moves(board, self)
-  end
-
-  def attacking(board)
-    MoveSet.attacking(board, self)
-  end
-
   def available_paths(board)
     [forward_path(board), capturing_paths(board)].flatten
   end
