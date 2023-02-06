@@ -2,7 +2,6 @@ require_relative 'chess'
 # This class will describe a move to be made by a player
 class Move
   include UserInput
-  include MoveChecker
   attr_reader :board, :player, :starting, :ending
 
   def self.execute(board, player)

@@ -1,5 +1,4 @@
 require_relative 'coordinate'
-require_relative 'move_checker'
 require_relative 'move_set'
 require_relative 'path'
 require_relative 'fen'
