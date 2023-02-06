@@ -37,7 +37,7 @@ class Board
   end
 
   def clone
-    fen_string = fen_string(board)
+    fen_string = board_fen_string(board)
 
     Board.new(fen: fen_string)
   end
