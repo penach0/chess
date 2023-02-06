@@ -21,6 +21,10 @@ class Player
     Move.execute(board, self)
   end
 
+  def fen_value
+    color == 'white' ? 'w' : 'b'
+  end
+
   private
 
   def pieces(board)
