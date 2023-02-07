@@ -6,17 +6,22 @@ class GameLauncher
   attr_reader :saves
 
   def self.run
-    new.user_choice
+    new.new_or_load
   end
 
   def initialize
     @saves = save_files
   end
 
-  def user_choice
+  def new_or_load
     return Game.new.playing if save_files.empty? 
 
-    yes_or_no?(:load_game) ? Game.load(pick_save_file) : Game.new.playing
+    yes_or_no?(:load_game) ? Game.load(pick_save_file) : Game.new_game
+  end
+
+  def pick_save_file
+    display_ordered_list(save_files)
+    pick_option(save_files)
   end
 
   def save_files
@@ -25,8 +30,5 @@ class GameLauncher
     Dir.children('saves').map(&remove_extension)
   end
 
-  def pick_save_file
-    display_ordered_list(save_files)
-    pick_option(save_files)
-  end
+
 end

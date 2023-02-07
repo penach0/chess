@@ -1,3 +1,8 @@
 require_relative 'chess'
+include UserInput
 
-GameLauncher.run
+loop do
+  GameLauncher.run
+
+  break unless yes_or_no?(:play_again)
+end
