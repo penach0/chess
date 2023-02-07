@@ -14,6 +14,8 @@ class GameLauncher
   end
 
   def user_choice
+    return Game.new.playing if save_files.empty? 
+
     yes_or_no?(:load_game) ? Game.load(pick_save_file) : Game.new.playing
   end
 
