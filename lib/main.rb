@@ -1,3 +1,4 @@
 require_relative 'chess'
+include UserInput
 
-Game.new.playing
+yes_or_no?(:load_game) ? Game.load('test') : Game.new.playing

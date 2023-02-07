@@ -6,6 +6,12 @@ class Game
 
   STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w'.freeze
 
+  def self.load(file)
+    position = File.read("saves/#{file}.txt")
+
+    new(position:).playing
+  end
+
   def initialize(position: STARTING_POSITION)
     fen = FEN.new(position)
 
@@ -19,6 +25,7 @@ class Game
     display_board
     half_move until game_end?
 
+    save
     puts end_message
     play_again if yes_or_no?(:play_again)
   end
@@ -27,12 +34,12 @@ class Game
     Game.new(position: STARTING_POSITION).playing
   end
 
-  def fen_value
-    "#{board.fen_value} #{current_player.fen_value}"
-  end
-
   def save
     File.write("saves/#{ask_save_name}.txt", fen_value)
+  end
+
+  def fen_value
+    "#{board.fen_value} #{current_player.fen_value}"
   end
 
   def half_move
