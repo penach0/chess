@@ -14,12 +14,8 @@ module Output
     }[message]
   end
 
-  def display_saves
-    remove_extension = ->(file) { file.delete_suffix('.txt') }
-
-    Dir.each_child('saves').with_index do |file, index|
-      puts "#{index + 1}. #{remove_extension.call(file)}"
-    end
+  def display_ordered_list(array)
+    array.each_with_index { |item, index| puts "#{index + 1}. #{item}" }
   end
 
   def display_board
