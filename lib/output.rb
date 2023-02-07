@@ -9,7 +9,8 @@ module Output
       win: "Congratulations #{player_name}, you won the game!!!",
       draw: 'The game is drawn, well fought by both players!!!',
       play_again: 'Do you want to play again?(y/n): ',
-      save_name: 'Enter your save name: '
+      save_name: 'Enter your save name: ',
+      load_game: 'Do you want to load a game?(y/n): '
     }[message]
   end
 
@@ -17,8 +18,7 @@ module Output
     columns_indicator = "   a  b  c  d  e  f  g  h \n"
 
     system('clear')
-    puts columns_indicator
-    print board
-    puts columns_indicator
+
+    puts "#{columns_indicator}#{board}#{columns_indicator}"
   end
 end
