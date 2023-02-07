@@ -10,12 +10,22 @@ module UserInput
   end
 
   def ask_coordinate(message, player_name: nil, input: nil)
-    print display_message(message, player_name: player_name, input: input)
+    print display_message(message, player_name:, input:)
     loop do
       input = gets.chomp.downcase
       return input if Coordinate.valid?(input)
 
       print display_message(:invalid, input: 'coordinate')
+    end
+  end
+
+  def ask_save_name
+    print display_message(:save_name)
+    loop do
+      input = gets.chomp
+      return input if input.match?(/\A[\w-]+\z/)
+
+      print display_message(:invalid, input: 'save name')
     end
   end
 
