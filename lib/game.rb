@@ -1,7 +1,6 @@
 require_relative 'chess'
 # Represents a Game
 class Game
-  include UserInput
   attr_reader :board, :black_player, :white_player, :current_player
 
   STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w'.freeze
@@ -30,7 +29,7 @@ class Game
     half_move until game_end?
 
     end_message
-    play_again if yes_or_no?(:play_again)
+    play_again if UserInput.yes_or_no?(:play_again)
   end
 
   def play_again
@@ -38,7 +37,7 @@ class Game
   end
 
   def save
-    File.write("saves/#{ask_save_name}.txt", fen_value)
+    File.write("saves/#{UserInput.ask_save_name}.txt", fen_value)
   end
 
   def fen_value

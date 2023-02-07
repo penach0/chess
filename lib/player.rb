@@ -1,10 +1,9 @@
 require_relative 'chess'
 # This class represents a player of a chess game
 class Player
-  include UserInput
   attr_reader :name, :color
 
-  def initialize(color, name = ask_name(color))
+  def initialize(color, name = UserInput.ask_name(color))
     @color = color
     @name = name
   end

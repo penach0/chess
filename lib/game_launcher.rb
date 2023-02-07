@@ -2,7 +2,6 @@ require_relative 'chess'
 # This class encapsulates the logic prompting the user to start a game
 # either new or from a save
 class GameLauncher
-  include UserInput
   attr_reader :saves
 
   def self.run
@@ -16,12 +15,12 @@ class GameLauncher
   def new_or_load
     return Game.new.playing if save_files.empty?
 
-    yes_or_no?(:load_game) ? Game.load(pick_save_file) : Game.new_game
+    UserInput.yes_or_no?(:load_game) ? Game.load(pick_save_file) : Game.new_game
   end
 
   def pick_save_file
     Output.ordered_list(save_files)
-    pick_option(save_files)
+    UserInput.pick_option(save_files)
   end
 
   def save_files

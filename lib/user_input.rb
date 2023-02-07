@@ -1,14 +1,12 @@
 require_relative 'chess'
 # This module will methods that query the user for input
 module UserInput
-  # include Output
-
-  def ask_name(color)
+  def self.ask_name(color)
     print "Who wants to play #{color}? Tell me your name: "
     gets.chomp
   end
 
-  def ask_coordinate(message, player_name: nil, input: nil)
+  def self.ask_coordinate(message, player_name: nil, input: nil)
     print Output.message(message, player_name:, input:)
     loop do
       input = gets.chomp.downcase
@@ -18,7 +16,7 @@ module UserInput
     end
   end
 
-  def ask_save_name
+  def self.ask_save_name
     print Output.message(:save_name)
     loop do
       input = gets.chomp
@@ -28,7 +26,7 @@ module UserInput
     end
   end
 
-  def pick_option(array)
+  def self.pick_option(array)
     print Output.message(:pick_option)
 
     loop do
@@ -40,7 +38,7 @@ module UserInput
     end
   end
 
-  def yes_or_no?(message)
+  def self.yes_or_no?(message)
     print Output.message(message)
     loop do
       input = gets.chomp.downcase

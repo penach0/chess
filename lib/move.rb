@@ -1,7 +1,6 @@
 require_relative 'chess'
 # This class will describe a move to be made by a player
 class Move
-  include UserInput
   attr_reader :board, :player, :starting, :ending
 
   def self.execute(board, player)
@@ -11,8 +10,8 @@ class Move
   def initialize(board, player)
     @board = board
     @player = player
-    @starting = validation(ask_coordinate(:start_square, player_name: player.name), available_starting)
-    @ending = validation(ask_coordinate(:end_square), available_ending)
+    @starting = validation(UserInput.ask_coordinate(:start_square, player_name: player.name),available_starting)
+    @ending = validation(UserInput.ask_coordinate(:end_square), available_ending)
   end
 
   def execute
@@ -24,7 +23,7 @@ class Move
   def validation(input, available_options)
     return input if available_options.include?(input)
 
-    validation(ask_coordinate(:invalid, input: 'coordinate'), available_options)
+    validation(UserInput.ask_coordinate(:invalid, input: 'coordinate'), available_options)
   end
 
   def available_starting
