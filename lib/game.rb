@@ -6,6 +6,10 @@ class Game
 
   STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w'.freeze
 
+  def self.new_game
+    new.playing
+  end
+
   def self.load(file)
     position = File.read("saves/#{file}.txt")
 
