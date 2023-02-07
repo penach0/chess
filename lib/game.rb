@@ -27,8 +27,12 @@ class Game
     Game.new(position: STARTING_POSITION).playing
   end
 
-  def create_fen
+  def fen_value
     "#{board.fen_value} #{current_player.fen_value}"
+  end
+
+  def save
+    File.write("saves/#{ask_save_name}.txt", fen_value)
   end
 
   def half_move

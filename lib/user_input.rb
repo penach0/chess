@@ -2,7 +2,6 @@ require_relative 'chess'
 # This module will methods that query the user for input
 module UserInput
   include Output
-  # UNDO = 'undo'.freeze
 
   def ask_name(color)
     print "Who wants to play #{color}? Tell me your name: "
