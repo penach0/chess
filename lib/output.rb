@@ -1,8 +1,8 @@
 require_relative 'chess'
 # This module contains messages and text to be displayed on the screen
 module Output
-  def display_message(message, player_name: nil, input: nil)
-    {
+  def self.message(message, player_name: nil, input: nil)
+    print({
       start_square: "#{player_name} insert the coordinate of the piece you want to move: ",
       end_square: 'Insert the coordinate of the destination square: ',
       invalid: "That #{input} is not valid. Please try again: ",
@@ -12,14 +12,14 @@ module Output
       save_name: 'Enter your save name: ',
       load_game: 'Do you want to load a game?(y/n): ',
       pick_option: 'Pick an option: '
-    }[message]
+    }[message])
   end
 
-  def display_ordered_list(array)
+  def self.ordered_list(array)
     array.each_with_index { |item, index| puts "#{index + 1}. #{item}" }
   end
 
-  def display_board
+  def self.board(board)
     columns_indicator = "   a  b  c  d  e  f  g  h \n"
 
     system('clear')

@@ -22,11 +22,10 @@ class Game
   end
 
   def playing
-    display_board
+    Output.board(board)
     half_move until game_end?
 
-    save
-    puts end_message
+    end_message
     play_again if yes_or_no?(:play_again)
   end
 
@@ -45,7 +44,7 @@ class Game
   def half_move
     current_player.make_move(board)
     change_player
-    display_board
+    Output.board(board)
   end
 
   def game_end?
@@ -80,6 +79,6 @@ class Game
   end
 
   def end_message
-    checkmate? ? display_message(:win, player_name: current_player.name) : display_message(:draw)
+    checkmate? ? Output.message(:win, player_name: current_player.name) : Output.message(:draw)
   end
 end
