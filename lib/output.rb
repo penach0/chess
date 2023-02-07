@@ -10,7 +10,8 @@ module Output
       draw: 'The game is drawn, well fought by both players!!!',
       play_again: 'Do you want to play again?(y/n): ',
       save_name: 'Enter your save name: ',
-      load_game: 'Do you want to load a game?(y/n): '
+      load_game: 'Do you want to load a game?(y/n): ',
+      pick_option: 'Pick an option: '
     }[message]
   end
 

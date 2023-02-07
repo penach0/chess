@@ -28,6 +28,18 @@ module UserInput
     end
   end
 
+  def pick_option(array)
+    print display_message(:pick_option)
+
+    loop do
+      input = gets.chomp
+      return array[input.to_i - 1] if [*1..array.size].include?(input.to_i)
+      return input if array.include?(input)
+
+      print display_message(:invalid, input: 'option')
+    end
+  end
+
   def yes_or_no?(message)
     print display_message(message)
     loop do
