@@ -14,6 +14,14 @@ module Output
     }[message]
   end
 
+  def display_saves
+    remove_extension = ->(file) { file.delete_suffix('.txt') }
+
+    Dir.each_child('saves').with_index do |file, index|
+      puts "#{index + 1}. #{remove_extension.call(file)}"
+    end
+  end
+
   def display_board
     columns_indicator = "   a  b  c  d  e  f  g  h \n"
 
