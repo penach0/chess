@@ -27,12 +27,17 @@ class Game
   def playing
     Output.board(board)
     half_move until game_end?
+    save
 
     end_message
   end
 
   def save
-    File.write("saves/#{UserInput.ask_save_name}.txt", fen_value)
+    File.write("saves/#{UserInput.ask_save_name}.txt", build_save_file)
+  end
+
+  def build_save_file
+    "#{white_player.name}\n#{black_player.name}\n#{fen_value}"
   end
 
   def fen_value
