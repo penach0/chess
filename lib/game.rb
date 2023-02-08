@@ -29,11 +29,6 @@ class Game
     half_move until game_end?
 
     end_message
-    play_again if UserInput.yes_or_no?(:play_again)
-  end
-
-  def play_again
-    Game.new(position: STARTING_POSITION).playing
   end
 
   def save

@@ -5,7 +5,11 @@ class GameLauncher
   attr_reader :saves
 
   def self.run
-    new.new_or_load
+    loop do
+      new.new_or_load
+
+      break unless UserInput.yes_or_no?(:play_again)
+    end
   end
 
   def initialize
