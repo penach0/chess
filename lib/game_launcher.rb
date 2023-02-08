@@ -6,7 +6,7 @@ class GameLauncher
 
   def self.run
     loop do
-      new.new_or_load
+      new.start
 
       break unless UserInput.yes_or_no?(:play_again)
     end
@@ -14,6 +14,12 @@ class GameLauncher
 
   def initialize
     @saves = save_files
+  end
+
+  def start
+    Output.starting_screen
+
+    new_or_load
   end
 
   def new_or_load
