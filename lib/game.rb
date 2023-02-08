@@ -10,24 +10,24 @@ class Game
   end
 
   def self.load(file)
-    position = File.read("saves/#{file}.txt")
+    white_name, black_name, position = File.read("saves/#{file}.txt")
+                                           .split("\n")
 
-    new(position:).playing
+    new(white_name:, black_name:, position:).playing
   end
 
-  def initialize(position: STARTING_POSITION)
+  def initialize(white_name: nil, black_name: nil, position: STARTING_POSITION)
     fen = FEN.new(position)
 
     @board = Board.new(fen: fen.board)
-    @white_player = Player.new('white')
-    @black_player = Player.new('black')
+    @white_player = Player.new('white', white_name)
+    @black_player = Player.new('black', black_name)
     @current_player = (fen.current_player == 'w' ? white_player : black_player)
   end
 
   def playing
     Output.board(board)
     half_move until game_end?
-    save
 
     end_message
   end

@@ -3,9 +3,9 @@ require_relative 'chess'
 class Player
   attr_reader :name, :color
 
-  def initialize(color, name = UserInput.ask_name(color))
+  def initialize(color, name)
     @color = color
-    @name = name
+    @name = name || UserInput.ask_name(color)
   end
 
   def no_moves?(board)
