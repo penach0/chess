@@ -3,6 +3,14 @@ require_relative 'chess'
 class Move
   attr_reader :board, :player, :starting, :ending
 
+  def self.validate_starting(board, player, input)
+    piece = board.piece_in(input)
+
+    return input if piece.color == player.color && piece.movable?(board)
+
+    validate_starting(board, player, UserInput.ask_coordinate(:invalid, input: 'coordinate'))
+  end
+
   def self.execute(board, player)
     new(board, player).execute
   end
@@ -10,7 +18,8 @@ class Move
   def initialize(board, player)
     @board = board
     @player = player
-    @starting = validation(UserInput.ask_coordinate(:start_square, player_name: player.name),available_starting)
+    # @starting = validation(UserInput.ask_coordinate(:start_square, player_name: player.name), available_starting)
+    @starting = Move.validate_starting(board, player, UserInput.ask_coordinate(:start_square, player_name: player.name))
     @ending = validation(UserInput.ask_coordinate(:end_square), available_ending)
   end
 
