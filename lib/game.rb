@@ -21,11 +21,9 @@ class Game
     @current_player = (fen.current_player == 'w' ? white_player : black_player)
   end
 
-  def playing
-    Output.board(board)
-    half_move until game_end?
-
-    end_message
+  def update
+    current_player.make_move(board)
+    change_player
   end
 
   def save
@@ -38,12 +36,6 @@ class Game
 
   def fen_value
     "#{board.fen_value} #{current_player.fen_value}"
-  end
-
-  def half_move
-    current_player.make_move(board)
-    change_player
-    Output.board(board)
   end
 
   def game_end?
@@ -75,9 +67,5 @@ class Game
 
   def change_player
     @current_player = (@current_player == white_player ? black_player : white_player)
-  end
-
-  def end_message
-    checkmate? ? Output.message(:win, player_name: current_player.name) : Output.message(:draw)
   end
 end

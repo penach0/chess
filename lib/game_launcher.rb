@@ -23,13 +23,17 @@ class GameLauncher
 
     half_move until game.game_end?
 
-    game.end_message
+    end_message
   end
 
   def half_move
-    game.current_player.make_move(game.board)
-    game.change_player
+    game.update
     Output.board(game.board)
+  end
+
+  def end_message
+    Output.message(:win, player_name: game.current_player.name) if game.checkmate?
+    Output.message(:draw) if game.draw?
   end
 
   def new_or_load
