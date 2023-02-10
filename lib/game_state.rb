@@ -21,13 +21,13 @@ class GameState
     @current_player = (fen.current_player == 'w' ? white_player : black_player)
   end
 
-  def update
-    current_player.make_move(board)
+  def update(input)
+    current_player.make_move(board, input)
     change_player
   end
 
-  def save
-    File.write("saves/#{UserInput.ask_save_name}.txt", build_save_file)
+  def save(file_name)
+    File.write("saves/#{file_name}.txt", build_save_file)
   end
 
   def build_save_file

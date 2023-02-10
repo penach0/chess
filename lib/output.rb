@@ -3,6 +3,7 @@ require_relative 'chess'
 module Output
   def self.message(message, player_name: nil, input: nil)
     print({
+      make_play: "#{player_name} make your play: ",
       start_square: "#{player_name} insert the coordinate of the piece you want to move: ",
       end_square: 'Insert the coordinate of the destination square: ',
       invalid: "That #{input} is not valid. Please try again: ",

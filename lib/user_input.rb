@@ -10,7 +10,7 @@ module UserInput
     print Output.message(message, player_name:, input:)
     loop do
       input = gets.chomp.downcase
-      return input if Coordinate.valid?(input)
+      return input if verify_play_input(input)
 
       print Output.message(:invalid, input: 'coordinate')
     end
@@ -47,5 +47,9 @@ module UserInput
 
       print Output.message(:invalid, input: 'option')
     end
+  end
+
+  def self.verify_play_input(input)
+    input == 'save' || Coordinate.valid?(input)
   end
 end

@@ -27,7 +27,10 @@ class GameLauncher
   end
 
   def half_move
-    game.update
+    input = UserInput.ask_coordinate(:make_play, player_name: game.current_player.name)
+
+    PlayerAction.dispatch(input, game)
+
     Output.board(game.board)
   end
 
