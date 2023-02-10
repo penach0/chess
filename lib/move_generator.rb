@@ -6,11 +6,15 @@ class MoveGenerator
     @coordinate = coordinate
   end
 
-  def piece
-    board.piece_in(coordinate)
+  def possible_destinations
+    paths.map(&:piece_scope).flatten
   end
 
   def paths
     piece.available_paths(board)
+  end
+
+  def piece
+    board.piece_in(coordinate)
   end
 end
