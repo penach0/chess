@@ -20,7 +20,7 @@ class PlayerAction
     when 'save'
       game.save(UserInput.ask_save_name)
     when VALID_COORDINATE
-      game.update
+      game.update(input)
     end
   end
 end

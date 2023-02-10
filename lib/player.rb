@@ -16,8 +16,8 @@ class Player
     pieces(board).select { |piece| piece.movable?(board) }
   end
 
-  def make_move(board)
-    Move.execute(board, self)
+  def make_move(board, input)
+    Move.execute(board, self, input)
   end
 
   def fen_value

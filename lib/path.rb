@@ -5,7 +5,6 @@ class Path
 
   def initialize(board, coordinate, direction, steps: board.size)
     @path = board.path_in_direction(coordinate, direction, steps:)
-    @piece = board.piece_in(coordinate)
   end
 
   def piece_scope
