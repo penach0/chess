@@ -26,8 +26,8 @@ class GameState
     change_player
   end
 
-  def save
-    File.write("saves/#{UserInput.ask_save_name}.txt", build_save_file)
+  def save(file_name)
+    File.write("saves/#{file_name}.txt", build_save_file)
   end
 
   def build_save_file
