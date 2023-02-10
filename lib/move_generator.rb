@@ -1,9 +1,15 @@
 require_relative 'chess'
 # This class will generate all available moves given a starting coordinate
 class MoveGenerator
+  attr_reader :board, :coordinate
+
   def initialize(board, coordinate)
     @board = board
     @coordinate = coordinate
+  end
+
+  def moves
+    possible_destinations.map { |destination| Move.new(coordinate, destination) }
   end
 
   def possible_destinations
