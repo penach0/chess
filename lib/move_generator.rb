@@ -5,4 +5,12 @@ class MoveGenerator
     @board = board
     @coordinate = coordinate
   end
+
+  def piece
+    board.piece_in(coordinate)
+  end
+
+  def paths
+    piece.available_paths(board)
+  end
 end
