@@ -1,47 +1,10 @@
 require_relative 'chess'
 # This class will describe a move to be made by a player
 class Move
-  attr_reader :board, :player, :starting, :ending
+  attr_reader :from, :to
 
-  def self.validate_starting(board, player, input)
-    piece = board.piece_in(input)
-
-    return input if piece.color == player.color && piece.movable?(board)
-
-    validate_starting(board, player, UserInput.ask_coordinate(:invalid, input: 'coordinate'))
-  end
-
-  def self.execute(board, player)
-    new(board, player).execute
-  end
-
-  def initialize(board, player)
-    @board = board
-    @player = player
-    # @starting = validation(UserInput.ask_coordinate(:start_square, player_name: player.name), available_starting)
-    @starting = Move.validate_starting(board, player, UserInput.ask_coordinate(:start_square, player_name: player.name))
-    @ending = validation(UserInput.ask_coordinate(:end_square), available_ending)
-  end
-
-  def execute
-    board.move_piece(starting, ending)
-  end
-
-  private
-
-  def validation(input, available_options)
-    return input if available_options.include?(input)
-
-    validation(UserInput.ask_coordinate(:invalid, input: 'coordinate'), available_options)
-  end
-
-  def available_starting
-    player.movable_pieces(board).map { |piece| piece.position.algebraic }
-  end
-
-  def available_ending
-    possible_moves = board.piece_in(starting).possible_moves(board)
-
-    Coordinate.square_to_coordinates(possible_moves)
+  def initialize(from, to)
+    @from = from
+    @to = to
   end
 end
