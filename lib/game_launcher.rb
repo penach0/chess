@@ -6,7 +6,8 @@ class GameLauncher
 
   def self.run
     loop do
-      new.start
+      Output.starting_screen
+      new.run_game
 
       break unless UserInput.yes_or_no?(:play_again)
     end
@@ -17,16 +18,28 @@ class GameLauncher
     @game = new_or_load
   end
 
-  def start
-    Output.starting_screen
+  def run_game
+    Output.board(game.board)
 
-    game.playing
+    half_move until game.over?
+
+    end_message
+  end
+
+  def half_move
+    game.update
+    Output.board(game.board)
+  end
+
+  def end_message
+    Output.message(:win, player_name: game.current_player.name) if game.checkmate?
+    Output.message(:draw) if game.draw?
   end
 
   def new_or_load
-    return Game.new if save_files.empty?
+    return GameState.new if save_files.empty?
 
-    UserInput.yes_or_no?(:load_game) ? Game.load(pick_save_file) : Game.new
+    UserInput.yes_or_no?(:load_game) ? GameState.load(pick_save_file) : GameState.new
   end
 
   def pick_save_file

@@ -1,6 +1,6 @@
 require_relative 'chess'
-# Represents a Game
-class Game
+# Represents and evaluates the state of a chess game
+class GameState
   attr_reader :board, :black_player, :white_player, :current_player
 
   STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w'.freeze
@@ -21,11 +21,9 @@ class Game
     @current_player = (fen.current_player == 'w' ? white_player : black_player)
   end
 
-  def playing
-    Output.board(board)
-    half_move until game_end?
-
-    end_message
+  def update
+    current_player.make_move(board)
+    change_player
   end
 
   def save
@@ -40,13 +38,7 @@ class Game
     "#{board.fen_value} #{current_player.fen_value}"
   end
 
-  def half_move
-    current_player.make_move(board)
-    change_player
-    Output.board(board)
-  end
-
-  def game_end?
+  def over?
     draw? || checkmate?
   end
 
@@ -75,9 +67,5 @@ class Game
 
   def change_player
     @current_player = (@current_player == white_player ? black_player : white_player)
-  end
-
-  def end_message
-    checkmate? ? Output.message(:win, player_name: current_player.name) : Output.message(:draw)
   end
 end
