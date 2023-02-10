@@ -6,7 +6,8 @@ class GameLauncher
 
   def self.run
     loop do
-      new.start
+      Output.starting_screen
+      new.run_game
 
       break unless UserInput.yes_or_no?(:play_again)
     end
@@ -17,10 +18,18 @@ class GameLauncher
     @game = new_or_load
   end
 
-  def start
-    Output.starting_screen
+  def run_game
+    Output.board(game.board)
 
-    game.playing
+    half_move until game.game_end?
+
+    game.end_message
+  end
+
+  def half_move
+    game.current_player.make_move(game.board)
+    game.change_player
+    Output.board(game.board)
   end
 
   def new_or_load
