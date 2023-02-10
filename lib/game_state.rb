@@ -1,6 +1,6 @@
 require_relative 'chess'
-# Represents a Game
-class Game
+# Represents and evaluates the state of a chess game
+class GameState
   attr_reader :board, :black_player, :white_player, :current_player
 
   STARTING_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w'.freeze
@@ -38,7 +38,7 @@ class Game
     "#{board.fen_value} #{current_player.fen_value}"
   end
 
-  def game_end?
+  def over?
     draw? || checkmate?
   end
 

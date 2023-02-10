@@ -21,7 +21,7 @@ class GameLauncher
   def run_game
     Output.board(game.board)
 
-    half_move until game.game_end?
+    half_move until game.over?
 
     end_message
   end
@@ -37,9 +37,9 @@ class GameLauncher
   end
 
   def new_or_load
-    return Game.new if save_files.empty?
+    return GameState.new if save_files.empty?
 
-    UserInput.yes_or_no?(:load_game) ? Game.load(pick_save_file) : Game.new
+    UserInput.yes_or_no?(:load_game) ? GameState.load(pick_save_file) : GameState.new
   end
 
   def pick_save_file
