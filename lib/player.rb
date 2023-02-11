@@ -16,10 +16,6 @@ class Player
     pieces(board).select { |piece| piece.movable?(board) }
   end
 
-  def make_move(board, start, destination)
-    board.move_piece(start, destination)
-  end
-
   def fen_value
     color == 'white' ? 'w' : 'b'
   end
