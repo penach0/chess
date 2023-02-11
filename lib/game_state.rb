@@ -21,8 +21,8 @@ class GameState
     @current_player = (fen.current_player == 'w' ? white_player : black_player)
   end
 
-  def update(start, destination)
-    current_player.make_move(board, start, destination)
+  def update(move)
+    board.move_piece(move)
     change_player
   end
 

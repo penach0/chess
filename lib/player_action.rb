@@ -24,7 +24,7 @@ class PlayerAction
       second_input = UserInput.ask_coordinate(:end_square)
       destination = MoveValidator.validate_destination(game.board, game.current_player, start, second_input)
 
-      game.update(start, destination)
+      game.update(Move.new(start, destination))
     end
   end
 end

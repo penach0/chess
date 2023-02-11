@@ -48,11 +48,11 @@ class Board
                  .in_check?(self)
   end
 
-  def move_piece(start_coordinate, end_coordinate)
-    stored_piece = piece_in(start_coordinate)
+  def move_piece(move)
+    stored_piece = piece_in(move.from)
 
-    remove_piece(start_coordinate)
-    place_piece(stored_piece, end_coordinate)
+    remove_piece(move.from)
+    place_piece(stored_piece, move.to)
   end
 
   def path_in_direction(position, direction, steps: SIZE)

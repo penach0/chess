@@ -42,7 +42,7 @@ class MoveSet
   def moves_into_check?(square)
     board_dup = board.clone
 
-    board_dup.move_piece(piece.position, square.coordinate)
+    board_dup.move_piece(Move.new(piece.position, square.coordinate))
 
     board_dup.in_check?(piece.color)
   end
