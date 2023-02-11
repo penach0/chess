@@ -8,8 +8,24 @@ class MoveGenerator
     @coordinate = coordinate
   end
 
+  def legal_moves
+    moves.reject { |move| illegal?(move) }
+  end
+
   def moves
-    possible_destinations.map { |destination| Move.new(coordinate, destination) }
+    possible_destinations.map { |destination| Move.new(coordinate, destination.coordinate) }
+  end
+
+  def illegal?(move)
+    board.piece_in(move.to).same_color?(piece) || moves_into_check?(move)
+  end
+
+  def moves_into_check?(move)
+    board_dup = board.clone
+
+    board_dup.move_piece(move)
+
+    board_dup.in_check?(piece.color)
   end
 
   def possible_destinations
