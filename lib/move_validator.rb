@@ -3,15 +3,32 @@ require_relative 'chess'
 class MoveValidator
   attr_reader :board, :player, :start
 
-  def self.valid_start?(board, player, input)
-    piece_picked = board.piece_in(input)
+  def self.validate_start(board, player, input)
+    return input if valid_start?(board, player, input)
 
-    piece_picked.color == player.color && piece_picked.movable?(board)
+    validate_start(board, player, UserInput.ask_coordinate(:invalid, input: 'coordinate'))
+  end
+
+  def self.valid_start?(board, player, input)
+    picked_piece = board.piece_in(input)
+
+    picked_piece.color == player.color && picked_piece.movable?(board)
+  end
+
+  def self.validate_destination(board, player, start, input)
+    new(board, player, start).validate_destination(input)
   end
 
   def initialize(board, player, start)
     @board = board
     @player = player
+    @start = start
+  end
+
+  def validate_destination(input)
+    return input if valid_destination?(input)
+
+    validate_destination(UserInput.ask_coordinate(:invalid, input: 'coordinate'))
   end
 
   def valid_destination?(input)

@@ -20,7 +20,11 @@ class PlayerAction
     when 'save'
       game.save(UserInput.ask_save_name)
     when VALID_COORDINATE
-      game.update(input)
+      start = MoveValidator.validate_start(game.board, game.current_player, input)
+      second_input = UserInput.ask_coordinate(:end_square)
+      destination = MoveValidator.validate_destination(game.board, game.current_player, start, second_input)
+
+      game.update(start, destination)
     end
   end
 end

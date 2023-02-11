@@ -1,5 +1,6 @@
 require_relative 'coordinate'
 require_relative 'move_set'
+require_relative 'move_validator'
 require_relative 'path'
 require_relative 'fen'
 require_relative 'fen_translator'
