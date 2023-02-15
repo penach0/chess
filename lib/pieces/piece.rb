@@ -2,8 +2,23 @@ require_relative '../chess'
 # This class represents a chess piece
 # Specific pieces are descendent from it
 class Piece
-  include FENTranslator
   attr_reader :position, :fen_value, :directions, :steps
+
+  FEN_INFO = {
+    'K' => { class: 'King', symbol: ' ♔ ', color: 'white' },
+    'k' => { class: 'King', symbol: ' ♚ ', color: 'black' },
+    'Q' => { class: 'Queen', symbol: ' ♕ ', color: 'white' },
+    'q' => { class: 'Queen', symbol: ' ♛ ', color: 'black' },
+    'R' => { class: 'Rook', symbol: ' ♖ ', color: 'white' },
+    'r' => { class: 'Rook', symbol: ' ♜ ', color: 'black' },
+    'B' => { class: 'Bishop', symbol: ' ♗ ', color: 'white' },
+    'b' => { class: 'Bishop', symbol: ' ♝ ', color: 'black' },
+    'N' => { class: 'Knight', symbol: ' ♘ ', color: 'white' },
+    'n' => { class: 'Knight', symbol: ' ♞ ', color: 'black' },
+    'P' => { class: 'Pawn', symbol: ' ♙ ', color: 'white' },
+    'p' => { class: 'Pawn', symbol: ' ♟︎ ', color: 'black' },
+    ' ' => { class: 'NoPiece', symbol: '   ', color: nil }
+  }.freeze
 
   DIAGONAL = {
     up_right: [-1, 1],
@@ -22,21 +37,9 @@ class Piece
   ALL_DIRECTIONS = DIAGONAL.merge(HORIZONTAL_VERTICAL)
 
   def self.for(position, fen)
-    case fen
-    when 'K' then King.new(position, fen)
-    when 'Q' then Queen.new(position, fen)
-    when 'R' then Rook.new(position, fen)
-    when 'B' then Bishop.new(position, fen)
-    when 'N' then Knight.new(position, fen)
-    when 'P' then Pawn.new(position, fen)
-    when 'k' then King.new(position, fen)
-    when 'q' then Queen.new(position, fen)
-    when 'r' then Rook.new(position, fen)
-    when 'b' then Bishop.new(position, fen)
-    when 'n' then Knight.new(position, fen)
-    when 'p' then Pawn.new(position, fen)
-    else NoPiece.new(position, fen)
-    end
+    class_name = Object.const_get(FEN_INFO[fen][:class])
+
+    class_name.new(position, fen)
   end
 
   def initialize(position, fen_value)
@@ -90,12 +93,12 @@ class Piece
   end
 
   def color
-    fen_info(fen_value, :color)
+    FEN_INFO[fen_value][:color]
   end
 
   private
 
   def to_s
-    fen_info(fen_value, :symbol)
+    FEN_INFO[fen_value][:symbol]
   end
 end
