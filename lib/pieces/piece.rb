@@ -76,8 +76,8 @@ class Piece
     @position = new_position
   end
 
-  def same_color?(other)
-    color == other.color
+  def can_capture?(other)
+    color != other.color
   end
 
   def opponent_color
