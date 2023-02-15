@@ -10,9 +10,10 @@ class MoveValidator
   end
 
   def self.valid_start?(board, player, input)
-    picked_piece = board.piece_in(input)
+    coordinate = Coordinate.new(algebraic: input)
+    picked_piece = board.piece_in(coordinate)
 
-    picked_piece.color == player.color && !MoveGenerator.new(board, input).legal_moves.empty?
+    picked_piece.color == player.color && !MoveGenerator.new(board, coordinate).legal_moves.empty?
   end
 
   def self.validate_destination(board, player, start, input)
@@ -22,7 +23,7 @@ class MoveValidator
   def initialize(board, player, start)
     @board = board
     @player = player
-    @moves = MoveGenerator.new(board, start).legal_moves
+    @moves = MoveGenerator.new(board, Coordinate.new(algebraic: start)).legal_moves
   end
 
   def validate_destination(input)

@@ -52,4 +52,9 @@ class Coordinate
     Coordinate.new(row: row + direction.vertical,
                    column: column + direction.lateral)
   end
+
+  def ==(other)
+    self.class == other.class &&
+      row == other.row && column == other.column
+  end
 end
