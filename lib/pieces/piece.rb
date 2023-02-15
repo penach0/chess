@@ -3,7 +3,7 @@ require_relative '../chess'
 # Specific pieces are descendent from it
 class Piece
   include FENTranslator
-  attr_reader :color, :symbol, :position, :fen_value, :directions, :steps
+  attr_reader :color, :position, :fen_value, :directions, :steps
 
   DIAGONAL = {
     up_right: [-1, 1],
@@ -43,7 +43,6 @@ class Piece
     @position = position
     @fen_value = fen_value
     @color = fen_info(fen_value, :color)
-    @symbol = fen_info(fen_value, :symbol)
     @steps = Board::SIZE
 
     post_initialize
@@ -94,6 +93,6 @@ class Piece
   private
 
   def to_s
-    symbol
+    fen_info(fen_value, :symbol)
   end
 end
