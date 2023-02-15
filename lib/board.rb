@@ -55,12 +55,7 @@ class Board
     place_piece(stored_piece, move.to)
   end
 
-  def find_paths_for(coordinate)
-    piece_in(coordinate).directions
-                        .map { |direction| Path.new(coordinate, direction, steps: piece.steps) }
-  end
-
-  def path_in_direction(position, direction, steps: SIZE)
+  def path_in_direction(position, direction, steps:)
     coordinate = position.traverse(direction)
     path = []
 

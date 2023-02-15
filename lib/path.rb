@@ -3,7 +3,7 @@
 class Path
   attr_reader :path, :piece
 
-  def initialize(board, coordinate, direction, steps: board.size)
+  def initialize(board, coordinate, direction, steps:)
     @path = board.path_in_direction(coordinate, direction, steps:)
   end
 
