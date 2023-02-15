@@ -8,17 +8,9 @@ class Path
   end
 
   def piece_scope
-    return path if empty?
-
-    path[0, blocking_piece_index + 1]
-  end
-
-  def free_squares
     return self if empty?
 
     @path = path[0, blocking_piece_index]
-
-    self
   end
 
   def blocked_by?(color)
