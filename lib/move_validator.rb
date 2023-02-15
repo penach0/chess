@@ -4,13 +4,14 @@ class MoveValidator
   attr_reader :board, :player, :start, :moves
 
   def self.validate_start(board, player, input)
-    return input if valid_start?(board, player, input)
+    coordinate = Coordinate.new(algebraic: input)
+
+    return coordinate if valid_start?(board, player, coordinate)
 
     validate_start(board, player, UserInput.ask_coordinate(:invalid, input: 'coordinate'))
   end
 
-  def self.valid_start?(board, player, input)
-    coordinate = Coordinate.new(algebraic: input)
+  def self.valid_start?(board, player, coordinate)
     picked_piece = board.piece_in(coordinate)
 
     picked_piece.color == player.color && !MoveGenerator.new(board, coordinate).legal_moves.empty?
@@ -23,19 +24,22 @@ class MoveValidator
   def initialize(board, player, start)
     @board = board
     @player = player
-    @moves = MoveGenerator.new(board, Coordinate.new(algebraic: start)).legal_moves
+    @start = start
   end
 
   def validate_destination(input)
-    return input if valid_destination?(input)
+    coordinate = Coordinate.new(algebraic: input)
+
+    return coordinate if valid_destination?(coordinate)
 
     validate_destination(UserInput.ask_coordinate(:invalid, input: 'coordinate'))
   end
 
-  def valid_destination?(input)
-    possible_destinations = moves.map(&:to)
-                                 .map(&:algebraic)
+  def valid_destination?(coordinate)
+    possible_moves = MoveGenerator.new(board, start).legal_moves
 
-    possible_destinations.include?(input)
+    possible_destinations = possible_moves.map(&:to)
+
+    possible_destinations.include?(coordinate)
   end
 end
