@@ -33,7 +33,7 @@ class MoveGenerator
   end
 
   def paths
-    piece.available_paths(board)
+    Paths.new(board, coordinate)
   end
 
   def piece
