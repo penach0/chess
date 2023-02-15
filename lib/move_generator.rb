@@ -9,7 +9,7 @@ class MoveGenerator
   end
 
   def legal_moves
-    moves.reject { |move| illegal?(move) }
+    moves.select { |move| legal?(move) }
   end
 
   def moves
@@ -19,8 +19,10 @@ class MoveGenerator
     possible_destinations.map { |destination| Move.new(coordinate, destination.coordinate) }
   end
 
-  def illegal?(move)
-    board.piece_in(move.to).same_color?(piece) || moves_into_check?(move)
+  def legal?(move)
+    piece_in_landing = board.piece_in(move.to)
+
+    piece.can_capture?(piece_in_landing) && !moves_into_check?(move)
   end
 
   def moves_into_check?(move)
