@@ -1,7 +1,7 @@
 require_relative 'chess'
 # This class validates user input for moves
 class MoveValidator
-  attr_reader :board, :player, :start
+  attr_reader :board, :player, :start, :moves
 
   def self.validate_start(board, player, input)
     return input if valid_start?(board, player, input)
@@ -12,7 +12,7 @@ class MoveValidator
   def self.valid_start?(board, player, input)
     picked_piece = board.piece_in(input)
 
-    picked_piece.color == player.color && picked_piece.movable?(board)
+    picked_piece.color == player.color && !MoveGenerator.new(board, input).legal_moves.empty?
   end
 
   def self.validate_destination(board, player, start, input)
@@ -22,7 +22,7 @@ class MoveValidator
   def initialize(board, player, start)
     @board = board
     @player = player
-    @start = start
+    @moves = MoveGenerator.new(board, start).legal_moves
   end
 
   def validate_destination(input)
@@ -32,9 +32,9 @@ class MoveValidator
   end
 
   def valid_destination?(input)
-    possible_moves = board.piece_in(start).possible_moves(board)
-    destination = board.square(input)
+    possible_destinations = moves.map(&:to)
+                                 .map(&:algebraic)
 
-    possible_moves.include?(destination)
+    possible_destinations.include?(input)
   end
 end

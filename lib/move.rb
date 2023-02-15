@@ -7,4 +7,8 @@ class Move
     @from = from
     @to = to
   end
+
+  def to_s
+    "#{from}-#{to.algebraic}"
+  end
 end
