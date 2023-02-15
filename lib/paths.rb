@@ -14,6 +14,10 @@ class Paths
          .map { |direction| Path.new(board, coordinate, direction, steps: piece.steps) }
   end
 
+  def possible_destinations
+    paths.map(&:piece_scope)
+  end
+
   def piece
     board.piece_in(coordinate)
   end

@@ -13,6 +13,9 @@ class MoveGenerator
   end
 
   def moves
+    possible_destinations = paths.possible_destinations
+                                 .flatten
+
     possible_destinations.map { |destination| Move.new(coordinate, destination.coordinate) }
   end
 
@@ -26,10 +29,6 @@ class MoveGenerator
     board_dup.move_piece(move)
 
     board_dup.in_check?(piece.color)
-  end
-
-  def possible_destinations
-    paths.map(&:piece_scope).flatten
   end
 
   def paths
