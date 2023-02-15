@@ -3,10 +3,8 @@ require_relative '../chess'
 class Rook < Piece
   attr_reader :first_move
 
-  MOVES = HORIZONTAL_VERTICAL.values
-
-  def initialize(position, fen_value)
-    super
+  def post_initialize
+    @directions = HORIZONTAL_VERTICAL.values
     @first_move = true
   end
 
@@ -14,9 +12,5 @@ class Rook < Piece
     super
 
     @first_move = false if first_move
-  end
-
-  def directions
-    MOVES
   end
 end

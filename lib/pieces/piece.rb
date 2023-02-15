@@ -3,7 +3,7 @@ require_relative '../chess'
 # Specific pieces are descendent from it
 class Piece
   include FENTranslator
-  attr_reader :color, :symbol, :position, :fen_value
+  attr_reader :color, :symbol, :position, :fen_value, :directions, :steps
 
   DIAGONAL = {
     up_right: [-1, 1],
@@ -44,7 +44,12 @@ class Piece
     @fen_value = fen_value
     @color = fen_info(fen_value, :color)
     @symbol = fen_info(fen_value, :symbol)
+    @steps = Board::SIZE
+
+    post_initialize
   end
+
+  def post_initialize; end
 
   def possible_moves(board)
     MoveSet.legal_moves(board, self)
@@ -59,7 +64,7 @@ class Piece
   end
 
   def attacking_paths(board)
-    directions.map { |direction| Path.new(board, position, direction) }
+    directions.map { |direction| Path.new(board, position, direction, steps:) }
   end
 
   def movable?(board)
