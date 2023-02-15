@@ -35,9 +35,11 @@ class Coordinate
     ALL_COORDINATES.include?(coordinate)
   end
 
-  def initialize(row, column)
-    @row = row
-    @column = column
+  def initialize(**opts)
+    row, column = Coordinate.to_array(opts[:algebraic]) if opts[:algebraic]
+
+    @row = row || opts[:row]
+    @column = column || opts[:column]
   end
 
   def algebraic
@@ -47,7 +49,7 @@ class Coordinate
   def traverse(direction)
     direction = Vector.for(direction)
 
-    Coordinate.new(row + direction.vertical,
-                   column + direction.lateral)
+    Coordinate.new(row: row + direction.vertical,
+                   column: column + direction.lateral)
   end
 end

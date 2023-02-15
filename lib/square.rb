@@ -10,7 +10,7 @@ class Square
   end
 
   def initialize(row, column, fen)
-    @coordinate = Coordinate.new(row, column)
+    @coordinate = Coordinate.new(row:, column:)
     @piece = Piece.for(@coordinate, fen)
     @color = Square.color(row, column)
   end
