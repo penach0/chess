@@ -9,7 +9,7 @@ class King < Piece
   }.freeze
 
   def post_initialize
-    @directions = ALL_DIRECTIONS.values
+    @movement = { attacking: ALL_DIRECTIONS.values }
     @steps = 1
     @first_move = true
   end

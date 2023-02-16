@@ -2,7 +2,7 @@ require_relative '../chess'
 # This class represents a chess piece
 # Specific pieces are descendent from it
 class Piece
-  attr_reader :position, :fen_value, :directions, :steps
+  attr_reader :position, :fen_value, :movement, :steps
 
   FEN_INFO = {
     'K' => { class: 'King', symbol: ' ♔ ', color: 'white' },
@@ -65,7 +65,7 @@ class Piece
   end
 
   def attacking_paths(board)
-    directions.map { |direction| Path.new(board, position, direction, steps:) }
+    movement.map { |direction| Path.new(board, position, direction, steps:) }
   end
 
   def movable?(board)

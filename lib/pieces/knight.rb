@@ -5,7 +5,7 @@ class Knight < Piece
                   [1, -2], [1, 2], [2, -1], [2, 1]].freeze
 
   def post_initialize
-    @directions = KNIGHT_MOVES
+    @movement = { attacking: KNIGHT_MOVES }
     @steps = 1
   end
 

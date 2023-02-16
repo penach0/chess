@@ -4,7 +4,7 @@ class Rook < Piece
   attr_reader :first_move
 
   def post_initialize
-    @directions = HORIZONTAL_VERTICAL.values
+    @movement = { attacking: HORIZONTAL_VERTICAL.values }
     @first_move = true
   end
 
