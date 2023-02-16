@@ -15,7 +15,13 @@ class Pawn < Piece
 
   def post_initialize
     @first_move = true
-    @movement = { attacking: ATTACKING[color], forward: FORWARD[color] }
+    @movement = { attacking: ATTACKING[color],
+                  forward: FORWARD[color] }
+    @steps = 1
+  end
+
+  def special_steps
+    first_move ? 2 : steps
   end
 
   def update_position(new_position)

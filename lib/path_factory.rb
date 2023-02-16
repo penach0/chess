@@ -8,7 +8,8 @@ class PathFactory
       when :attacking
         directions.map { |direction| paths << AttackingPath.new(board, coordinate, direction, steps: piece.steps) }
       else
-        directions.map { |direction| paths << Path.new(board, coordinate, direction, steps: piece.steps) }
+        # directions.map { |direction| paths << Path.new(board, coordinate, direction, steps: piece.special_steps) }
+        paths << Path.new(board, coordinate, directions, steps: piece.special_steps)
       end
     end
     Paths.new(paths)
