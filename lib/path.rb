@@ -1,14 +1,14 @@
 # This class finds and builds paths available for a piece given
 # its position and movement
 class Path
-  attr_reader :path, :piece
+  attr_reader :path
 
   def initialize(board, coordinate, direction, steps:)
     @path = board.path_in_direction(coordinate, direction, steps:)
   end
 
   def piece_scope
-    return self if empty?
+    return path if empty?
 
     @path = path[0, blocking_piece_index]
   end
