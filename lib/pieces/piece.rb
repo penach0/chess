@@ -65,7 +65,7 @@ class Piece
   end
 
   def attacking_paths(board)
-    movement.map { |direction| Path.new(board, position, direction, steps:) }
+    movement[:attacking].map { |direction| AttackingPath.new(board, position, direction, steps:) }
   end
 
   def movable?(board)

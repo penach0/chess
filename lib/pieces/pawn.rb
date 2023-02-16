@@ -30,7 +30,7 @@ class Pawn < Piece
   def forward_path(board)
     steps = (first_move ? 2 : 1)
 
-    Path.new(board, position, forward_direction, steps:).free_squares
+    Path.new(board, position, forward_direction, steps:)
   end
 
   def capturing_paths(board)
@@ -38,7 +38,7 @@ class Pawn < Piece
   end
 
   def attacking_paths(board)
-    attacking_directions.map { |direction| Path.new(board, position, direction, steps: 1) }
+    attacking_directions.map { |direction| AttackingPath.new(board, position, direction, steps: 1) }
   end
 
   def attacking_directions
