@@ -3,18 +3,19 @@ require_relative '../chess'
 class Pawn < Piece
   attr_reader :first_move
 
-  ATTACKING_MOVES = {
+  ATTACKING = {
     'white' => [DIAGONAL[:up_right], DIAGONAL[:up_left]],
     'black' => [DIAGONAL[:down_right], DIAGONAL[:down_left]]
   }.freeze
 
-  FORWARD_MOVES = {
+  FORWARD = {
     'white' => HORIZONTAL_VERTICAL[:up],
     'black' => HORIZONTAL_VERTICAL[:down]
   }.freeze
 
   def post_initialize
     @first_move = true
+    @movement = { attacking: ATTACKING[color], forward: FORWARD[color] }
   end
 
   def update_position(new_position)
@@ -30,7 +31,7 @@ class Pawn < Piece
   def forward_path(board)
     steps = (first_move ? 2 : 1)
 
-    Path.new(board, position, forward_direction, steps:)
+    Path.new(board, position, movement[:forward], steps:)
   end
 
   def capturing_paths(board)
@@ -38,14 +39,6 @@ class Pawn < Piece
   end
 
   def attacking_paths(board)
-    attacking_directions.map { |direction| AttackingPath.new(board, position, direction, steps: 1) }
-  end
-
-  def attacking_directions
-    ATTACKING_MOVES[color]
-  end
-
-  def forward_direction
-    FORWARD_MOVES[color]
+    movement[:attacking].map { |direction| AttackingPath.new(board, position, direction, steps: 1) }
   end
 end
