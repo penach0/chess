@@ -34,7 +34,7 @@ class MoveGenerator
   end
 
   def paths
-    Paths.new(board, coordinate)
+    PathFactory.create_paths(board, coordinate, piece)
   end
 
   def piece
