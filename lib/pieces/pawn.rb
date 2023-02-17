@@ -30,6 +30,10 @@ class Pawn < Piece
     @first_move = false if first_move
   end
 
+  def can_capture?(other)
+    other.color == opponent_color
+  end
+
   def available_paths(board)
     [forward_path(board), capturing_paths(board)].flatten
   end
