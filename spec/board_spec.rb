@@ -21,8 +21,7 @@ describe Board do
       coordinate = 'c1'
       piece = piece_board.piece_in(coordinate)
 
-      expect(piece.symbol).to eq(' ♝ ')
-      expect(piece.color).to eq('black')
+      expect(piece).to be_a(Bishop).and have_attributes(color: 'black')
     end
   end
 
