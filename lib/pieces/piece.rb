@@ -96,6 +96,10 @@ class Piece
     FEN_INFO[fen_value][:color]
   end
 
+  def ==(other)
+    position == other.position && fen_value == other.fen_value
+  end
+
   private
 
   def to_s
