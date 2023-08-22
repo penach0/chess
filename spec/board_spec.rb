@@ -25,14 +25,16 @@ describe Board do
     end
   end
 
-  describe '#pieces_of_color' do
+  describe '#pieces' do
     subject(:pieces_board) { described_class.new(fen: '2b2b2/8/7b/8/8/8/B7/2B2B2') }
 
-    it 'fetches the pieces of the passed color' do
-      white_pieces = pieces_board.pieces_of_color('white')
+    it 'fetches the white pieces' do
+      white_pieces = pieces_board.pieces('white')
       piece_coordinates = white_pieces.map(&:position)
 
-      expect(piece_coordinates).to eq(['a2', 'c1', 'f1'])
+      expect(piece_coordinates).to contain_exactly(Coordinate.new(algebraic: 'a2'),
+                                                   Coordinate.new(algebraic: 'c1'),
+                                                   Coordinate.new(algebraic: 'f1'))
     end
   end
 
