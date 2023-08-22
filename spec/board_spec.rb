@@ -45,6 +45,18 @@ describe Board do
                                                    Coordinate.new(algebraic: 'f8'),
                                                    Coordinate.new(algebraic: 'h6'))
     end
+
+    it 'fetches the all pieces when no color is given' do
+      all_pieces = pieces_board.pieces
+      piece_coordinates = all_pieces.map(&:position)
+
+      expect(piece_coordinates).to contain_exactly(Coordinate.new(algebraic: 'c8'),
+                                                   Coordinate.new(algebraic: 'f8'),
+                                                   Coordinate.new(algebraic: 'h6'),
+                                                   Coordinate.new(algebraic: 'a2'),
+                                                   Coordinate.new(algebraic: 'c1'),
+                                                   Coordinate.new(algebraic: 'f1'))
+    end
   end
 
   describe '#move_piece' do
