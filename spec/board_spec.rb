@@ -7,11 +7,10 @@ describe Board do
     it 'returns the correct square' do
       coordinate = 'c1'
       square = square_board.square(coordinate)
-      color = square.color
-      piece = square.piece.symbol
+      piece_in_square = square.piece
 
-      expect(piece).to eq(' ♝ ')
-      expect(color).to eq('dark')
+      expect(square).to be_a(Square).and have_attributes(color: 'dark')
+      expect(piece_in_square).to be_a(Bishop).and have_attributes(color: 'black')
     end
   end
 
