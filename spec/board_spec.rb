@@ -2,7 +2,7 @@ require_relative '../lib/chess'
 
 describe Board do
   describe '#square' do
-    subject(:square_board) { described_class.new(board: '8/8/8/8/8/8/8/2b5') }
+    subject(:square_board) { described_class.new(fen: '8/8/8/8/8/8/8/2b5') }
 
     it 'returns the correct square' do
       coordinate = 'c1'
@@ -16,7 +16,7 @@ describe Board do
   end
 
   describe '#piece_in' do
-    subject(:piece_board) { described_class.new(board: '8/8/8/8/8/8/8/2b5') }
+    subject(:piece_board) { described_class.new(fen: '8/8/8/8/8/8/8/2b5') }
 
     it 'returns the piece in the given square' do
       coordinate = 'c1'
@@ -28,7 +28,7 @@ describe Board do
   end
 
   describe '#pieces_of_color' do
-    subject(:pieces_board) { described_class.new(board: '2b2b2/8/7b/8/8/8/B7/2B2B2') }
+    subject(:pieces_board) { described_class.new(fen: '2b2b2/8/7b/8/8/8/B7/2B2B2') }
 
     it 'fetches the pieces of the passed color' do
       white_pieces = pieces_board.pieces_of_color('white')
@@ -39,7 +39,7 @@ describe Board do
   end
 
   describe '#move_piece' do
-    subject(:move_board) { described_class.new(board: '8/8/8/8/8/8/8/2b5') }
+    subject(:move_board) { described_class.new(fen: '8/8/8/8/8/8/8/2b5') }
 
     it 'moves a piece' do
       start_coordinate = 'c1'
