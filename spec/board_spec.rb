@@ -62,8 +62,8 @@ describe Board do
     it 'moves a piece' do
       start_coordinate = 'c1'
       end_coordinate = 'h6'
-      move_board.move_piece(start_coordinate, end_coordinate)
-      result_board = fen_string(move_board.board)
+      move_board.move_piece(Move.new(start_coordinate, end_coordinate))
+      result_board = BoardDecoder.decode(move_board.board)
 
       expect(result_board).to eq('8/8/7b/8/8/8/8/8')
     end
