@@ -30,32 +30,29 @@ describe Board do
 
     it 'fetches the white pieces' do
       white_pieces = pieces_board.pieces('white')
-      piece_coordinates = white_pieces.map(&:position)
 
-      expect(piece_coordinates).to contain_exactly(Coordinate.new(algebraic: 'a2'),
-                                                   Coordinate.new(algebraic: 'c1'),
-                                                   Coordinate.new(algebraic: 'f1'))
+      expect(white_pieces).to contain_exactly(Piece.for(Coordinate.new(algebraic: 'a2'), 'B'),
+                                              Piece.for(Coordinate.new(algebraic: 'c1'), 'B'),
+                                              Piece.for(Coordinate.new(algebraic: 'f1'), 'B'))
     end
 
     it 'fetches the black pieces' do
       black_pieces = pieces_board.pieces('black')
-      piece_coordinates = black_pieces.map(&:position)
 
-      expect(piece_coordinates).to contain_exactly(Coordinate.new(algebraic: 'c8'),
-                                                   Coordinate.new(algebraic: 'f8'),
-                                                   Coordinate.new(algebraic: 'h6'))
+      expect(black_pieces).to contain_exactly(Piece.for(Coordinate.new(algebraic: 'c8'), 'b'),
+                                              Piece.for(Coordinate.new(algebraic: 'f8'), 'b'),
+                                              Piece.for(Coordinate.new(algebraic: 'h6'), 'b'))
     end
 
     it 'fetches the all pieces when no color is given' do
       all_pieces = pieces_board.pieces
-      piece_coordinates = all_pieces.map(&:position)
 
-      expect(piece_coordinates).to contain_exactly(Coordinate.new(algebraic: 'c8'),
-                                                   Coordinate.new(algebraic: 'f8'),
-                                                   Coordinate.new(algebraic: 'h6'),
-                                                   Coordinate.new(algebraic: 'a2'),
-                                                   Coordinate.new(algebraic: 'c1'),
-                                                   Coordinate.new(algebraic: 'f1'))
+      expect(all_pieces).to contain_exactly(Piece.for(Coordinate.new(algebraic: 'a2'), 'B'),
+                                            Piece.for(Coordinate.new(algebraic: 'c1'), 'B'),
+                                            Piece.for(Coordinate.new(algebraic: 'f1'), 'B'),
+                                            Piece.for(Coordinate.new(algebraic: 'c8'), 'b'),
+                                            Piece.for(Coordinate.new(algebraic: 'f8'), 'b'),
+                                            Piece.for(Coordinate.new(algebraic: 'h6'), 'b'))
     end
   end
 
