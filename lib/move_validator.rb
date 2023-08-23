@@ -4,7 +4,7 @@ class MoveValidator
   attr_reader :board, :player, :start, :moves
 
   def self.validate_start(board, player, input)
-    coordinate = Coordinate.new(algebraic: input)
+    coordinate = Coordinate.from_string(input)
 
     return coordinate if valid_start?(board, player, coordinate)
 
@@ -28,7 +28,7 @@ class MoveValidator
   end
 
   def validate_destination(input)
-    coordinate = Coordinate.new(algebraic: input)
+    coordinate = Coordinate.from_string(input)
 
     return coordinate if valid_destination?(coordinate)
 

@@ -3,13 +3,13 @@ require_relative '../lib/chess'
 describe Board do
   describe '.inside_board?' do
     it 'returns true when inside the board' do
-      coordinate = Coordinate.new(algebraic: 'f4')
+      coordinate = Coordinate.from_string('f4')
 
       expect(described_class).to be_inside_board(coordinate)
     end
 
     it 'returns false when inside the board' do
-      coordinate = Coordinate.new(algebraic: 'c9')
+      coordinate = Coordinate.from_string('c9')
 
       expect(described_class).not_to be_inside_board(coordinate)
     end
@@ -19,7 +19,7 @@ describe Board do
     subject(:square_board) { described_class.new(fen: '8/8/8/8/8/8/8/2b5') }
 
     it 'returns the correct square' do
-      coordinate = 'c1'
+      coordinate = Coordinate.from_string('c1')
       square = square_board.square(coordinate)
       piece_in_square = square.piece
 
@@ -32,7 +32,7 @@ describe Board do
     subject(:piece_board) { described_class.new(fen: '8/8/8/8/8/8/8/2b5') }
 
     it 'returns the piece in the given square' do
-      coordinate = 'c1'
+      coordinate = Coordinate.from_string('c1')
       piece = piece_board.piece_in(coordinate)
 
       expect(piece).to be_a(Bishop).and have_attributes(color: 'black')
@@ -45,28 +45,28 @@ describe Board do
     it 'fetches the white pieces' do
       white_pieces = pieces_board.pieces('white')
 
-      expect(white_pieces).to contain_exactly(Piece.for(Coordinate.new(algebraic: 'a2'), 'B'),
-                                              Piece.for(Coordinate.new(algebraic: 'c1'), 'B'),
-                                              Piece.for(Coordinate.new(algebraic: 'f1'), 'B'))
+      expect(white_pieces).to contain_exactly(Piece.for(Coordinate.from_string('a2'), 'B'),
+                                              Piece.for(Coordinate.from_string('c1'), 'B'),
+                                              Piece.for(Coordinate.from_string('f1'), 'B'))
     end
 
     it 'fetches the black pieces' do
       black_pieces = pieces_board.pieces('black')
 
-      expect(black_pieces).to contain_exactly(Piece.for(Coordinate.new(algebraic: 'c8'), 'b'),
-                                              Piece.for(Coordinate.new(algebraic: 'f8'), 'b'),
-                                              Piece.for(Coordinate.new(algebraic: 'h6'), 'b'))
+      expect(black_pieces).to contain_exactly(Piece.for(Coordinate.from_string('c8'), 'b'),
+                                              Piece.for(Coordinate.from_string('f8'), 'b'),
+                                              Piece.for(Coordinate.from_string('h6'), 'b'))
     end
 
     it 'fetches the all pieces when no color is given' do
       all_pieces = pieces_board.pieces
 
-      expect(all_pieces).to contain_exactly(Piece.for(Coordinate.new(algebraic: 'a2'), 'B'),
-                                            Piece.for(Coordinate.new(algebraic: 'c1'), 'B'),
-                                            Piece.for(Coordinate.new(algebraic: 'f1'), 'B'),
-                                            Piece.for(Coordinate.new(algebraic: 'c8'), 'b'),
-                                            Piece.for(Coordinate.new(algebraic: 'f8'), 'b'),
-                                            Piece.for(Coordinate.new(algebraic: 'h6'), 'b'))
+      expect(all_pieces).to contain_exactly(Piece.for(Coordinate.from_string('a2'), 'B'),
+                                            Piece.for(Coordinate.from_string('c1'), 'B'),
+                                            Piece.for(Coordinate.from_string('f1'), 'B'),
+                                            Piece.for(Coordinate.from_string('c8'), 'b'),
+                                            Piece.for(Coordinate.from_string('f8'), 'b'),
+                                            Piece.for(Coordinate.from_string('h6'), 'b'))
     end
   end
 
@@ -92,8 +92,8 @@ describe Board do
     subject(:move_board) { described_class.new(fen: '8/8/8/8/8/8/8/2b5') }
 
     it 'moves a piece' do
-      start_coordinate = 'c1'
-      end_coordinate = 'h6'
+      start_coordinate = Coordinate.from_string('c1')
+      end_coordinate = Coordinate.from_string('h6')
       move_board.move_piece(Move.new(start_coordinate, end_coordinate))
       result_board = BoardDecoder.decode(move_board.board)
 
@@ -122,7 +122,7 @@ describe Board do
 
     context 'when finding full paths' do
       steps = Board::SIZE
-      starting_position = Coordinate.new(algebraic: 'f4')
+      starting_position = Coordinate.from_string('f4')
 
       it 'fetches empty path' do
         direction = Piece::DIAGONAL[:up_left]
@@ -143,7 +143,7 @@ describe Board do
 
     context 'when finding partial paths' do
       steps = 1
-      starting_position = Coordinate.new(algebraic: 'g5')
+      starting_position = Coordinate.from_string('g5')
 
       it 'fetches empty path' do
         direction = Piece::DIAGONAL[:down_right]
