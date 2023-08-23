@@ -1,6 +1,20 @@
 require_relative '../lib/chess'
 
 describe Board do
+  describe '.inside_board?' do
+    it 'returns true when inside the board' do
+      coordinate = Coordinate.new(algebraic: 'f4')
+
+      expect(described_class).to be_inside_board(coordinate)
+    end
+
+    it 'returns false when inside the board' do
+      coordinate = Coordinate.new(algebraic: 'c9')
+
+      expect(described_class).not_to be_inside_board(coordinate)
+    end
+  end
+
   describe '#square' do
     subject(:square_board) { described_class.new(fen: '8/8/8/8/8/8/8/2b5') }
 
