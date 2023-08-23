@@ -15,5 +15,13 @@ describe Coordinate do
 
       expect(coordinate).to eq(Coordinate.new(row: 4, column: 2))
     end
+
+    it 'can initialize coordinates for boards larger than 8x8' do
+      Board::SIZE = 10
+      algebraic_string = 'j9'
+      coordinate = described_class.from_string(algebraic_string)
+
+      expect(coordinate).to eq(Coordinate.new(row: 1, column: 9))
+    end
   end
 end
