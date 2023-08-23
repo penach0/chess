@@ -14,10 +14,6 @@ class Coordinate
     end
   end
 
-  def self.square_to_coordinates(squares)
-    squares.map(&:algebraic)
-  end
-
   def self.to_algebraic(row, column)
     COLUMNS[column] + ROWS[row]
   end
