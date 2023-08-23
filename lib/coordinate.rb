@@ -35,7 +35,7 @@ class Coordinate
     @column = column
   end
 
-  def algebraic
+  def to_s
     COLUMNS[column] + ROWS[row]
   end
 
