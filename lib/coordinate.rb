@@ -21,15 +21,6 @@ class Coordinate
     end
   end
 
-  def self.to_array(coordinate)
-    return [coordinate.row, coordinate.column] if coordinate.is_a?(Coordinate)
-
-    column = COLUMNS.find_index(coordinate[0])
-    row = ROWS.find_index(coordinate[1])
-
-    [row, column]
-  end
-
   def self.valid?(coordinate)
     ALL_COORDINATES.include?(coordinate)
   end
@@ -39,11 +30,9 @@ class Coordinate
         column: TRANSLATORS[:algebraic_to_array][:column].call(string[0]))
   end
 
-  def initialize(**opts)
-    row, column = Coordinate.to_array(opts[:algebraic]) if opts[:algebraic]
-
-    @row = row || opts[:row]
-    @column = column || opts[:column]
+  def initialize(row:, column:)
+    @row = row
+    @column = column
   end
 
   def algebraic
