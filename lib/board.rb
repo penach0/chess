@@ -15,9 +15,7 @@ class Board
   end
 
   def square(coordinate)
-    row, column = Coordinate.to_array(coordinate)
-
-    board[row][column]
+    board[coordinate.row][coordinate.column]
   end
 
   def piece_in(coordinate)
