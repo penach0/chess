@@ -104,15 +104,48 @@ describe Board do
   end
 
   describe '#path_in_direction' do
-    subject(:path_board) { described_class.new(fen: '8/8/8/8/3P1b2/4B1p1/8/8') }
+    subject(:path_board) { described_class.new(fen: '8/8/8/6p1/3P1b2/4B3/8/8') }
 
-    it 'fetches empty paths' do
+    context 'when finding full paths' do
+      steps = Board::SIZE
       starting_position = Coordinate.new(algebraic: 'f4')
-      direction = Piece::DIAGONAL[:up_left]
-      path = path_board.path_in_direction(starting_position, direction, steps: Board::SIZE)
-      result = algebraic_from_squares(path)
 
-      expect(result).to contain_exactly('b8', 'c7', 'd6', 'e5')
+      it 'fetches empty path' do
+        direction = Piece::DIAGONAL[:up_left]
+        path = path_board.path_in_direction(starting_position, direction, steps:)
+        result = algebraic_from_squares(path)
+
+        expect(result).to contain_exactly('b8', 'c7', 'd6', 'e5')
+      end
+
+      it 'fetches path even if blocked' do
+        direction = Piece::DIAGONAL[:down_left]
+        path = path_board.path_in_direction(starting_position, direction, steps:)
+        result = algebraic_from_squares(path)
+
+        expect(result).to contain_exactly('e3', 'd2', 'c1')
+      end
+    end
+
+    context 'when finding partial paths' do
+      steps = 1
+      starting_position = Coordinate.new(algebraic: 'g5')
+
+      it 'fetches empty path' do
+        direction = Piece::DIAGONAL[:down_right]
+        path = path_board.path_in_direction(starting_position, direction, steps:)
+        result = algebraic_from_squares(path)
+
+        expect(result).to contain_exactly('h4')
+      end
+
+      it 'fetches path even if blocked' do
+        direction = Piece::DIAGONAL[:down_left]
+        path = path_board.path_in_direction(starting_position, direction, steps:)
+        result = algebraic_from_squares(path)
+
+        expect(result).to contain_exactly('f4')
+      end
     end
   end
 end
