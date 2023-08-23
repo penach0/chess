@@ -56,6 +56,31 @@ describe Board do
     end
   end
 
+  describe '#squares_atacked_by' do
+    subject(:attacked_board) { described_class.new(fen: '8/8/8/8/3P1b2/4B1p1/8/8') }
+
+    it 'fetches the squares attacked by white' do
+      attacked_squares = attacked_board.squares_attacked_by('white')
+      coordinates = attacked_squares.map(&:coordinate)
+
+      expect(coordinates).to contain_exactly(Coordinate.new(algebraic: 'c1'), Coordinate.new(algebraic: 'd2'),
+                                             Coordinate.new(algebraic: 'f4'), Coordinate.new(algebraic: 'f2'),
+                                             Coordinate.new(algebraic: 'g1'), Coordinate.new(algebraic: 'd4'),
+                                             Coordinate.new(algebraic: 'e5'), Coordinate.new(algebraic: 'c5'))
+    end
+
+    it 'fetches the squares attacked by black' do
+      attacked_squares = attacked_board.squares_attacked_by('black')
+      coordinates = attacked_squares.map(&:coordinate)
+
+      expect(coordinates).to contain_exactly(Coordinate.new(algebraic: 'b8'), Coordinate.new(algebraic: 'c7'),
+                                             Coordinate.new(algebraic: 'd6'), Coordinate.new(algebraic: 'e5'),
+                                             Coordinate.new(algebraic: 'g3'), Coordinate.new(algebraic: 'h2'),
+                                             Coordinate.new(algebraic: 'g5'), Coordinate.new(algebraic: 'h6'),
+                                             Coordinate.new(algebraic: 'e3'), Coordinate.new(algebraic: 'f2'))
+    end
+  end
+
   describe '#move_piece' do
     subject(:move_board) { described_class.new(fen: '8/8/8/8/8/8/8/2b5') }
 
