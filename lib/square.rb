@@ -45,7 +45,7 @@ class Square
   end
 
   def algebraic
-    coordinate.algebraic
+    coordinate.to_s
   end
 
   private

@@ -165,6 +165,5 @@ describe Board do
 end
 
 def algebraic_from_squares(squares)
-  squares.map(&:coordinate)
-         .map(&:algebraic)
+  squares.map(&:algebraic)
 end
