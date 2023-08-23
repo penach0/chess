@@ -14,10 +14,6 @@ class Coordinate
     end
   end
 
-  def self.to_algebraic(row, column)
-    COLUMNS[column] + ROWS[row]
-  end
-
   def self.to_array(coordinate)
     return [coordinate.row, coordinate.column] if coordinate.is_a?(Coordinate)
 
