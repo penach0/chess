@@ -3,6 +3,13 @@
 class Coordinate
   attr_reader :row, :column
 
+  TRANSLATORS = {
+    algebraic_to_array: {
+      row: ->(row) { (Board::SIZE - row.to_i) },
+      column: ->(column) { column.ord - 97 }
+    }
+  }.freeze
+
   ROWS = [*'1'..'8'].reverse.freeze
   COLUMNS = [*'a'..'h'].freeze
   ALL_COORDINATES = COLUMNS.product(ROWS).map(&:join).freeze
@@ -25,6 +32,11 @@ class Coordinate
 
   def self.valid?(coordinate)
     ALL_COORDINATES.include?(coordinate)
+  end
+
+  def self.from_string(string)
+    new(row: TRANSLATORS[:algebraic_to_array][:row].call(string[1]),
+        column: TRANSLATORS[:algebraic_to_array][:column].call(string[0]))
   end
 
   def initialize(**opts)
