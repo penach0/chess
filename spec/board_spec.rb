@@ -109,4 +109,18 @@ describe Board do
       expect(checked_board).not_to be_in_check(player_not_in_check)
     end
   end
+
+  describe '#path_in_direction' do
+    subject(:path_board) { described_class.new(fen: '8/8/8/8/3P1b2/4B1p1/8/8') }
+
+    it 'fetches empty paths' do
+      starting_position = Coordinate.new(algebraic: 'f4')
+      direction = Piece::DIAGONAL[:up_left]
+      path = path_board.path_in_direction(starting_position, direction, steps: Board::SIZE)
+      result = path.map(&:coordinate)
+                   .map(&:algebraic)
+
+      expect(result).to contain_exactly('b8', 'c7', 'd6', 'e5')
+    end
+  end
 end
