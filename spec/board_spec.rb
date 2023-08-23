@@ -61,23 +61,16 @@ describe Board do
 
     it 'fetches the squares attacked by white' do
       attacked_squares = attacked_board.squares_attacked_by('white')
-      coordinates = attacked_squares.map(&:coordinate)
+      algebraic_coordinates = algebraic_from_squares(attacked_squares)
 
-      expect(coordinates).to contain_exactly(Coordinate.new(algebraic: 'c1'), Coordinate.new(algebraic: 'd2'),
-                                             Coordinate.new(algebraic: 'f4'), Coordinate.new(algebraic: 'f2'),
-                                             Coordinate.new(algebraic: 'g1'), Coordinate.new(algebraic: 'd4'),
-                                             Coordinate.new(algebraic: 'e5'), Coordinate.new(algebraic: 'c5'))
+      expect(algebraic_coordinates).to contain_exactly('c1', 'd2', 'f4', 'f2', 'g1', 'd4', 'e5', 'c5')
     end
 
     it 'fetches the squares attacked by black' do
       attacked_squares = attacked_board.squares_attacked_by('black')
-      coordinates = attacked_squares.map(&:coordinate)
+      algebraic_coordinates = algebraic_from_squares(attacked_squares)
 
-      expect(coordinates).to contain_exactly(Coordinate.new(algebraic: 'b8'), Coordinate.new(algebraic: 'c7'),
-                                             Coordinate.new(algebraic: 'd6'), Coordinate.new(algebraic: 'e5'),
-                                             Coordinate.new(algebraic: 'g3'), Coordinate.new(algebraic: 'h2'),
-                                             Coordinate.new(algebraic: 'g5'), Coordinate.new(algebraic: 'h6'),
-                                             Coordinate.new(algebraic: 'e3'), Coordinate.new(algebraic: 'f2'))
+      expect(algebraic_coordinates).to contain_exactly('b8', 'c7', 'd6', 'e5', 'g3', 'h2', 'g5', 'h6', 'e3', 'f2')
     end
   end
 
@@ -117,10 +110,14 @@ describe Board do
       starting_position = Coordinate.new(algebraic: 'f4')
       direction = Piece::DIAGONAL[:up_left]
       path = path_board.path_in_direction(starting_position, direction, steps: Board::SIZE)
-      result = path.map(&:coordinate)
-                   .map(&:algebraic)
+      result = algebraic_from_squares(path)
 
       expect(result).to contain_exactly('b8', 'c7', 'd6', 'e5')
     end
   end
+end
+
+def algebraic_from_squares(squares)
+  squares.map(&:coordinate)
+         .map(&:algebraic)
 end
