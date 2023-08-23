@@ -93,4 +93,20 @@ describe Board do
       expect(result_board).to eq('8/8/7b/8/8/8/8/8')
     end
   end
+
+  describe '#in_check?' do
+    subject(:checked_board) { described_class.new(fen: 'rnbqkb1r/ppp1pppp/5n2/3p4/Q1P5/5N2/PP1PPPPP/RNB1KB1R') }
+
+    it 'identifies a position in check' do
+      player_in_check = 'black'
+
+      expect(checked_board).to be_in_check(player_in_check)
+    end
+
+    it 'identifies a position not in check' do
+      player_not_in_check = 'white'
+
+      expect(checked_board).not_to be_in_check(player_not_in_check)
+    end
+  end
 end
