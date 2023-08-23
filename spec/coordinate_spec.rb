@@ -22,20 +22,22 @@ describe Coordinate do
       coordinate = described_class.from_string(algebraic_string)
 
       expect(coordinate).to eq(described_class.new(row: 1, column: 9))
+
+      Board::SIZE = 8
     end
   end
 
   describe '#to_s' do
     it 'returns a string with the coresponding algebraic notation' do
       coordinate = described_class.new(row: 0, column: 0)
-      algebraic_string = coordinate.to_algebraic
+      algebraic_string = coordinate.to_s
 
       expect(algebraic_string).to eq('a8')
     end
 
     it 'works with a different coordinate' do
       coordinate = described_class.new(row: 4, column: 2)
-      algebraic_string = coordinate.to_algebraic
+      algebraic_string = coordinate.to_s
 
       expect(algebraic_string).to eq('c4')
     end
@@ -43,9 +45,11 @@ describe Coordinate do
     it 'works with coordinates for boards larger than 8x8' do
       Board::SIZE = 10
       coordinate = described_class.new(row: 1, column: 9)
-      algebraic_string = coordinate.to_algebraic
+      algebraic_string = coordinate.to_s
 
       expect(algebraic_string).to eq('j9')
+
+      Board::SIZE = 8
     end
   end
 end

@@ -7,6 +7,10 @@ class Coordinate
     algebraic_to_array: {
       row: ->(row) { (Board::SIZE - row.to_i) },
       column: ->(column) { column.ord - 97 }
+    },
+    array_to_algebraic: {
+      row: ->(row) { (Board::SIZE - row).to_s },
+      column: ->(column) { (column + 97).chr }
     }
   }.freeze
 
@@ -36,7 +40,8 @@ class Coordinate
   end
 
   def to_s
-    COLUMNS[column] + ROWS[row]
+    TRANSLATORS[:array_to_algebraic][:column].call(column) +
+      TRANSLATORS[:array_to_algebraic][:row].call(row)
   end
 
   def traverse(direction)
