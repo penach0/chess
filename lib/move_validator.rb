@@ -12,6 +12,8 @@ class MoveValidator
   end
 
   def self.valid_start?(board, player, coordinate)
+    return false unless board.inside_board?(coordinate)
+
     picked_piece = board.piece_in(coordinate)
 
     picked_piece.color == player.color && !MoveGenerator.new(board, coordinate).legal_moves.empty?
