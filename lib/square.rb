@@ -48,6 +48,11 @@ class Square
     coordinate.to_s
   end
 
+  def ==(other)
+    self.class == other.class &&
+      coordinate == other.coordinate && piece.fen_value == other.piece.fen_value
+  end
+
   private
 
   def dark_square(piece)
