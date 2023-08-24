@@ -14,19 +14,11 @@ class Coordinate
     }
   }.freeze
 
-  ROWS = [*'1'..'8'].reverse.freeze
-  COLUMNS = [*'a'..'h'].freeze
-  ALL_COORDINATES = COLUMNS.product(ROWS).map(&:join).freeze
-
   # Holds vector like representations of directions
   Vector = Struct.new(:vertical, :lateral) do
     def self.for(direction)
       new(direction[0], direction[1])
     end
-  end
-
-  def self.valid?(coordinate)
-    ALL_COORDINATES.include?(coordinate)
   end
 
   def self.from_string(string, board_size: 8)
