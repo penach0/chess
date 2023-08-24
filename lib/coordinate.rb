@@ -5,11 +5,11 @@ class Coordinate
 
   TRANSLATORS = {
     algebraic_to_array: {
-      row: ->(row) { (Board::SIZE - row.to_i) },
+      row: ->(row, board_size = 8) { (board_size - row.to_i) },
       column: ->(column) { column.ord - 97 }
     },
     array_to_algebraic: {
-      row: ->(row) { (Board::SIZE - row).to_s },
+      row: ->(row, board_size = 8) { (board_size - row).to_s },
       column: ->(column) { (column + 97).chr }
     }
   }.freeze
@@ -29,8 +29,8 @@ class Coordinate
     ALL_COORDINATES.include?(coordinate)
   end
 
-  def self.from_string(string)
-    new(row: TRANSLATORS[:algebraic_to_array][:row].call(string[1]),
+  def self.from_string(string, board_size: 8)
+    new(row: TRANSLATORS[:algebraic_to_array][:row].call(string[1], board_size),
         column: TRANSLATORS[:algebraic_to_array][:column].call(string[0]))
   end
 
@@ -39,9 +39,9 @@ class Coordinate
     @column = column
   end
 
-  def to_s
+  def to_s(board_size: 8)
     TRANSLATORS[:array_to_algebraic][:column].call(column) +
-      TRANSLATORS[:array_to_algebraic][:row].call(row)
+      TRANSLATORS[:array_to_algebraic][:row].call(row, board_size)
   end
 
   def traverse(direction)

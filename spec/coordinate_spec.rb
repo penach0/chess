@@ -17,13 +17,10 @@ describe Coordinate do
     end
 
     it 'can initialize coordinates for boards larger than 8x8' do
-      Board::SIZE = 10
       algebraic_string = 'j9'
-      coordinate = described_class.from_string(algebraic_string)
+      coordinate = described_class.from_string(algebraic_string, board_size: 10)
 
       expect(coordinate).to eq(described_class.new(row: 1, column: 9))
-
-      Board::SIZE = 8
     end
   end
 
@@ -43,13 +40,10 @@ describe Coordinate do
     end
 
     it 'works with coordinates for boards larger than 8x8' do
-      Board::SIZE = 10
       coordinate = described_class.new(row: 1, column: 9)
-      algebraic_string = coordinate.to_s
+      algebraic_string = coordinate.to_s(board_size: 10)
 
       expect(algebraic_string).to eq('j9')
-
-      Board::SIZE = 8
     end
   end
 end
