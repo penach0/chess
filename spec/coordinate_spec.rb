@@ -46,4 +46,20 @@ describe Coordinate do
       expect(algebraic_string).to eq('j9')
     end
   end
+
+  describe '#==' do
+    subject(:equality_coordinate) { described_class.new(row: 3, column: 5) }
+
+    it 'recognizes equal coordinates as having the same column and row attributes' do
+      equal_coordinate = Coordinate.new(row: 3, column: 5)
+
+      expect(equal_coordinate).to eq(equality_coordinate)
+    end
+
+    it 'recognizes different coordinates as having the same column and row attributes' do
+      different_coordinate = Coordinate.new(row: 7, column: 5)
+
+      expect(different_coordinate).not_to eq(equality_coordinate)
+    end
+  end
 end
