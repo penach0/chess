@@ -47,6 +47,50 @@ describe Coordinate do
     end
   end
 
+  describe '#traverse' do
+    subject(:traverse_coordinate) { described_class.from_string('e4') }
+
+    it 'traverses vertically' do
+      direction = Piece::HORIZONTAL_VERTICAL[:up]
+      up_coordinate = traverse_coordinate.traverse(direction)
+      result = up_coordinate.to_s
+
+      expect(result).to eq('e5')
+    end
+
+    it 'traverses horizontally' do
+      direction = Piece::HORIZONTAL_VERTICAL[:left]
+      up_coordinate = traverse_coordinate.traverse(direction)
+      result = up_coordinate.to_s
+
+      expect(result).to eq('d4')
+    end
+
+    it 'traverses diagonally' do
+      direction = Piece::DIAGONAL[:down_right]
+      up_coordinate = traverse_coordinate.traverse(direction)
+      result = up_coordinate.to_s
+
+      expect(result).to eq('f3')
+    end
+
+    it 'traverses a knight move' do
+      direction = Knight::KNIGHT_MOVES[0]
+      up_coordinate = traverse_coordinate.traverse(direction)
+      result = up_coordinate.to_s
+
+      expect(result).to eq('d6')
+    end
+
+    it 'traverses a random multistep direction' do
+      direction = [3, 3]
+      up_coordinate = traverse_coordinate.traverse(direction)
+      result = up_coordinate.to_s
+
+      expect(result).to eq('h1')
+    end
+  end
+
   describe '#==' do
     subject(:equality_coordinate) { described_class.new(row: 3, column: 5) }
 
