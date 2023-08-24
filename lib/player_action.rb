@@ -4,7 +4,7 @@ require_relative 'chess'
 class PlayerAction
   attr_reader :input, :game
 
-  VALID_COORDINATE = /^[a-h][1-8]$/
+  VALID_COORDINATE = /\A[a-z]([1-9]|1[0-9]|2[0-6])\z/
 
   def self.dispatch(input, game)
     new(input, game).dispatch_action
