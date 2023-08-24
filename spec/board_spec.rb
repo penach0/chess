@@ -1,17 +1,20 @@
 require_relative '../lib/chess'
 
 describe Board do
-  describe '.inside_board?' do
-    it 'returns true when inside the board' do
-      coordinate = Coordinate.from_string('f4')
+  describe '#inside_board?' do
+    context "with a 8x8 board" do
+      subject(:coordinate_board) { described_class.new(fen: '8/8/8/8/8/8/8/8') }
+      it 'returns true when inside the board' do
+        coordinate = Coordinate.from_string('f4')
 
-      expect(described_class).to be_inside_board(coordinate)
-    end
+        expect(coordinate_board).to be_inside_board(coordinate)
+      end
 
-    it 'returns false when inside the board' do
-      coordinate = Coordinate.from_string('c9')
+      it 'returns false when outside the board' do
+        coordinate = Coordinate.from_string('c9')
 
-      expect(described_class).not_to be_inside_board(coordinate)
+        expect(coordinate_board).not_to be_inside_board(coordinate)
+      end
     end
   end
 

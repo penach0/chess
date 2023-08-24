@@ -5,10 +5,6 @@ class Board
 
   SIZE = 8
 
-  def self.inside_board?(coordinate)
-    [coordinate.row, coordinate.column].all? { |el| el.between?(0, SIZE - 1) }
-  end
-
   def initialize(fen: '8/8/8/8/8/8/8/8')
     @board = BoardBuilder.build(fen)
     @size = fen.count('/') + 1
@@ -57,12 +53,16 @@ class Board
     coordinate = position.traverse(direction)
     path = []
 
-    while path.size < steps && Board.inside_board?(coordinate)
+    while path.size < steps && inside_board?(coordinate)
       path << square(coordinate)
       coordinate = coordinate.traverse(direction)
     end
 
     path
+  end
+
+  def inside_board?(coordinate)
+    [coordinate.row, coordinate.column].all? { |el| el.between?(0, size - 1) }
   end
 
   private
