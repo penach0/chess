@@ -11,7 +11,7 @@ class Board
 
   def initialize(fen: '8/8/8/8/8/8/8/8')
     @board = BoardBuilder.build(fen)
-    @size = SIZE
+    @size = fen.count('/') + 1
   end
 
   def square(coordinate)
