@@ -1,6 +1,8 @@
 require_relative 'chess'
 # This module will methods that query the user for input
 module UserInput
+  VALID_COORDINATE = /\A[a-z]([1-9]|1[0-9]|2[0-6])\z/
+
   def self.ask_name(color)
     print "Who wants to play #{color}? Tell me your name: "
     gets.chomp
@@ -50,6 +52,6 @@ module UserInput
   end
 
   def self.verify_play_input(input)
-    input == 'save' || Coordinate.valid?(input)
+    input == 'save' || input.match?(VALID_COORDINATE)
   end
 end

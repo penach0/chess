@@ -4,8 +4,6 @@ require_relative 'chess'
 class PlayerAction
   attr_reader :input, :game
 
-  VALID_COORDINATE = /\A[a-z]([1-9]|1[0-9]|2[0-6])\z/
-
   def self.dispatch(input, game)
     new(input, game).dispatch_action
   end
@@ -19,7 +17,7 @@ class PlayerAction
     case input
     when 'save'
       game.save(UserInput.ask_save_name)
-    when VALID_COORDINATE
+    else
       start = MoveValidator.validate_start(game.board, game.current_player, input)
       second_input = UserInput.ask_coordinate(:end_square)
       destination = MoveValidator.validate_destination(game.board, game.current_player, start, second_input)
