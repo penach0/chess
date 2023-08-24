@@ -3,8 +3,6 @@ require_relative 'chess'
 class Board
   attr_reader :board, :size
 
-  SIZE = 8
-
   def initialize(fen: '8/8/8/8/8/8/8/8')
     @board = BoardBuilder.build(fen)
     @size = fen.count('/') + 1
@@ -77,7 +75,7 @@ class Board
 
   def to_s
     board.each_with_index.reduce('') do |string, (line, index)|
-      line_number = SIZE - index
+      line_number = size - index
       string + "#{line_number} #{line.join} #{line_number}\n"
     end
   end

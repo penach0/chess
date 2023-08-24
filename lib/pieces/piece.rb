@@ -45,7 +45,7 @@ class Piece
   def initialize(position, fen_value)
     @position = position
     @fen_value = fen_value
-    @steps = Board::SIZE
+    @steps = Float::INFINITY
 
     post_initialize
   end

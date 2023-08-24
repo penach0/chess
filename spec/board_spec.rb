@@ -139,7 +139,7 @@ describe Board do
     subject(:path_board) { described_class.new(fen: '8/8/8/6p1/3P1b2/4B3/8/8') }
 
     context 'when finding full paths' do
-      steps = Board::SIZE
+      steps = Float::INFINITY
       starting_position = Coordinate.from_string('f4')
 
       it 'fetches empty path' do
