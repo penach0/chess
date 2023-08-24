@@ -97,7 +97,7 @@ class Piece
   end
 
   def ==(other)
-    position == other.position && fen_value == other.fen_value
+    fen_value == other.fen_value
   end
 
   private

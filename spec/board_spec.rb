@@ -63,28 +63,28 @@ describe Board do
     it 'fetches the white pieces' do
       white_pieces = pieces_board.pieces('white')
 
-      expect(white_pieces).to contain_exactly(Piece.for(Coordinate.from_string('a2'), 'B'),
-                                              Piece.for(Coordinate.from_string('c1'), 'B'),
-                                              Piece.for(Coordinate.from_string('f1'), 'B'))
+      expect(white_pieces).to contain_exactly(pieces_board.piece_in(Coordinate.from_string('a2')),
+                                              pieces_board.piece_in(Coordinate.from_string('c1')),
+                                              pieces_board.piece_in(Coordinate.from_string('f1')))
     end
 
     it 'fetches the black pieces' do
       black_pieces = pieces_board.pieces('black')
 
-      expect(black_pieces).to contain_exactly(Piece.for(Coordinate.from_string('c8'), 'b'),
-                                              Piece.for(Coordinate.from_string('f8'), 'b'),
-                                              Piece.for(Coordinate.from_string('h6'), 'b'))
+      expect(black_pieces).to contain_exactly(pieces_board.piece_in(Coordinate.from_string('c8')),
+                                              pieces_board.piece_in(Coordinate.from_string('f8')),
+                                              pieces_board.piece_in(Coordinate.from_string('h6')))
     end
 
     it 'fetches the all pieces when no color is given' do
       all_pieces = pieces_board.pieces
 
-      expect(all_pieces).to contain_exactly(Piece.for(Coordinate.from_string('a2'), 'B'),
-                                            Piece.for(Coordinate.from_string('c1'), 'B'),
-                                            Piece.for(Coordinate.from_string('f1'), 'B'),
-                                            Piece.for(Coordinate.from_string('c8'), 'b'),
-                                            Piece.for(Coordinate.from_string('f8'), 'b'),
-                                            Piece.for(Coordinate.from_string('h6'), 'b'))
+      expect(all_pieces).to contain_exactly(pieces_board.piece_in(Coordinate.from_string('a2')),
+                                            pieces_board.piece_in(Coordinate.from_string('c1')),
+                                            pieces_board.piece_in(Coordinate.from_string('f1')),
+                                            pieces_board.piece_in(Coordinate.from_string('c8')),
+                                            pieces_board.piece_in(Coordinate.from_string('f8')),
+                                            pieces_board.piece_in(Coordinate.from_string('h6')))
     end
   end
 

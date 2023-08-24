@@ -50,7 +50,7 @@ class Square
 
   def ==(other)
     self.class == other.class &&
-      coordinate == other.coordinate && piece.fen_value == other.piece.fen_value
+      coordinate == other.coordinate && piece == other.piece
   end
 
   private
