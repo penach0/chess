@@ -1,9 +1,5 @@
 require_relative '../lib/chess'
 
-WHITE_PIECE_FEN = 'B'.freeze
-BLACK_PIECE_FEN = 'b'.freeze
-NO_PIECE_FEN = ' '.freeze
-
 describe Square do
   describe '.color' do
     it 'returns light if the coordinate sum is even' do
