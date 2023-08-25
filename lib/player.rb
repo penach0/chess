@@ -12,15 +12,15 @@ class Player
     movable_pieces(board).empty?
   end
 
-  def movable_pieces(board)
-    pieces(board).select { |piece| piece.movable?(board) }
-  end
-
   def fen_value
     color == 'white' ? 'w' : 'b'
   end
 
   private
+
+  def movable_pieces(board)
+    pieces(board).select { |piece| piece.movable?(board) }
+  end
 
   def pieces(board)
     board.pieces(color)

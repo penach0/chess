@@ -1,42 +1,18 @@
 require_relative '../lib/chess'
 
 describe Player do
-  let(:player_board) { Board.new(board: '7b/6b1/2B5/8/8/b7/8/8') }
-  subject(:player) { described_class.new('black', player_board, 'Johnny') }
+  let(:player_board) { Board.new(fen: '5k2/5P2/5K2/8/8/8/8/8') }
 
-  describe '#movable_pieces' do
-    it 'returns an array of all Piece objects that are movable' do
-      movable_piece_array = player.movable_pieces(player_board)
-      movable_pieces_positions = movable_piece_array.map(&:position)
+  describe '#no_moves?' do
+    let(:black_player) { described_class.new('black', 'Johnny') }
+    let(:white_player) { described_class.new('white', 'Johnny') }
 
-      movable_piece_array.all? { |piece| expect(piece).to be_a_kind_of(Piece) }
-      expect(movable_pieces_positions).to eq(['g7', 'a3'])
-    end
-  end
-
-  describe '#piece_positions' do
-    it 'returns all of the Player pieces when no argument is given' do
-      positions = player.piece_positions
-
-      expect(positions).to eq(['h8', 'g7', 'a3'])
+    it 'returns true if a player has no moves' do
+      expect(black_player).to be_no_moves(player_board)
     end
 
-    it 'returns the given Pieces positions they are passed as an argument' do
-      pieces_needed = [instance_double('Piece', position: 'a3'),
-                       instance_double('Piece', position: 'd4'),
-                       instance_double('Piece', position: 'h6')]
-      needed_positions = player.piece_positions(pieces_needed)
-
-      expect(needed_positions).to eq(['a3', 'd4', 'h6'])
-    end
-  end
-
-  describe '#make_move' do
-    it 'sends :new to Move with the correct arguments' do
-      move = class_double('Move').as_stubbed_const
-
-      expect(move).to receive(:execute).with(player_board, player)
-      player.make_move(player_board)
+    it 'returns false if a player has no moves' do
+      expect(white_player).not_to be_no_moves(player_board)
     end
   end
 end
