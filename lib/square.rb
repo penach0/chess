@@ -36,14 +36,6 @@ class Square
     piece.color == piece_color
   end
 
-  def row
-    coordinate.row
-  end
-
-  def column
-    coordinate.column
-  end
-
   def algebraic
     coordinate.to_s
   end
