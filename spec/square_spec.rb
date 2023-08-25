@@ -25,21 +25,13 @@ describe Square do
     it 'sends message .for to Piece class' do
       expect(Piece).to receive(:for)
 
-      described_class.new(BLACK_PIECE_FEN, 'd4', 'black')
+      described_class.new(3, 4, BLACK_PIECE_FEN)
     end
   end
 
   describe '#update' do
-    subject(:update_square) { described_class.new(BLACK_PIECE_FEN, 'd4', 'black') }
-    let(:new_piece) { instance_double('Bishop', position: 'e5', color: 'white', fen_value: WHITE_PIECE_FEN) }
-
-    it 'sends message #captured to current piece' do
-      allow(new_piece).to receive(:update_position)
-      current_piece = update_square.piece
-
-      expect(current_piece).to receive(:captured)
-      update_square.update(new_piece)
-    end
+    subject(:update_square) { described_class.new(3, 4, BLACK_PIECE_FEN) }
+    let(:new_piece) { instance_double('Bishop', position: 'e5', fen_value: WHITE_PIECE_FEN) }
 
     it 'sets current piece to new piece' do
       allow(new_piece).to receive(:update_position)
@@ -50,14 +42,16 @@ describe Square do
     end
 
     it 'sends message to new piece to update its position attribute' do
-      expect(new_piece).to receive(:update_position).with('d4')
+      coordinate = Coordinate.new(row: 3, column: 4)
+
+      expect(new_piece).to receive(:update_position).with(coordinate)
 
       update_square.update(new_piece)
     end
   end
 
   describe '#clear' do
-    let(:occupied_square) { described_class.new(BLACK_PIECE_FEN, 'd4', 'black') }
+    let(:occupied_square) { described_class.new(3, 4, BLACK_PIECE_FEN) }
 
     it 'sets piece attribute to a null piece' do
       occupied_square.clear
@@ -69,14 +63,14 @@ describe Square do
 
   describe '#empty?' do
     context 'when empty' do
-      let(:empty_square) { described_class.new(NO_PIECE_FEN, 'd4', 'black') }
+      let(:empty_square) { described_class.new(3, 4, NO_PIECE_FEN) }
 
       it 'returns true' do
         expect(empty_square).to be_empty
       end
     end
     context 'when occupied' do
-      let(:occupied_square) { described_class.new(BLACK_PIECE_FEN, 'd4', 'black') }
+      let(:occupied_square) { described_class.new(3, 4, BLACK_PIECE_FEN) }
 
       it 'returns false' do
         expect(occupied_square).not_to be_empty
@@ -86,14 +80,14 @@ describe Square do
 
   describe '#occupied?' do
     context 'when empty' do
-      let(:empty_square) { described_class.new(NO_PIECE_FEN, 'd4', 'black') }
+      let(:empty_square) { described_class.new(3, 4, NO_PIECE_FEN) }
 
       it 'returns false' do
         expect(empty_square).not_to be_occupied
       end
     end
     context 'when occupied' do
-      let(:white_square) { described_class.new(WHITE_PIECE_FEN, 'd4', 'black') }
+      let(:white_square) { described_class.new(3, 4, WHITE_PIECE_FEN) }
 
       it 'returns true if the piece color matches the passed argument' do
         color = 'white'
