@@ -21,13 +21,13 @@ describe Square do
     it 'sends message .for to Piece class' do
       expect(Piece).to receive(:for)
 
-      described_class.new(3, 4, BLACK_PIECE_FEN)
+      described_class.new(3, 4, Helpers::BLACK_PIECE_FEN)
     end
   end
 
   describe '#update' do
-    subject(:update_square) { described_class.new(3, 4, BLACK_PIECE_FEN) }
-    let(:new_piece) { instance_double('Bishop', position: 'e5', fen_value: WHITE_PIECE_FEN) }
+    subject(:update_square) { described_class.new(3, 4, Helpers::BLACK_PIECE_FEN) }
+    let(:new_piece) { instance_double('Bishop', position: 'e5', fen_value: Helpers::WHITE_PIECE_FEN) }
 
     it 'sets current piece to new piece' do
       allow(new_piece).to receive(:update_position)
@@ -47,7 +47,7 @@ describe Square do
   end
 
   describe '#clear' do
-    let(:occupied_square) { described_class.new(3, 4, BLACK_PIECE_FEN) }
+    let(:occupied_square) { described_class.new(3, 4, Helpers::BLACK_PIECE_FEN) }
 
     it 'sets piece attribute to a null piece' do
       occupied_square.clear
@@ -59,14 +59,14 @@ describe Square do
 
   describe '#empty?' do
     context 'when empty' do
-      let(:empty_square) { described_class.new(3, 4, NO_PIECE_FEN) }
+      let(:empty_square) { described_class.new(3, 4, Helpers::NO_PIECE_FEN) }
 
       it 'returns true' do
         expect(empty_square).to be_empty
       end
     end
     context 'when occupied' do
-      let(:occupied_square) { described_class.new(3, 4, BLACK_PIECE_FEN) }
+      let(:occupied_square) { described_class.new(3, 4, Helpers::BLACK_PIECE_FEN) }
 
       it 'returns false' do
         expect(occupied_square).not_to be_empty
@@ -76,14 +76,14 @@ describe Square do
 
   describe '#occupied?' do
     context 'when empty' do
-      let(:empty_square) { described_class.new(3, 4, NO_PIECE_FEN) }
+      let(:empty_square) { described_class.new(3, 4, Helpers::NO_PIECE_FEN) }
 
       it 'returns false' do
         expect(empty_square).not_to be_occupied
       end
     end
     context 'when occupied' do
-      let(:white_square) { described_class.new(3, 4, WHITE_PIECE_FEN) }
+      let(:white_square) { described_class.new(3, 4, Helpers::WHITE_PIECE_FEN) }
 
       it 'returns true if the piece color matches the passed argument' do
         color = 'white'
@@ -102,22 +102,22 @@ describe Square do
   end
 
   describe '#==' do
-    subject(:equality_square) { described_class.new(3, 4, BLACK_PIECE_FEN) }
+    subject(:equality_square) { described_class.new(3, 4, Helpers::BLACK_PIECE_FEN) }
 
     it 'returns true when equal' do
-      equal_square = described_class.new(3, 4, BLACK_PIECE_FEN)
+      equal_square = described_class.new(3, 4, Helpers::BLACK_PIECE_FEN)
 
       expect(equality_square).to eq(equal_square)
     end
 
     it 'returns false when when it is a different coordinate' do
-      different_square = described_class.new(6, 3, BLACK_PIECE_FEN)
+      different_square = described_class.new(6, 3, Helpers::BLACK_PIECE_FEN)
 
       expect(equality_square).not_to eq(different_square)
     end
 
     it 'returns false when when it holds a different piece' do
-      different_square = described_class.new(6, 3, WHITE_PIECE_FEN)
+      different_square = described_class.new(6, 3, Helpers::WHITE_PIECE_FEN)
 
       expect(equality_square).not_to eq(different_square)
     end
