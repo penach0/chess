@@ -104,4 +104,26 @@ describe Square do
       end
     end
   end
+
+  describe '#==' do
+    subject(:equality_square) { described_class.new(3, 4, BLACK_PIECE_FEN) }
+
+    it 'returns true when equal' do
+      equal_square = described_class.new(3, 4, BLACK_PIECE_FEN)
+
+      expect(equality_square).to eq(equal_square)
+    end
+
+    it 'returns false when when it is a different coordinate' do
+      different_square = described_class.new(6, 3, BLACK_PIECE_FEN)
+
+      expect(equality_square).not_to eq(different_square)
+    end
+
+    it 'returns false when when it holds a different piece' do
+      different_square = described_class.new(6, 3, WHITE_PIECE_FEN)
+
+      expect(equality_square).not_to eq(different_square)
+    end
+  end
 end
