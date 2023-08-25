@@ -181,7 +181,3 @@ describe Board do
     end
   end
 end
-
-def algebraic_from_squares(squares)
-  squares.map(&:algebraic)
-end
