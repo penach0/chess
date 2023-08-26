@@ -12,6 +12,29 @@ describe GameState do
                         position:)
   end
 
+  describe '#draw?' do
+    context 'when it is stalemate' do
+      it 'is true' do
+        expect(game_state(STALEMATE_POSITION)).to be_draw
+      end
+    end
+
+    context 'when it is insufficient material' do
+      it 'is true' do
+        insufficient_position = '8/8/8/8/1k6/8/8/5K2 w '
+
+        expect(game_state(insufficient_position)).to be_draw
+      end
+    end
+
+    context 'when it is other situation' do
+      it 'is false' do
+        expect(game_state(NORMAL_POSITION)).not_to be_draw
+        expect(game_state(CHECKMATE_POSITION)).not_to be_draw
+      end
+    end
+  end
+
   describe '#insufficient_material?' do
     context 'when there are only kings left' do
       it 'is true' do
