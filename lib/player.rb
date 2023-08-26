@@ -8,7 +8,7 @@ class Player
     @name = name || UserInput.ask_name(color)
   end
 
-  def no_moves?(board)
+  def without_moves?(board)
     movable_pieces(board).empty?
   end
 

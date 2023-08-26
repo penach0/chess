@@ -43,7 +43,7 @@ class GameState
   end
 
   def checkmate?
-    board.in_check?(current_player.color) && current_player.no_moves?(board)
+    board.in_check?(current_player.color) && current_player.without_moves?(board)
   end
 
   def draw?
@@ -51,7 +51,7 @@ class GameState
   end
 
   def stalemate?
-    !board.in_check?(current_player.color) && current_player.no_moves?(board)
+    !board.in_check?(current_player.color) && current_player.without_moves?(board)
   end
 
   def insuficcient_material?
