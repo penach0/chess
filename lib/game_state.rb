@@ -54,7 +54,7 @@ class GameState
     !board.in_check?(current_player.color) && current_player.without_moves?(board)
   end
 
-  def insuficcient_material?
+  def insufficient_material?
     remaining_pieces = board.pieces
     number_of_pieces = remaining_pieces.count
 
