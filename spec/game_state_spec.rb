@@ -12,6 +12,72 @@ describe GameState do
                         position:)
   end
 
+  describe '#checkmate?' do
+    context 'when the king is not in check' do
+      it 'is false' do
+        expect(game_state(NORMAL_POSITION)).not_to be_checkmate
+      end
+    end
+
+    context 'when the king is in check' do
+      context 'when the king can move' do
+        it 'is false' do
+          king_can_move = '8/8/1k6/8/3K4/8/1R6/2R5 b'
+
+          expect(game_state(king_can_move)).not_to be_checkmate
+        end
+      end
+
+      context 'when a piece can block' do
+        it 'is false' do
+          piece_can_block = '8/k7/6r1/8/3K4/8/1R6/R7 b'
+
+          expect(game_state(piece_can_block)).not_to be_checkmate
+        end
+      end
+
+      context 'when the attacking piece can be taken' do
+        it 'is false' do
+          piece_can_capture = '8/k5b1/8/8/8/1R1K4/8/R7 b '
+
+          expect(game_state(piece_can_capture)).not_to be_checkmate
+        end
+      end
+
+      context 'when there is no defense' do
+        it 'is true' do
+          expect(game_state(CHECKMATE_POSITION)).to be_checkmate
+        end
+      end
+
+      context 'when the capturing piece is pinned' do
+        it 'is true' do
+          pinned_piece = '8/k5bQ/8/8/8/1R1K4/8/R7 b'
+
+          expect(game_state(pinned_piece)).to be_checkmate
+        end
+      end
+
+      context 'when in double check' do
+        context 'when the king can move' do
+          it 'is false' do
+            double_check = 'r1bqk2r/pp3ppp/3p1nn1/1BpP4/5B2/2N2N2/PPP2PPP/R2QR1K1 b'
+
+            expect(game_state(double_check)).not_to be_checkmate
+          end
+        end
+
+        context 'when the king cannot move' do
+          it 'is true' do
+            double_check_mate = 'r1bqkb1r/pp3ppp/3p1nn1/1BpP4/5B2/2N2N2/PPP2PPP/R2QR1K1 b'
+
+            expect(game_state(double_check_mate)).to be_checkmate
+          end
+        end
+      end
+    end
+  end
+
   describe '#draw?' do
     context 'when it is stalemate' do
       it 'is true' do
@@ -75,11 +141,13 @@ describe GameState do
         expect(game_state(NORMAL_POSITION)).not_to be_stalemate
       end
     end
+
     context 'when the current player has no moves' do
-      context 'and is in check'
+      context 'and is in check' do
         it 'is false' do
           expect(game_state(CHECKMATE_POSITION)).not_to be_stalemate
         end
+      end
 
       context 'and is not in check' do
         it 'is true' do

@@ -47,7 +47,7 @@ class GameState
   end
 
   def draw?
-    stalemate? || insuficcient_material?
+    stalemate? || insufficient_material?
   end
 
   def stalemate?
